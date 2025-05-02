@@ -1,4 +1,4 @@
-import { Form, useNavigate } from "react-router-dom";
+import { Form } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Job";
 import day from "dayjs";
 import { FormRowSelect } from "../components";
@@ -6,17 +6,19 @@ import { DOCUMENT_STATUS } from "../../../utils/constants";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
+import { useState } from "react";
 
 day.extend(advancedFormat);
 
-const Document = ({ _id, documentName, documentID, avatar, status, id }) => {
-  const navigate = useNavigate();
+const Document = ({ _id, documentName, documentID, avatar, status: initialStatus, id }) => {
+  const [currentStatus, setCurrentStatus] = useState(initialStatus);
   const isAdmin = localStorage.getItem("role") === "hr";
+
   const actionFun = async (newStatus) => {
     try {
       await customFetch.put(`/jobs/${_id}`, { jobStatus: newStatus });
+      setCurrentStatus(newStatus); 
       toast.success("Document status updated successfully");
-      navigate(`../user-docs/${id}`);
     } catch (error) {
       toast.error(error.response?.data?.msg || "Failed to update job status");
     }
@@ -46,29 +48,23 @@ const Document = ({ _id, documentName, documentID, avatar, status, id }) => {
           />
         </div>
         <footer className="actions">
-          <p className={`btn edit-btn ${status}`}>
-            {status.charAt(0).toUpperCase() + status.slice(1)}
+          <p className={`btn edit-btn ${currentStatus}`}>
+            {currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1)}
           </p>
           <Form method="post" action={`../delete-job/${_id}`}>
-            {!isAdmin ? (
-              <div>
-                {/* <button type="submit" className="btn delete-btn">
-                  Delete
-                </button> */}
-              </div>
-            ) : (
+            {!isAdmin ? null : (
               <a href={avatar} download className="btn delete-btn">
                 Download
               </a>
             )}
-          </Form>{" "}
+          </Form>
           &nbsp;&nbsp;
           {isAdmin && (
             <FormRowSelect
               name="jobStatus"
               labelText="Job Status"
-              defaultValue={status}
-              onChange={(value) => actionFun(value)} // Pass the new status to actionFun
+              defaultValue={currentStatus}
+              onChange={(value) => actionFun(value)}
               list={Object.values(DOCUMENT_STATUS)}
             />
           )}

@@ -1,9 +1,9 @@
-import { FormRow } from "../components";
-import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
+import { FormRow } from "../../DOCUMENT/components";
+import Wrapper from "../../DOCUMENT/assets/wrappers/RegisterAndLoginPage";
 import { Form, Link, redirect, useNavigation } from "react-router-dom";
 import { toast } from "react-toastify";
-import customFetch from "../utils/customFetch";
-import { SmallLogo } from "../components/Logo";
+import customFetch from "../../DOCUMENT/utils/customFetch";
+import { SmallLogo } from "../../DOCUMENT/components/Logo";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -14,8 +14,8 @@ export const action = async ({ request }) => {
     localStorage.setItem("role", res.data.role);
     localStorage.setItem("id", res.data._id);
     return res.data.role === "hr"
-      ? redirect("/dashboard/all-users-docs")
-      : redirect("/dashboard/all-docs");
+      ? redirect("/truedocs/dashboard/all-users-docs")
+      : redirect("/truedocs/all-docs");
   } catch (error) {
     toast.error(error.response.data.msg);
     return error;
@@ -36,7 +36,7 @@ const Login = () => {
           labelText="Email/Employee ID"
           defaultValue="chandanegc@gmail.com"
         />
-        <FormRow type="password" name="password" defaultValue="00000000" />
+        <FormRow type="password" name="password" defaultValue="1234" />
         <button
           className="btn btn-block form-btn"
           type="submit"

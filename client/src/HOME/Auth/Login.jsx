@@ -1,9 +1,9 @@
-import { FormRow } from "../components";
-import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
+import { FormRow } from "../../DOCUMENT/components";
+import Wrapper from "../../DOCUMENT/assets/wrappers/RegisterAndLoginPage";
 import { Form, Link, redirect, useNavigation } from "react-router-dom";
 import { toast } from "react-toastify";
-import customFetch from "../utils/customFetch";
-import { SmallLogo } from "../components/Logo";
+import customFetch from "../../DOCUMENT/utils/customFetch";
+import { SmallLogo } from "../../DOCUMENT/components/Logo";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();

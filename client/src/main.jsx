@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "../src/App";
+import App from "./TrueDocs";
 import "./index.css";
 console.log(import.meta.env.VITE_API_KEY)
 
