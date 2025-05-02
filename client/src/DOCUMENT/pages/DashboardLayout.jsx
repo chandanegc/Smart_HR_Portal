@@ -40,9 +40,10 @@ const Dashboard = () => {
   };
 
   const logoutUser = async () => {
-    navigate("/");
+    navigate("/home");
     await customFetch("/auth/logout");
     localStorage.removeItem("role");
+    localStorage.removeItem("credential");
     toast.success("Loggin out...");
   };
 

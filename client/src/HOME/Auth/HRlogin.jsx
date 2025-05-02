@@ -15,8 +15,8 @@ export const action = async ({ request }) => {
     localStorage.setItem("role", res.data.role);
     localStorage.setItem("id", res.data._id);
     return res.data.role === "hr"
-      ? redirect("/truedocs/dashboard/all-users-docs")
-      : redirect("/truedocs/all-docs");
+      ? redirect("/")
+      : redirect("/");
   } catch (error) {
     toast.error(error.response.data.msg);
     return error;

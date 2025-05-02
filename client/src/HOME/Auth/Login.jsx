@@ -23,9 +23,9 @@ export const action = async ({ request }) => {
     localStorage.setItem("id", _id);
 
     if (role === "hr" || role === "admin") {
-      return redirect("/truedocs/dashboard/all-users-docs");
+      return redirect("/");
     } else if (role === "candidate") {
-      return redirect("/truedocs/dashboard/all-docs");
+      return redirect("/");
     } else {
       toast.error("Unknown role. Please contact support.");
       return redirect("/truedocs/login");
@@ -44,7 +44,7 @@ const CandidateLogin = () => {
     <Wrapper>
       <Form method="post" className="form">
         <SmallLogo />
-        <h4>Login</h4>
+        <p>Login</p>
         <FormRow type="text" name="email" labelText="Email/Employee ID" defaultValue='chandanegc@gmail.com' />
         <FormRow type="password" name="password" defaultValue='00000000' />
         <button

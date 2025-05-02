@@ -1,12 +1,12 @@
 import main from '../DOCUMENT/assets/images/main.svg';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { SmallLogo } from '../DOCUMENT/components/Logo';
+import { SmallLogo, VerySmallLogo } from '../DOCUMENT/components/Logo';
 const Landing = () => {
   return (
     <StyledWrapper>
       <nav>
-        {/* <SmallLogo /> */}
+        <VerySmallLogo />
       </nav>
       <div className='container page'>
         {/* info */}

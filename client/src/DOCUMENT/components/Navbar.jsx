@@ -1,6 +1,6 @@
 import Wrapper from '../assets/wrappers/Navbar';
 import { FaAlignLeft } from 'react-icons/fa';
-import Logo, { SmallLogo } from './Logo';
+import Logo, {VerySmallLogo } from './Logo';
 import { useDashboardContext } from '../pages/DashboardLayout';
 import LogoutContainer from './LogoutContainer';
 import ThemeToggle from './ThemeToggle';
@@ -13,8 +13,8 @@ const Navbar = () => {
           <FaAlignLeft />
         </button>
         <div>
-          <Logo />
-          <h4 className='logo-text'><SmallLogo/></h4>
+          <VerySmallLogo />
+          <h4 className='logo-text'><VerySmallLogo/></h4>
         </div>
         <div className='btn-container'>
           {/* <ThemeToggle /> */}

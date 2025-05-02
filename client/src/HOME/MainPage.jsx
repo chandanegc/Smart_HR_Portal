@@ -8,11 +8,14 @@ import { GrDocumentImage } from "react-icons/gr";
 import { SlCalender } from "react-icons/sl";
 import { VscReferences } from "react-icons/vsc";
 import  Wrapper  from "./mainPageStyle"; 
+import { SmallLogo, VerySmallLogo } from "../DOCUMENT/components/Logo";
 
 const SocialLinksPage = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const role = localStorage.getItem("role");
+  console.log(role);
   useEffect(() => {
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
@@ -28,7 +31,7 @@ const SocialLinksPage = () => {
     {
       name: "Document Verification",
       icon: <GrDocumentImage />,
-      url: "/truedocs",
+      url: role==="hr"? "/truedocs/dashboard/all-users-docs":"/truedocs/dashboard/all-docs",
       color: "#7e22ce",
     },
     { name: "Bulk SMS", icon: <FaMailBulk />, url: "/bulk-sms/template", color: "#1DA1F2" },
@@ -121,13 +124,13 @@ const SocialLinksPage = () => {
             </motion.div>
 
             <div className="header-right">
-              <button
+              {/* <button
                 className="theme-toggle"
                 onClick={toggleTheme}
                 aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
               >
                 {darkMode ? <FiSun /> : <FiMoon />}
-              </button>
+              </button> */}
 
               <button
                 className={`menu-toggle ${isMenuOpen ? "open" : ""}`}
@@ -165,8 +168,9 @@ const SocialLinksPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1>Smart HR Portal</h1>
+            <h1 style={{color:"#12aa82"}}>Smart HR Portal</h1>
             {/* <p>Employee Management</p> */}
+            {/* <SmallLogo/> */}
           </motion.section>
 
           <motion.div
@@ -196,6 +200,7 @@ const SocialLinksPage = () => {
         </main>
 
         <footer className="main-footer">
+          <VerySmallLogo />
           <div className="footer-content">
             <p>© {new Date().getFullYear()} All Rights Reserved</p>
             <div className="footer-links">
