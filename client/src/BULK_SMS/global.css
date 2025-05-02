@@ -1,12 +1,18 @@
 /* ============= GLOBAL CSS =============== */
 
-.rag-red {
-  background-color: #cc222244;
+.error {
+  color:red;
 }
 .rag-green {
   background-color: #33cc3344;
 }
-
+.delet-btn{
+  font-size: 40px;
+  cursor: pointer;
+}
+.delet-btn:hover{
+  color: red;
+}
 #table-row-data {
   display: flex;
   a {
@@ -17,6 +23,9 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
+}
+.text-center{
+  text-align: center;
 }
 
 *,
@@ -33,16 +42,16 @@ html {
 
 :root {
   /* colors */
-  /* --primary-50: #e0e8ff;
+  --primary-50: #e0e8ff;
   --primary-100: #bed3fd;
   --primary-200: #87a0f2;
   --primary-300: #5464db;
   --primary-400: #383ac9;
-  --primary-500: #2c4ebc;
-  --primary-600: #14149b;
-  --primary-700: #0e2486;
-  --primary-800: #0a2474;
-  --primary-900: #070454; */
+  --primary-500: #2cbc8a;
+  --primary-600: #149b80;
+  --primary-700: #0e8666;
+  --primary-800: #0a744d;
+  --primary-900: #04543b;
 
   /* grey */
   --grey-50: #f8fafc;
@@ -287,7 +296,7 @@ button:disabled {
 }
 
 .form-textarea {
-  height: 7rem;
+  min-height: 30rem;
 }
 ::placeholder {
   font-family: inherit;
