@@ -53,7 +53,7 @@ const AllTemplatesPage = () => {
   };
   const navigate = useNavigate();
   const handleChooseTemplate = (...template) => {
-    navigate("/file-upload", { state: { template } });
+    navigate("/bulk-sms/file-upload", { state: { template } });
   };
   return (
     <div>

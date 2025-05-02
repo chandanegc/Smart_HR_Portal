@@ -31,7 +31,7 @@ const RegistrationPage = () => {
       try {
         const res = await axios.post("/api/v1/auth/register", data);
         alert(res?.data?.msg);
-        navigate("/login");
+        navigate("/bulk-sms/login");
       } catch (error) {
         alert(error?.response?.data?.msg);
       }

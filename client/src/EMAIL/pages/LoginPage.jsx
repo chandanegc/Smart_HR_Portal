@@ -18,7 +18,7 @@ const LoginPage = () => {
     setLoader(true);
     try {
       const res = await axios.post("/api/v1/auth/login", data);
-      navigate("/choose-template");
+      navigate("choose-template");
       localStorage.setItem("credential", JSON.stringify(res.data.data));
       window.location.reload();
     } catch (error) {

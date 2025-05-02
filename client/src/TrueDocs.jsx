@@ -6,7 +6,7 @@ import {
   HomeLayout,
   Landing,
   Register,
-  Login,
+  CandidateLogin,
   DashboardLayout,
   Error,
   Admin,
@@ -43,6 +43,7 @@ import LoginPage from "./EMAIL/pages/LoginPage";
 // Main imports
 import MainPage from "./HOME/MainPage";
 import Certificate from "./CERTIFICATE/Certificate";
+import ProtectedRoute from "./HOME/Auth/ProtectedRoutes";
 
 const App = () => {
   const [role, setRole] = useState(localStorage.getItem("role") || "guest");
@@ -62,81 +63,130 @@ const App = () => {
   }, []);
 
   const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <MainPage />,
-      errorElement: <Error />,
-    },
-    {
-      path: "/truedocs",
-      element: <HomeLayout />,
-      errorElement: <Error />,
+    { 
+      element: <ProtectedRoute />,
       children: [
-        { index: true, element: <Landing /> },
-        { path: "register", element: <Register /> },
-        { path: "login", element: <Login />, action: LoginAction },
-        { path: "hr-login", element: <HRlogin />, action: HRloginAction },
         {
-          path: "otp-verify",
-          element: <OTPverification />,
-          action: LoginAction,
+          path: "/",
+          element: <MainPage />,
+          errorElement: <Error />,
         },
         {
-          path: "dashboard",
-          element: <DashboardLayout />,
-          loader: DashboardLoader,
+          path: "/truedocs",
+          element: <HomeLayout />,
           errorElement: <Error />,
           children: [
-            { index: true, action: AddDocsAction, element: <AddDocs /> },
-            { path: "all-docs", element: <AllDocs />, loader: allDocsLoader },
+            { index: true, element: <Landing /> },
+            { path: "register", element: <Register /> },
+            { path: "login", element: <CandidateLogin />, action: LoginAction },
+            { path: "hr-login", element: <HRlogin />, action: HRloginAction },
             {
-              path: "all-users-docs",
-              element: <AllDocuments />,
-              loader: allUserDocLoader,
+              path: "otp-verify",
+              element: <OTPverification />,
+              action: LoginAction,
             },
-            { path: "cd-register", element: <CDRegister />, action: CDaction },
-            { path: "profile", element: <Profile />, action: profileAction },
-            { path: "admin", element: <Admin />, loader: adminLoader },
             {
-              path: "user-docs/:id",
-              element: <UserDocsContainer />,
-              loader: UserDocLoader,
+              path: "dashboard",
+              element: <DashboardLayout />,
+              loader: DashboardLoader,
+              errorElement: <Error />,
+              children: [
+                { index: true, action: AddDocsAction, element: <AddDocs /> },
+                {
+                  path: "all-docs",
+                  element: <AllDocs />,
+                  loader: allDocsLoader,
+                },
+                {
+                  path: "all-users-docs",
+                  element: <AllDocuments />,
+                  loader: allUserDocLoader,
+                },
+                {
+                  path: "cd-register",
+                  element: <CDRegister />,
+                  action: CDaction,
+                },
+                {
+                  path: "profile",
+                  element: <Profile />,
+                  action: profileAction,
+                },
+                { path: "admin", element: <Admin />, loader: adminLoader },
+                {
+                  path: "user-docs/:id",
+                  element: <UserDocsContainer />,
+                  loader: UserDocLoader,
+                },
+                { path: "delete-job/:id", action: deleteJobAction },
+                { path: "*", element: <Error /> },
+              ],
             },
-            { path: "delete-job/:id", action: deleteJobAction },
             { path: "*", element: <Error /> },
           ],
         },
-        { path: "*", element: <Error /> },
-      ],
-    },
-    {
-      path: "/bulk-sms",
-      element: <HomeLayout />,
-      errorElement: <Error />,
-      children: [
-        { index: true, element: local ? <CSVReaderPage /> : <LoginPage /> },
-        { path: "register", element: <RegistrationPage /> },
-        { path: "choose-template", element: <ChooseTemplate /> },
-        { path: "create-template", element: <CreateTemplatePage /> },
-        { path: "all-template", element: <AllTemplatesPage /> },
-        { path: "template", element: local ? <TamplatePage /> : <LoginPage /> },
         {
-          path: "file-upload",
-          element: local ? <CSVReaderPage /> : <LoginPage />,
+          path: "/bulk-sms",
+          element: <HomeLayout />,
+          errorElement: <Error />,
+          children: [
+            { index: true, element: local ? <CSVReaderPage /> : <LoginPage /> },
+            { path: "register", element: <RegistrationPage /> },
+            { path: "template", element: <ChooseTemplate /> },
+            { path: "create-template", element: <CreateTemplatePage /> },
+            { path: "all-template", element: <AllTemplatesPage /> },
+            {
+              path: "template",
+              element: local ? <TamplatePage /> : <LoginPage />,
+            },
+            {
+              path: "file-upload",
+              element: local ? <CSVReaderPage /> : <LoginPage />,
+            },
+            { path: "login", element: <LoginPage /> },
+            { path: "*", element: <Error /> }, // Catch-all for /bulk-sms
+          ],
         },
-        { path: "login", element: <LoginPage /> },
-        { path: "*", element: <Error /> }, // Catch-all for /bulk-sms
+        {
+          path: "certificate",
+          element: <Certificate />,
+          errorElement: <Error />,
+        },
+        {
+          path: "*",
+          element: <Error />,
+        },
       ],
     },
     {
-      path: "certificate",
-      element: <Certificate />,
+      element:<Landing/>,
+      path: "/home",
       errorElement: <Error />,
     },
     {
-      path: "*",
-      element: <Error />,
+      element:<HRlogin/>,
+      path: "/hr-login",
+      action: HRloginAction,
+      errorElement: <Error />,
     },
+    {
+      element:<CandidateLogin/>,
+      path: "/candidate-login",
+      action: LoginAction,
+      errorElement: <Error />,
+    },
+    {
+      element:<Register/>,
+      path: "/hr-register",
+      action: LoginAction,
+      errorElement: <Error />,
+    },
+  
+    {
+      path:"*",
+      element:<Error/>,
+      errorElement: <Error />,
+    }
   ]);
 
   return (

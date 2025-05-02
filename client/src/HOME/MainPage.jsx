@@ -31,18 +31,18 @@ const SocialLinksPage = () => {
       url: "/truedocs",
       color: "#7e22ce",
     },
-    { name: "Bulk SMS", icon: <FaMailBulk />, url: "/bulk-sms", color: "#1DA1F2" },
-    { name: "Group Chat", icon: <BsWechat />, url: "#", color: "#E1306C" },
+    { name: "Bulk SMS", icon: <FaMailBulk />, url: "/bulk-sms/template", color: "#1DA1F2" },
+    { name: "Award", icon: <FaAward />, url: "/certificate", color: "#333" },
     { name: "Leave Apply", icon: <FcLeave />, url: "#", color: "#0A66C2" },
-    { name: "Email", icon: <FiMail />, url: "#", color: "#D44638" },
     {
       name: "Holiday Calender", 
       icon: <SlCalender />,
       url: "#",
       color: "#5865F2",
     },
-    { name: "Award", icon: <FaAward />, url: "/certificate", color: "#333" },
     { name: "Vacancy", icon: <VscReferences />, url: "#", color: "#FF0000" },
+    // { name: "Group Chat", icon: <BsWechat />, url: "#", color: "#E1306C" },
+    // { name: "Email", icon: <FiMail />, url: "#", color: "#D44638" },
   ];
 
   // Animation variants
@@ -140,8 +140,8 @@ const SocialLinksPage = () => {
               </button>
             </div>
 
-            {/* <nav className={`nav-links ${isMenuOpen ? "open" : ""}`}>
-            {socialLinks.map((link) => (
+            <nav className={`nav-links ${isMenuOpen ? "open" : ""}`}>
+            {/* {socialLinks.map((link) => (
               <a 
                 key={link.name} 
                 href={link.url} 
@@ -151,8 +151,10 @@ const SocialLinksPage = () => {
                 {link.icon}
                 <span>{link.name}</span>
               </a>
-            ))}
-          </nav> */}
+            ))} */}
+            <button className="member-btn btn" style={{padding:"10px"}} onClick={()=>{localStorage.removeItem("credential"); window.location.reload()}}>Logout</button>
+          </nav>
+          
           </div>
         </header>
 

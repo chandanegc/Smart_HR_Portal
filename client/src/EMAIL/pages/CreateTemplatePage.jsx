@@ -82,7 +82,7 @@ const CreateTemplatePage = () => {
       setIsLoader(false);
       setIsDialogOpen(false);
       alert(res.data.msg);
-      navigate("/all-template");
+      navigate("/bulk-sms/all-template");
     } catch (error) {
       console.error("Error sending email:", error);
       setIsLoader(false);

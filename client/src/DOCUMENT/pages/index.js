@@ -1,8 +1,8 @@
 export { default as DashboardLayout } from './DashboardLayout';
-export { default as Landing } from './Landing';
+export { default as Landing } from '../../HOME/Landing';
 export { default as HomeLayout } from './HomeLayout';
 export { default as Register } from '../../HOME/Auth/HRRegister';
-export { default as Login } from '../../HOME/Auth/Login';
+export { default as CandidateLogin } from '../../HOME/Auth/Login';
 export { default as Error } from './Error';
 export { default as AllJobs } from './AllDocs';
 export { default as AddJob } from './AddDocs';

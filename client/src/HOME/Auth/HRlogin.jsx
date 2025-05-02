@@ -11,6 +11,7 @@ export const action = async ({ request }) => {
   try {
     const res = await customFetch.post("/auth/hr/login", data);
     toast.success(res.data.msg);
+    localStorage.setItem("credential", JSON.stringify(res.data));
     localStorage.setItem("role", res.data.role);
     localStorage.setItem("id", res.data._id);
     return res.data.role === "hr"
@@ -22,7 +23,7 @@ export const action = async ({ request }) => {
   }
 };
 
-const Login = () => {
+const HRlogin = () => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   return (
@@ -49,7 +50,7 @@ const Login = () => {
         </button> */}
         <p>
           Not a member yet?
-          <Link to="/register" className="member-btn">
+          <Link to="/hr-register" className="member-btn">
             Register
           </Link>
         </p>
@@ -57,4 +58,4 @@ const Login = () => {
     </Wrapper>
   );
 };
-export default Login;
+export default HRlogin;

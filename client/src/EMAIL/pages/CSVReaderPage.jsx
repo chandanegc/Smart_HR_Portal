@@ -38,7 +38,7 @@ const CSVReaderPage = () => {
     e.preventDefault();
     console.log(csvData.length >= 1);
     if (csvData.length >= 1) {
-      navigate("/template", { state: { data: csvData, template } });
+      navigate("/bulk-sms/template", { state: { data: csvData, template } });
     }
   };
   return (

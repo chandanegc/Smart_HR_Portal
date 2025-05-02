@@ -37,7 +37,7 @@ export const Wrapper = styled.article`
   }
   
   .nav-item:hover {
-    color: #4a6baf;
+    color: #0E8666;
   }
   
   .content {
@@ -119,7 +119,7 @@ export const Wrapper = styled.article`
   }
   
   .certificate {
-    border: 2px solid #4a6baf;
+    border: 2px solid #0E8666;
     padding: 40px;
     text-align: center;
     min-height: 500px;
@@ -129,7 +129,7 @@ export const Wrapper = styled.article`
   
   .certificate-header h3 {
     font-size: 28px;
-    color: #4a6baf;
+    color: #0E8666;
     margin-bottom: 10px;
   }
   
@@ -149,7 +149,7 @@ export const Wrapper = styled.article`
     border-radius: 50%;
     overflow: hidden;
     margin: 0 auto 20px;
-    border: 3px solid #4a6baf;
+    border: 3px solidrgb(14, 169, 128);
   }
   
   .recipient-photo img {
@@ -176,7 +176,7 @@ export const Wrapper = styled.article`
   .award-type {
     font-size: 24px;
     font-weight: bold;
-    color: #4a6baf;
+    color:#0E8666;
   }
   
   .stars {

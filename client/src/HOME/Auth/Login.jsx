@@ -12,15 +12,13 @@ export const action = async ({ request }) => {
   try {
     const res = await customFetch.post("/auth/candidate/login", data);
     const { msg, role, _id } = res.data;
-    console.log(res.data);
-
     toast.success(msg);
 
     if (!role || !_id) {
       toast.error("Invalid response from server. Please try again.");
       return redirect("/truedocs/login");
     }
-
+    localStorage.setItem("credential", JSON.stringify(res.data));
     localStorage.setItem("role", role);
     localStorage.setItem("id", _id);
 
@@ -34,11 +32,11 @@ export const action = async ({ request }) => {
     }
   } catch (error) {
     toast.error(error.response?.data?.msg || "Login failed. Try again.");
-    return null; // Stay on the login page
+    return null;
   }
 };
 
-const Login = () => {
+const CandidateLogin = () => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
@@ -56,15 +54,15 @@ const Login = () => {
         >
           {isSubmitting ? "Submitting..." : "Submit"}
         </button>
-        <p>
+        {/* <p>
           Not a member yet?
-          <Link to="/register" className="member-btn">
+          <Link to="/hr-register" className="member-btn">
             Register
           </Link>
-        </p>
+        </p> */}
       </Form>
     </Wrapper>
   );
 };
 
-export default Login;
+export default CandidateLogin;

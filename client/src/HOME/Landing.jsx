@@ -1,7 +1,7 @@
-import main from '../assets/images/main.svg';
+import main from '../DOCUMENT/assets/images/main.svg';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { SmallLogo } from '../components/Logo';
+import { SmallLogo } from '../DOCUMENT/components/Logo';
 const Landing = () => {
   return (
     <StyledWrapper>
@@ -18,13 +18,13 @@ const Landing = () => {
           The application provides separate interfaces for candidates and HR personnel, enhancing usability with role-specific functionalities. It ensures secure user authentication and management, including registration, login, and logout, while safeguarding data integrity. Candidates can create and update profiles, upload documents, and track their verification status, fostering transparency and efficiency. HR personnel can view, verify, and manage candidate documents, update their status, and download them as needed. 
           Additionally, the system automates credential creation by enabling HR to generate employee IDs and passwords for new hires, streamlining the onboarding process.
           </p>
-          <Link to='register' className='btn register-link'>
+          <Link to='/hr-register' className='btn register-link'>
             HR Registration
           </Link>
-          <Link to='hr-login' className='btn'>
+          <Link to='/hr-login' className='btn'>
             HR Login
           </Link>
-          <Link to='login' className='btn'>
+          <Link to='/candidate-login' className='btn'>
             Candidate Login
           </Link>
         </div>

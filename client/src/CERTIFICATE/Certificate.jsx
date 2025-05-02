@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { toPng } from "html-to-image";
 import { Wrapper } from "./certificateGenerator";
+import { FormRow } from "../DOCUMENT/components";
 
 const CertificateGenerator = () => {
   const [formData, setFormData] = useState({
@@ -48,7 +49,7 @@ const CertificateGenerator = () => {
     toPng(certificateRef.current, {
       backgroundColor: "#ffffff",
       quality: 1.0,
-      pixelRatio: 2, // Higher quality
+      pixelRatio: 2,
     })
       .then((dataUrl) => {
         const link = document.createElement("a");
@@ -71,22 +72,20 @@ const CertificateGenerator = () => {
 
         <div className="content">
           <div className="form-section">
-            <h2>Certificate Details</h2>
+            <h3>Certificate Details</h3>
             <form>
               <div className="form-group">
-                <label>Recipient Name</label>
-                <input
+                <FormRow
                   type="text"
                   name="recipientName"
-                  value={formData.recipientName}
+                  defaultValue={formData.recipientName}
                   onChange={handleChange}
                   placeholder="Enter recipient name"
                 />
               </div>
 
               <div className="form-group">
-                <label>Award Type</label>
-                <input
+                <FormRow
                   type="text"
                   name="awardType"
                   value={formData.awardType}
@@ -96,8 +95,7 @@ const CertificateGenerator = () => {
               </div>
 
               <div className="form-group">
-                <label>Issued By</label>
-                <input
+                <FormRow
                   type="text"
                   name="issuedBy"
                   value={formData.issuedBy}
@@ -107,8 +105,7 @@ const CertificateGenerator = () => {
               </div>
 
               <div className="form-group">
-                <label>Date</label>
-                <input
+                <FormRow
                   type="text"
                   name="date"
                   value={formData.date}
@@ -119,7 +116,7 @@ const CertificateGenerator = () => {
 
               <div className="form-group">
                 <label>Recipient Photo (Optional)</label>
-                <input
+                <FormRow
                   type="file"
                   accept="image/*"
                   onChange={(e) => handleImageUpload(e, "recipientPhoto")}
@@ -128,7 +125,7 @@ const CertificateGenerator = () => {
 
               <div className="form-group">
                 <label>Company Logo (Optional)</label>
-                <input
+                <FormRow
                   type="file"
                   accept="image/*"
                   onChange={(e) => handleImageUpload(e, "companyLogo")}
@@ -137,7 +134,7 @@ const CertificateGenerator = () => {
 
               <button
                 type="button"
-                className="export-btn"
+                className="btn btn-primary"
                 onClick={exportAsPng}
               >
                 Export as PNG

@@ -9,11 +9,11 @@ const ChooseProject = () => {
   const { data } = location.state || {};
   return (
     <div>
-      <div className="form" style={style} onClick={()=> navigate("/create-template")}>
+      <div className="form" style={style} onClick={()=> navigate("/bulk-sms/create-template")}>
         <FaPlus style={{ fontSize: "90px" }} />
         <h3>Create Template</h3>
       </div>
-      <div className="form" style={style} onClick={(()=>navigate("/all-template", { state: { data } }))}>
+      <div className="form" style={style} onClick={(()=>navigate("/bulk-sms/all-template", { state: { data } }))}>
         <MdOutlinePhotoSizeSelectActual style={{ fontSize: "90px" }} />
         <h3>Choose Template</h3>
       </div>
