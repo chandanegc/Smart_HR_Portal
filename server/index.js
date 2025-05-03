@@ -3,9 +3,17 @@ import express from "express";
 import path from "path";
 import mongoose from "mongoose";
 import errorHandlerMiddleware from "./middlewares/errorHandler.js";
-import jobRouter from "./routes/documentRoutes.js";
-import authRouter from "./routes/authRoutes.js";
-import userRouter from "./routes/userRoutes.js";
+// Document Routes
+import jobRouter from "./routes/Document/documentRoutes.js";
+import authRouter from "./routes/Document/authRoutes.js";
+import userRouter from "./routes/Document/userRoutes.js";
+
+// Email Routes
+import authEmailRouter from "./routes/Email/authRoute.js";
+import mailEmailRouter from "./routes/Email/mailDataModel.js";
+import saveEmailRouter from "./routes/Email/saveTemplateRoute.js";
+
+
 import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
 import dotenv from "dotenv";
@@ -22,10 +30,16 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 
-// Routes
+//Document Routes
 app.use("/api/v1/jobs", jobRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
+
+//Email Routes
+app.use("/api/v1/auth/email", authEmailRouter);
+app.use("/api/v1/mail", mailEmailRouter);
+app.use("/api/v1/template", saveEmailRouter);
+
 app.use(errorHandlerMiddleware);
 
 // Cloudinary Config

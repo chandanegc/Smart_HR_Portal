@@ -7,7 +7,7 @@ import { FcLeave } from "react-icons/fc";
 import { GrDocumentImage } from "react-icons/gr";
 import { SlCalender } from "react-icons/sl";
 import { VscReferences } from "react-icons/vsc";
-import  Wrapper  from "./mainPageStyle"; 
+import Wrapper from "./mainPageStyle";
 import { SmallLogo, VerySmallLogo } from "../DOCUMENT/components/Logo";
 
 const SocialLinksPage = () => {
@@ -31,14 +31,22 @@ const SocialLinksPage = () => {
     {
       name: "Document Verification",
       icon: <GrDocumentImage />,
-      url: role==="hr"? "/truedocs/dashboard/all-users-docs":"/truedocs/dashboard/all-docs",
+      url:
+        role === "hr"
+          ? "/truedocs/dashboard/all-users-docs"
+          : "/truedocs/dashboard/all-docs",
       color: "#7e22ce",
     },
-    { name: "Bulk SMS", icon: <FaMailBulk />, url: "/bulk-sms/template", color: "#1DA1F2" },
+    {
+      name: "Bulk SMS",
+      icon: <FaMailBulk />,
+      url: "/bulk-sms/login",
+      color: "#1DA1F2",
+    },
     { name: "Award", icon: <FaAward />, url: "/certificate", color: "#333" },
     { name: "Leave Apply", icon: <FcLeave />, url: "#", color: "#FF0000" },
     {
-      name: "Holiday Calender", 
+      name: "Holiday Calender",
       icon: <SlCalender />,
       url: "#",
       color: "#5865F2",
@@ -144,7 +152,7 @@ const SocialLinksPage = () => {
             </div>
 
             <nav className={`nav-links ${isMenuOpen ? "open" : ""}`}>
-            {/* {socialLinks.map((link) => (
+              {/* {socialLinks.map((link) => (
               <a 
                 key={link.name} 
                 href={link.url} 
@@ -155,9 +163,17 @@ const SocialLinksPage = () => {
                 <span>{link.name}</span>
               </a>
             ))} */}
-            <button className="member-btn btn" style={{padding:"10px"}} onClick={()=>{localStorage.removeItem("credential"); window.location.reload()}}>Logout</button>
-          </nav>
-          
+              <button
+                className="member-btn btn"
+                style={{ padding: "10px" }}
+                onClick={() => {
+                  localStorage.removeItem("credential");
+                  window.location.reload();
+                }}
+              >
+                Logout
+              </button>
+            </nav>
           </div>
         </header>
 
@@ -168,7 +184,7 @@ const SocialLinksPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 style={{color:"#12aa82"}}>Smart HR Portal</h1>
+            <h1 style={{ color: "#12aa82" }}>Smart HR Portal</h1>
             {/* <p>Employee Management</p> */}
             {/* <SmallLogo/> */}
           </motion.section>

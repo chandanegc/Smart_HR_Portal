@@ -1,15 +1,15 @@
 import { StatusCodes } from "http-status-codes";
-import { comparePassword, hashPassword } from "../utils/passwordUtils.js";
-import Candidate from "../models/candidateModel.js";
-import Hr from "../models/hrModel.js";
-import { UnauthenticatedError } from "../customError/customError.js";
-import { createJWT } from "../utils/tokenUtils.js";
+import { comparePassword, hashPassword } from "../../utils/passwordUtils.js";
+import Candidate from "../../models/Document/candidateModel.js";
+import Hr from "../../models/Document/hrModel.js";
+import { UnauthenticatedError } from "../../customError/customError.js";
+import { createJWT } from "../../utils/tokenUtils.js";
 import {
   generateEmail,
   generateOTP,
   otpMsg,
   sendEmailToEmployee,
-} from "../utils/emailSender.js";
+} from "../../utils/emailSender.js";
 import jwt from "jsonwebtoken";
 
 // Temporary OTP storage

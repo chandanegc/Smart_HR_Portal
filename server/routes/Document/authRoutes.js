@@ -7,8 +7,8 @@ import {
     loginCandidate, 
     logoutUser, 
     verifyOtp 
-} from "../controllers/authController.js";
-import { authenticateUser } from "../middlewares/authMiddleware.js";
+} from "../../controllers/Document/authController.js";
+import { authenticateUser } from "../../middlewares/authMiddleware.js";
 
 const authRouter = Router();
 

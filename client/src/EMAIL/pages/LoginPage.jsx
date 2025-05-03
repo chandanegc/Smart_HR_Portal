@@ -17,8 +17,8 @@ const LoginPage = () => {
     e.preventDefault();
     setLoader(true);
     try {
-      const res = await axios.post("/api/v1/auth/login", data);
-      navigate("choose-template");
+      const res = await axios.post("/api/v1/auth/email/login", data);
+      navigate("/bulk-sms/template");
       localStorage.setItem("credential", JSON.stringify(res.data.data));
       window.location.reload();
     } catch (error) {
@@ -44,7 +44,7 @@ const LoginPage = () => {
           name="password"
         />
         <p>
-          Not register? <Link to={"/register"}>Register</Link>
+          Not register? <Link to={"/bulk-sms/register"}>Register</Link>
         </p>
         <br />
         <button
@@ -52,7 +52,7 @@ const LoginPage = () => {
           className="btn btn-block form-btn"
           type="submit"
         >
-         {loader?"Login...":"Login"}  
+          {loader ? "Login..." : "Login"}
         </button>
       </div>
     </div>

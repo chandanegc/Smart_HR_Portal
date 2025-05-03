@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { DOCUMENT_STATUS } from "../utils/constants.js";
+import { DOCUMENT_STATUS } from "../../utils/constants.js";
 
 const documentSchema = new mongoose.Schema(
   {

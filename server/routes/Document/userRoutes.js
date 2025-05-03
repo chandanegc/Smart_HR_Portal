@@ -6,9 +6,9 @@ import {
   getCurrentUser,
   updateCandidate,
   updateHR,
-} from "../controllers/userController.js";
-import { authenticateUser } from "../middlewares/authMiddleware.js";
-import upload from "../middlewares/multerMiddleware.js";
+} from "../../controllers/Document/userController.js";
+import { authenticateUser } from "../../middlewares/authMiddleware.js";
+import upload from "../../middlewares/multerMiddleware.js";
 
 const userRouter = Router();
 

@@ -8,10 +8,10 @@ import {
     getUserDocuments, 
     showStats, 
     updateJob 
-} from "../controllers/documentController.js";
-import { validateJobInput } from "../middlewares/validationMiddleware.js";
-import { authenticateUser } from "../middlewares/authMiddleware.js";
-import upload from "../middlewares/multerMiddleware.js";
+} from "../../controllers/Document/documentController.js";
+import { validateJobInput } from "../../middlewares/validationMiddleware.js";
+import { authenticateUser } from "../../middlewares/authMiddleware.js";
+import upload from "../../middlewares/multerMiddleware.js";
 
 const documentRouter = Router();
 

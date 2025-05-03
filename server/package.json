@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start":  "concurrently \"nodemon index.js\" \"cd client && npm run dev\"",
+    "start": "concurrently \"nodemon index.js\" \"cd client && npm run dev\"",
     "build": "cd client && npm run build",
     "dev": "concurrently \"cd client && npm install && npm run dev\" \"cd client && npm run build\" \"npm install && npm install -g nodemon && nodemon index.js\"",
     "client": "cd client && npm start",
@@ -14,6 +14,7 @@
   "author": "Chandan Kanaujiya",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "cloudinary": "^1.37.3",

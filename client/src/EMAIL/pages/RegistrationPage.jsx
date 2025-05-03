@@ -29,7 +29,7 @@ const RegistrationPage = () => {
       setPasswordError("Password does not match..");
     else {
       try {
-        const res = await axios.post("/api/v1/auth/register", data);
+        const res = await axios.post("/api/v1/auth/email/register", data);
         alert(res?.data?.msg);
         navigate("/bulk-sms/login");
       } catch (error) {
