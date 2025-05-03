@@ -79,6 +79,7 @@ const CertificateGenerator = () => {
                   type="text"
                   name="recipientName"
                   defaultValue={formData.recipientName}
+                  labelText={"Recipient Name"}
                   onChange={handleChange}
                   placeholder="Enter recipient name"
                 />
@@ -88,7 +89,7 @@ const CertificateGenerator = () => {
                 <FormRow
                   type="text"
                   name="awardType"
-                  value={formData.awardType}
+                  labelText={"Award Type"}
                   onChange={handleChange}
                   placeholder="e.g. Employee of the Month"
                 />
@@ -98,7 +99,7 @@ const CertificateGenerator = () => {
                 <FormRow
                   type="text"
                   name="issuedBy"
-                  value={formData.issuedBy}
+                  labelText={"Issued By"}
                   onChange={handleChange}
                   placeholder="e.g. Company Name or Manager's Name"
                 />

@@ -349,3 +349,9 @@ button:disabled {
   background: #ffeeee;
   color: #d66a6a;
 }
+.incomplete {
+  color: #d66a6a;
+}
+.complete {
+  color:#008C89;
+}

@@ -36,7 +36,7 @@ const SocialLinksPage = () => {
     },
     { name: "Bulk SMS", icon: <FaMailBulk />, url: "/bulk-sms/template", color: "#1DA1F2" },
     { name: "Award", icon: <FaAward />, url: "/certificate", color: "#333" },
-    { name: "Leave Apply", icon: <FcLeave />, url: "#", color: "#0A66C2" },
+    { name: "Leave Apply", icon: <FcLeave />, url: "#", color: "#FF0000" },
     {
       name: "Holiday Calender", 
       icon: <SlCalender />,

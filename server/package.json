@@ -1,0 +1,42 @@
+{
+  "name": "TrueDocs",
+  "version": "1.0.0",
+  "description": "HR Document verification",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start":  "concurrently \"nodemon index.js\" \"cd client && npm run dev\"",
+    "build": "cd client && npm run build",
+    "dev": "concurrently \"cd client && npm install && npm run dev\" \"cd client && npm run build\" \"npm install && npm install -g nodemon && nodemon index.js\"",
+    "client": "cd client && npm start",
+    "deploy": "npm run build && npm start"
+  },
+  "author": "Chandan Kanaujiya",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
+    "cloudinary": "^1.37.3",
+    "concurrently": "^8.0.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "datauri": "^4.1.0",
+    "dayjs": "^1.11.9",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-async-errors": "^3.1.1",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^6.8.0",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.0.0",
+    "http-status-codes": "^2.2.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.6.8",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nanoid": "^4.0.2",
+    "nodemailer": "^6.10.0",
+    "nodemon": "^2.0.22",
+    "start": "^5.1.0"
+  }
+}

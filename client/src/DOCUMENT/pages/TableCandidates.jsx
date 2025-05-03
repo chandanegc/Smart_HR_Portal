@@ -77,7 +77,7 @@ const columns = [
     minWidth: 200,
     renderCell: (params) => (
       <Link to={`/truedocs/dashboard/user-docs/${params.row._id}`}>
-        {parseInt(params.row.status)? "complete": "incomplete"}
+        {params.row.status?<span className="complete">complete</span> : <span className="incomplete">incomplete</span>}
       </Link>
     ),
   },

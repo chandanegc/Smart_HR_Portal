@@ -12,7 +12,7 @@ export const loader = async () => {
     return response.data;
   } catch (error) {
     toast.error("You are not authorized to view this page");
-    return redirect("/dashboard");
+    return redirect("/");
   }
 };
 
@@ -21,7 +21,7 @@ const Admin = () => {
 
   return (
     <Wrapper>
-      <Link to={"/dashboard/all-users-docs"}>
+      <Link to={"/truedocs/dashboard/all-users-docs"}>
         <StatItem
           title="current Candidates"
           count={users}

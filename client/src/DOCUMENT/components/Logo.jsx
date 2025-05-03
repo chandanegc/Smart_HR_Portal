@@ -1,12 +1,37 @@
-import logo from '../assets/images/logo.png';
+import { Link } from "react-router-dom";
+import logo from "../assets/images/logo.png";
 
 const Logo = () => {
-  return <img src="/logo.png" alt='Smart HR Portal' className='logo' />;
+  return (
+    <Link to="/">
+      {" "}
+      <img src="/logo.png" alt="Smart HR Portal" className="logo" />
+    </Link>
+  );
 };
 export const SmallLogo = () => {
-  return <img src="/logo.png" alt='Smart HR Portal' height={"150px"} className='logo' />;
+  return (
+    <Link to="/">
+      <img
+        src="/logo.png"
+        alt="Smart HR Portal"
+        height={"150px"}
+        className="logo"
+      />
+    </Link>
+  );
 };
 export const VerySmallLogo = () => {
-  return <img src="/logo.png" alt='Smart HR Portal' height={"90px"} className='logo' />;
+  return (
+    <Link to="/">
+      {" "}
+      <img
+        src="/logo.png"
+        alt="Smart HR Portal"
+        height={"90px"}
+        className="logo"
+      />
+    </Link>
+  );
 };
 export default Logo;
