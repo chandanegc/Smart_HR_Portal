@@ -1,15 +1,11 @@
-// import "express-async-errors";
 import express from "express";
 import path from "path";
 import mongoose from "mongoose";
 import errorHandlerMiddleware from "./middlewares/errorHandler.js";
 
-// Document Routes
 import jobRouter from "./routes/Document/documentRoutes.js";
 import authRouter from "./routes/Document/authRoutes.js";
 import userRouter from "./routes/Document/userRoutes.js";
-
-// Email Routes
 import authEmailRouter from "./routes/Email/authRoute.js";
 import mailEmailRouter from "./routes/Email/mailDataModel.js";
 import saveEmailRouter from "./routes/Email/saveTemplateRoute.js";
@@ -18,47 +14,45 @@ import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
+import fs from "fs";
 
-// Fix for __dirname in ES module
+// __dirname fix for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
 
-// Middleware
+// Middlewares
 app.use(cookieParser());
 app.use(express.json());
 
-// Document Routes
+// API Routes
 app.use("/api/v1/jobs", jobRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
-
-// Email Routes
 app.use("/api/v1/auth/email", authEmailRouter);
 app.use("/api/v1/mail", mailEmailRouter);
 app.use("/api/v1/template", saveEmailRouter);
 
-// Error Handling Middleware
+// Error Middleware
 app.use(errorHandlerMiddleware);
 
-// Cloudinary Config
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET,
-});
+// Serve static files from client/dist
+const clientDistPath = path.join(__dirname, "../client/dist");
+app.use(express.static(clientDistPath));
 
-// Serve Vite frontend (after defining API routes)
-app.use(express.static(path.join(__dirname, "dist")));
-
-// Handle all other routes (for React Router support)
+// React Router (SPA) fallback
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+  const indexFile = path.join(clientDistPath, "index.html");
+  if (fs.existsSync(indexFile)) {
+    res.sendFile(indexFile);
+  } else {
+    res.status(404).send("React app not built. Please run `npm run build` inside /client.");
+  }
 });
 
-// Start Server & Connect to MongoDB
+// Start server and connect DB
 const startServer = async () => {
   try {
     await mongoose.connect(process.env.DB_URL);
@@ -67,7 +61,7 @@ const startServer = async () => {
       console.log(`🚀 Server running on port ${PORT}`);
     });
   } catch (error) {
-    console.log("❌ Error connecting to MongoDB:", error);
+    console.error("❌ MongoDB connection failed:", error);
     process.exit(1);
   }
 };

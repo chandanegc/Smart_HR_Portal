@@ -1,24 +1,20 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd());
 
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    proxy: {
-      '/api': {
-        // target: 'https://job-seeker-app-1.onrender.com/api',
-        // target: import.meta.env.MODE === 'production'?'https://smart-hr-portal.onrender.com/api':'http://localhost:5100/api/',
-        target: 'http://localhost:5100/api/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      }, 
+  return {
+    plugins: [react()],
+    server: {
+      proxy: {
+        '/api': {
+          target: env.VITE_API,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+      },
+      port: 3000,
     },
-    port: 3000,
-  },
+  };
 });
-
-// export default defineConfig({
-//   plugins: [react()],
-// })

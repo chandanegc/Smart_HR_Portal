@@ -46,7 +46,7 @@ const CandidateLogin = () => {
         <SmallLogo />
         <p>Candidate Login</p>
         <FormRow type="text" name="email" labelText="Email/Employee ID" defaultValue='chandanegc@gmail.com' />
-        <FormRow type="password" name="password" defaultValue='00000000' />
+        <FormRow type="password" name="password" defaultValue='1234' />
         <button
           className="btn btn-block form-btn"
           type="submit"

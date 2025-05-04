@@ -36,11 +36,13 @@ const LoginPage = () => {
           required={true}
           onChange={handleChange}
           name="email"
+          defaultValue={"chandanegc@gmail.com"}
         />
         <Input
           type="password"
           required={true}
           onChange={handleChange}
+          defaultValue={"1234"}
           name="password"
         />
         <p>
