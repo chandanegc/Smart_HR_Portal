@@ -1,7 +1,7 @@
-import main from '../DOCUMENT/assets/images/main.svg';
+import main from '../Projects/DOCUMENT/assets/images/main.svg';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { SmallLogo, VerySmallLogo } from '../DOCUMENT/components/Logo';
+import { SmallLogo, VerySmallLogo } from '../components/Logo';
 const Landing = () => {
   return (
     <StyledWrapper>

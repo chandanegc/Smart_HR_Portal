@@ -3,7 +3,7 @@ import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import { Form, useNavigation } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
-import { SmallLogo } from "../components/Logo";
+import { SmallLogo } from "../../../components/Logo";
 
 
 export const action = async ({ request }) => {

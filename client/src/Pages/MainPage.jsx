@@ -7,8 +7,8 @@ import { FcLeave } from "react-icons/fc";
 import { GrDocumentImage } from "react-icons/gr";
 import { SlCalender } from "react-icons/sl";
 import { VscReferences } from "react-icons/vsc";
-import Wrapper from "./mainPageStyle";
-import Logo, { SmallLogo, VerySmallLogo } from "../DOCUMENT/components/Logo";
+import Wrapper from "../Projects/HOME/mainPageStyle";
+import Logo, { SmallLogo, VerySmallLogo } from "../components/Logo";
 
 const SocialLinksPage = () => {
   const [darkMode, setDarkMode] = useState(false);

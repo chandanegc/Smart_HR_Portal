@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { toJpeg } from "html-to-image";
 import { Wrapper } from "./welcomeCardStyle";
-import  FormRow from "../../DOCUMENT/components/FormRow";
+import  FormRow from "../../../components/FormRow";
 
 const WelcomeCard = () => {
   const [formData, setFormData] = useState({

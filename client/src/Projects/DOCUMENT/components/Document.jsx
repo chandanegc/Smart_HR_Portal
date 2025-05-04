@@ -1,7 +1,7 @@
 import { Form } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Job";
 import day from "dayjs";
-import { FormRowSelect } from "../components";
+import { FormRowSelect } from ".";
 import { DOCUMENT_STATUS } from "../../../utils/constants";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import { toast } from "react-toastify";

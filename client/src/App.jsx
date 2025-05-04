@@ -11,40 +11,39 @@ import {
   Error,
   Admin,
   Profile,
-} from "./DOCUMENT/pages";
-import { action as LoginAction } from "./HOME/Auth/Login";
-import { loader as DashboardLoader } from "./DOCUMENT/pages/DashboardLayout";
-import AddDocs, { action as AddDocsAction } from "./DOCUMENT/pages/AddDocs";
-import AllDocs, { loader as allDocsLoader } from "./DOCUMENT/pages/AllDocs";
-import { action as deleteJobAction } from "./DOCUMENT/pages/DeleteDocs";
-import { loader as adminLoader } from "./DOCUMENT/pages/Admin";
-import { action as profileAction } from "./DOCUMENT/pages/Profile";
-import HRlogin from "./HOME/Auth/HRlogin";
-import { action as HRloginAction } from "./HOME/Auth/HRlogin";
+} from "./Projects/DOCUMENT/pages";
+import { action as LoginAction } from "./Pages/Auth/CDLogin";
+import { loader as DashboardLoader } from "./Projects/DOCUMENT/pages/DashboardLayout";
+import AddDocs, { action as AddDocsAction } from "./Projects/DOCUMENT/pages/AddDocs";
+import AllDocs, { loader as allDocsLoader } from "./Projects/DOCUMENT/pages/AllDocs";
+import { action as deleteJobAction } from "./Projects/DOCUMENT/pages/DeleteDocs";
+import { loader as adminLoader } from "./Projects/DOCUMENT/pages/Admin";
+import { action as profileAction } from "./Projects/DOCUMENT/pages/Profile";
+import HRlogin from "./Pages/Auth/HRlogin";
+import { action as HRloginAction } from "./Pages/Auth/HRlogin";
 import AllDocuments, {
   loader as allUserDocLoader,
-} from "./DOCUMENT/pages/TableCandidates";
+} from "./Projects/DOCUMENT/pages/TableCandidates";
 import UserDocsContainer, {
   loader as UserDocLoader,
-} from "./DOCUMENT/components/UserDocsContainer";
-import CDRegister, { action as CDaction } from "./DOCUMENT/pages/CDRegister";
-import OTPverification from "./DOCUMENT/pages/OTPverification";
+} from "./Projects/DOCUMENT/components/UserDocsContainer";
+import CDRegister, { action as CDaction } from "./Projects/DOCUMENT/pages/CDRegister";
+import OTPverification from "./Projects/DOCUMENT/pages/OTPverification";
 
 // Bulk SMS imports
-import "./EMAIL/global.css";
-import RegistrationPage from "./EMAIL/pages/RegistrationPage";
-import TamplatePage from "./EMAIL/pages/TemplatePage";
-import CSVReaderPage from "./EMAIL/pages/CSVReaderPage";
-import ChooseTemplate from "./EMAIL/pages/ChooseTemplate";
-import CreateTemplatePage from "./EMAIL/pages/CreateTemplatePage";
-import AllTemplatesPage from "./EMAIL/pages/AllTemplatesPage";
-import LoginPage from "./EMAIL/pages/LoginPage";
+import RegistrationPage from "./Projects/EMAIL/pages/RegistrationPage";
+import TamplatePage from "./Projects/EMAIL/pages/TemplatePage";
+import CSVReaderPage from "./Projects/EMAIL/pages/CSVReaderPage";
+import ChooseTemplate from "./Projects/EMAIL/pages/ChooseTemplate";
+import CreateTemplatePage from "./Projects/EMAIL/pages/CreateTemplatePage";
+import AllTemplatesPage from "./Projects/EMAIL/pages/AllTemplatesPage";
+import LoginPage from "./Projects/EMAIL/pages/LoginPage";
 
 // Main imports
-import MainPage from "./HOME/MainPage";
-import Certificate from "./CERTIFICATE/Certificate";
-import ProtectedRoute from "./HOME/Auth/ProtectedRoutes";
-import WelcomeCard from "./CERTIFICATE/WelcomeCard/WelcomeCard";
+import MainPage from "./Pages/MainPage";
+import Certificate from "./Projects/CERTIFICATE/Certificate";
+import ProtectedRoute from "./Pages/Auth/ProtectedRoutes";
+import WelcomeCard from "./Projects/CERTIFICATE/WelcomeCard/WelcomeCard";
 
 const App = () => {
   const [role, setRole] = useState(localStorage.getItem("role") || "guest");

@@ -1,10 +1,10 @@
-import { FormRow } from "../../DOCUMENT/components";
-import Wrapper from "../../DOCUMENT/assets/wrappers/RegisterAndLoginPage";
+import { FormRow } from "../../Projects/DOCUMENT/components";
+import Wrapper from "../../Projects/DOCUMENT/assets/wrappers/RegisterAndLoginPage";
 import { Form, Link, redirect, useNavigation } from "react-router-dom";
-import customFetch from "../../DOCUMENT/utils/customFetch";
+import customFetch from "../../Projects/DOCUMENT/utils/customFetch";
 import { toast } from "react-toastify";
-import { SmallLogo } from "../../DOCUMENT/components/Logo";
-import OTPverification from "../../DOCUMENT/pages/OTPverification";
+import { SmallLogo } from "../../components/Logo";
+import OTPverification from "../../Projects/DOCUMENT/pages/OTPverification";
 import { useState } from "react";
 
 const Register = () => {

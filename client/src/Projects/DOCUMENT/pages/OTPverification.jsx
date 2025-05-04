@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import { SmallLogo } from "../components/Logo";
+import { SmallLogo } from "../../../components/Logo";
 import { IoIosArrowBack } from "react-icons/io";
 
 const Register = ({ data, setStep }) => {

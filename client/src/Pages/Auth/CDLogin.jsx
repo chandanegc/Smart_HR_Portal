@@ -1,9 +1,9 @@
-import { FormRow } from "../../DOCUMENT/components";
-import Wrapper from "../../DOCUMENT/assets/wrappers/RegisterAndLoginPage";
+import { FormRow } from "../../Projects/DOCUMENT/components";
+import Wrapper from "../../Projects/DOCUMENT/assets/wrappers/RegisterAndLoginPage";
 import { Form, Link, redirect, useNavigation } from "react-router-dom";
 import { toast } from "react-toastify";
-import customFetch from "../../DOCUMENT/utils/customFetch";
-import { SmallLogo } from "../../DOCUMENT/components/Logo";
+import customFetch from "../../Projects/DOCUMENT/utils/customFetch";
+import { SmallLogo } from "../../components/Logo";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -44,7 +44,7 @@ const CandidateLogin = () => {
     <Wrapper>
       <Form method="post" className="form">
         <SmallLogo />
-        <p>Login</p>
+        <p>Candidate Login</p>
         <FormRow type="text" name="email" labelText="Email/Employee ID" defaultValue='chandanegc@gmail.com' />
         <FormRow type="password" name="password" defaultValue='00000000' />
         <button

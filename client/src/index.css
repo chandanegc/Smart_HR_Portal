@@ -33,16 +33,16 @@ html {
 
 :root {
   /* colors */
-  /* --primary-50: #e0e8ff;
+  --primary-50: #e0e8ff;
   --primary-100: #bed3fd;
   --primary-200: #87a0f2;
   --primary-300: #5464db;
   --primary-400: #383ac9;
-  --primary-500: #2c4ebc;
-  --primary-600: #14149b;
-  --primary-700: #0e2486;
-  --primary-800: #0a2474;
-  --primary-900: #070454; */
+  --primary-500: #2cbc8a;
+  --primary-600: #149b80;
+  --primary-700: #0e8666;
+  --primary-800: #0a744d;
+  --primary-900: #04543b;
 
   /* grey */
   --grey-50: #f8fafc;
