@@ -132,7 +132,7 @@ export const loginCandidate = async (req, res) => {
       httpOnly: true,
       secure: isProduction,            // only send cookie over HTTPS in production
       sameSite: isProduction ? 'strict' : 'lax', // prevent CSRF in production
-      maxAge: 60 * 60 * 1000           // 1 hour in milliseconds
+      maxAge: 10 * 365 * 24 * 60 * 60 * 1000           // 10 year in milliseconds
     });
 
     return res
@@ -167,7 +167,7 @@ export const loginHR = async (req, res) => {
       httpOnly: true,
       secure: isProduction,
       sameSite: isProduction ? 'strict' : 'lax',
-      maxAge: 60 * 60 * 1000 // 1 hour
+      maxAge: 10 * 365 * 24 * 60 * 60 * 1000
     });
 
     return res

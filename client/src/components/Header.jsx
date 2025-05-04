@@ -10,7 +10,6 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const role = localStorage.getItem("role");
-  console.log(role);
   useEffect(() => {
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"

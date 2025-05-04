@@ -74,7 +74,6 @@ const EmailTemplate = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Final Message Array:", finalMessageArray);
     setIsDialogOpen(true);
   };
 

@@ -36,7 +36,6 @@ const CSVReaderPage = () => {
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(csvData.length >= 1);
     if (csvData.length >= 1) {
       navigate("/bulk-sms/template", { state: { data: csvData, template } });
     }
