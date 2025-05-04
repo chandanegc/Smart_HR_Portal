@@ -9,6 +9,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         // target: 'https://job-seeker-app-1.onrender.com/api',
+        // target: import.meta.env.MODE === 'production'?'https://smart-hr-portal.onrender.com/api':'http://localhost:5100/api/',
         target: 'http://localhost:5100/api/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
