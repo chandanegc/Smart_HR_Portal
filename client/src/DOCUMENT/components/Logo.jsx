@@ -15,7 +15,7 @@ export const SmallLogo = () => {
       <img
         src="/logo.png"
         alt="Smart HR Portal"
-        height={"150px"}
+        height={"100px"}
         className="logo"
       />
     </Link>
@@ -28,7 +28,7 @@ export const VerySmallLogo = () => {
       <img
         src="/logo.png"
         alt="Smart HR Portal"
-        height={"90px"}
+        height={"80px"}
         className="logo"
       />
     </Link>

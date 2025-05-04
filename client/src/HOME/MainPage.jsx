@@ -8,7 +8,7 @@ import { GrDocumentImage } from "react-icons/gr";
 import { SlCalender } from "react-icons/sl";
 import { VscReferences } from "react-icons/vsc";
 import Wrapper from "./mainPageStyle";
-import { SmallLogo, VerySmallLogo } from "../DOCUMENT/components/Logo";
+import Logo, { SmallLogo, VerySmallLogo } from "../DOCUMENT/components/Logo";
 
 const SocialLinksPage = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -43,7 +43,18 @@ const SocialLinksPage = () => {
       url: "/bulk-sms/login",
       color: "#1DA1F2",
     },
-    { name: "Award", icon: <FaAward />, url: "/certificate", color: "#333" },
+    {
+      name: "Certificate",
+      icon: <FaAward />,
+      url: "/certificate",
+      color: "#333",
+    },
+    {
+      name: "Welocome Card",
+      icon: <FaAward />,
+      url: "/welcome-card",
+      color: "#E1306C",
+    },
     { name: "Leave Apply", icon: <FcLeave />, url: "#", color: "#FF0000" },
     {
       name: "Holiday Calender",
@@ -121,14 +132,23 @@ const SocialLinksPage = () => {
         />
 
         <header className="fixed-header">
-          <div className="header-content">
+          <div
+            className="header-content"
+            style={{ marginTop: "0px", padding: "10px" }}
+          >
             <motion.div
               className="logo"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <span>Smart HR Portal</span>
+              <div style={{ display: "flex", alignItems: "center" , color:"#149b80"}}>
+                <img
+                  src="/logoIcon.png"
+                  style={{ width: "40px", margin: "0px", padding: "0px" }}
+                />
+                <span>Smart HR Portal</span>
+              </div>
             </motion.div>
 
             <div className="header-right">

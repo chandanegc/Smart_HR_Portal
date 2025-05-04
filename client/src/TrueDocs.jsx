@@ -44,6 +44,7 @@ import LoginPage from "./EMAIL/pages/LoginPage";
 import MainPage from "./HOME/MainPage";
 import Certificate from "./CERTIFICATE/Certificate";
 import ProtectedRoute from "./HOME/Auth/ProtectedRoutes";
+import WelcomeCard from "./CERTIFICATE/WelcomeCard/WelcomeCard";
 
 const App = () => {
   const [role, setRole] = useState(localStorage.getItem("role") || "guest");
@@ -185,6 +186,11 @@ const App = () => {
     {
       path:"*",
       element:<Error/>,
+      errorElement: <Error />,
+    },
+    {
+      path:"/welcome-card",
+      element:<WelcomeCard/>,
       errorElement: <Error />,
     }
   ]);
