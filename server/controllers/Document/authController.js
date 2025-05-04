@@ -83,7 +83,6 @@ export const registerCandidate = async (req, res) => {
     const emailSubject = `Your TrueDocs Credentials – ${hr.companyName}`;
     const senderEmail = `"HR Team - ${hr.companyName}" <${process.env.NODEMAILER_USER}>`;
     const message = generateEmail(emailData);
-    console.log("email-candi-register",email)
     const emailStatus = await sendEmailToEmployee(senderEmail, email, emailSubject, message);
     return res.status(StatusCodes.CREATED).json({
       msg: emailStatus ? "Credentials sent to candidate email successfully." : "Failed to send credentials email.",
@@ -111,33 +110,78 @@ export const registerHR = async (req, res) => {
 
 export const loginCandidate = async (req, res) => {
   try {
-    const user = await Candidate.findOne({ $or: [{ email: req.body.email }, { employeeId: req.body.email }] });
-    if (!user || !(await comparePassword(req.body.password, user.password))) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Please enter correct credentials." });
+    const { email, password } = req.body;
+
+    const user = await Candidate.findOne({
+      $or: [{ email }, { employeeId: email }]
+    });
+
+    const isValid = user && await comparePassword(password, user.password);
+    if (!isValid) {
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ msg: "Please enter correct credentials." });
+    }
 
     const token = createJWT({ userId: user._id, role: user.role });
-    res.cookie("token", token, { httpOnly: true });
-    return res.status(StatusCodes.OK).json({ msg: "Login successful.", role: user.role, _id: user._id });
+
+    // Cookie options depending on environment
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: isProduction,            // only send cookie over HTTPS in production
+      sameSite: isProduction ? 'strict' : 'lax', // prevent CSRF in production
+      maxAge: 60 * 60 * 1000           // 1 hour in milliseconds
+    });
+
+    return res
+      .status(StatusCodes.OK)
+      .json({ msg: "Login successful.", role: user.role, _id: user._id });
   } catch (error) {
     console.error(error);
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Candidate login failed." });
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: "Candidate login failed." });
   }
 };
 
 export const loginHR = async (req, res) => {
   try {
-    const user = await Hr.findOne({ $or: [{ email: req.body.email }, { employeeId: req.body.email }] });
-    if (!user || !(await comparePassword(req.body.password, user.password))) throw new UnauthenticatedError("Invalid credentials.");
+    const { email, password } = req.body;
+
+    const user = await Hr.findOne({
+      $or: [{ email }, { employeeId: email }]
+    });
+
+    const isValid = user && await comparePassword(password, user.password);
+    if (!isValid) {
+      throw new UnauthenticatedError("Invalid credentials.");
+    }
 
     const token = createJWT({ userId: user._id, role: user.role });
-    res.cookie("token", token, { httpOnly: true });
-    return res.status(StatusCodes.OK).json({ msg: "Login successful.", role: user.role, _id: user._id });
+
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? 'strict' : 'lax',
+      maxAge: 60 * 60 * 1000 // 1 hour
+    });
+
+    return res
+      .status(StatusCodes.OK)
+      .json({ msg: "Login successful.", role: user.role, _id: user._id });
   } catch (error) {
     console.error(error);
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "HR login failed." });
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: "HR login failed." });
   }
 };
 
-export const logoutUser = (_, res) => {
+export const logoutUser = (_, res) => { 
   res.cookie("token", "logout", { httpOnly: true, expires: new Date(Date.now()) });
   return res.status(StatusCodes.OK).json({ msg: "User logged out successfully." });
 };
