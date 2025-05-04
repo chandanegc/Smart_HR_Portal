@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
-// Page Imports
+// TrueDocs Page Imports
 import {
   HomeLayout,
   Landing,
@@ -14,8 +14,12 @@ import {
 } from "./Projects/DOCUMENT/pages";
 import { action as LoginAction } from "./Pages/Auth/CDLogin";
 import { loader as DashboardLoader } from "./Projects/DOCUMENT/pages/DashboardLayout";
-import AddDocs, { action as AddDocsAction } from "./Projects/DOCUMENT/pages/AddDocs";
-import AllDocs, { loader as allDocsLoader } from "./Projects/DOCUMENT/pages/AllDocs";
+import AddDocs, {
+  action as AddDocsAction,
+} from "./Projects/DOCUMENT/pages/AddDocs";
+import AllDocs, {
+  loader as allDocsLoader,
+} from "./Projects/DOCUMENT/pages/AllDocs";
 import { action as deleteJobAction } from "./Projects/DOCUMENT/pages/DeleteDocs";
 import { loader as adminLoader } from "./Projects/DOCUMENT/pages/Admin";
 import { action as profileAction } from "./Projects/DOCUMENT/pages/Profile";
@@ -27,7 +31,9 @@ import AllDocuments, {
 import UserDocsContainer, {
   loader as UserDocLoader,
 } from "./Projects/DOCUMENT/components/UserDocsContainer";
-import CDRegister, { action as CDaction } from "./Projects/DOCUMENT/pages/CDRegister";
+import CDRegister, {
+  action as CDaction,
+} from "./Projects/DOCUMENT/pages/CDRegister";
 import OTPverification from "./Projects/DOCUMENT/pages/OTPverification";
 
 // Bulk SMS imports
@@ -39,11 +45,12 @@ import CreateTemplatePage from "./Projects/EMAIL/pages/CreateTemplatePage";
 import AllTemplatesPage from "./Projects/EMAIL/pages/AllTemplatesPage";
 import LoginPage from "./Projects/EMAIL/pages/LoginPage";
 
-// Main imports
+// Others imports
 import MainPage from "./Pages/MainPage";
 import Certificate from "./Projects/CERTIFICATE/Certificate";
 import ProtectedRoute from "./Pages/Auth/ProtectedRoutes";
 import WelcomeCard from "./Projects/CERTIFICATE/WelcomeCard/WelcomeCard";
+import HeaderLayout from "./components/HeaderLayout";
 
 const App = () => {
   const [role, setRole] = useState(localStorage.getItem("role") || "guest");
@@ -63,14 +70,9 @@ const App = () => {
   }, []);
 
   const router = createBrowserRouter([
-    { 
+    {
       element: <ProtectedRoute />,
       children: [
-        {
-          path: "/",
-          element: <MainPage />,
-          errorElement: <Error />,
-        },
         {
           path: "/truedocs",
           element: <HomeLayout />,
@@ -126,8 +128,57 @@ const App = () => {
           ],
         },
         {
+          path: "*",
+          element: <Error />,
+        },
+      ],
+    },
+    {
+      element: <HeaderLayout />,
+      children: [
+        {
+          element: <MainPage />,
+          path: "/",
+          errorElement: <Error />,
+        },
+        {
+          path: "/home",
+          element: <Landing />,
+          errorElement: <Error />,
+        },
+        {
+          element: <HRlogin />,
+          path: "/hr-login",
+          action: HRloginAction,
+          errorElement: <Error />,
+        },
+        {
+          element: <CandidateLogin />,
+          path: "/candidate-login",
+          action: LoginAction,
+          errorElement: <Error />,
+        },
+        {
+          element: <Register />,
+          path: "/hr-register",
+          action: LoginAction,
+          errorElement: <Error />,
+        },
+        {
+          path: "/welcome-card",
+          element: <WelcomeCard />,
+          errorElement: <Error />,
+        },
+        {
+          path: "certificate",
+          element: <Certificate />,
+          errorElement: <Error />,
+        },
+
+        //Bulk SMS routes
+        {
           path: "/bulk-sms",
-          element: <HomeLayout />,
+          element:<div style={{marginTop:"80px"}}><Outlet/></div>,
           errorElement: <Error />,
           children: [
             { index: true, element: local ? <CSVReaderPage /> : <LoginPage /> },
@@ -147,51 +198,15 @@ const App = () => {
             { path: "*", element: <Error /> }, // Catch-all for /bulk-sms
           ],
         },
-        {
-          path: "certificate",
-          element: <Certificate />,
-          errorElement: <Error />,
-        },
+
+        //Error catch-all route
         {
           path: "*",
           element: <Error />,
+          errorElement: <Error />,
         },
       ],
     },
-    {
-      element:<Landing/>,
-      path: "/home",
-      errorElement: <Error />,
-    },
-    {
-      element:<HRlogin/>,
-      path: "/hr-login",
-      action: HRloginAction,
-      errorElement: <Error />,
-    },
-    {
-      element:<CandidateLogin/>,
-      path: "/candidate-login",
-      action: LoginAction,
-      errorElement: <Error />,
-    },
-    {
-      element:<Register/>,
-      path: "/hr-register",
-      action: LoginAction,
-      errorElement: <Error />,
-    },
-  
-    {
-      path:"*",
-      element:<Error/>,
-      errorElement: <Error />,
-    },
-    {
-      path:"/welcome-card",
-      element:<WelcomeCard/>,
-      errorElement: <Error />,
-    }
   ]);
 
   return (

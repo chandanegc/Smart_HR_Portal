@@ -66,10 +66,6 @@ const CertificateGenerator = () => {
   return (
     <Wrapper>
       <div className="certificate-generator">
-        <header className="header">
-          <div className="logo">Smart HR Portal</div>
-        </header>
-
         <div className="content">
           <div className="form-section">
             <h3>Certificate Details</h3>
