@@ -4,8 +4,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 const LoginPage = () => {
   const [data, setData] = useState({
-    email: "",
-    password: "",
+    email: "chandanegc@gmail.com",
+    password: "1234",
   });
   const [loader, setLoader] = useState(false);
   const handleChange = (e) => {
@@ -36,13 +36,13 @@ const LoginPage = () => {
           required={true}
           onChange={handleChange}
           name="email"
-          defaultValue={"chandanegc@gmail.com"}
+          defaultValue='chandanegc@gmail.com'
         />
         <Input
           type="password"
           required={true}
           onChange={handleChange}
-          defaultValue={"1234"}
+          defaultValue='1234'
           name="password"
         />
         <p>
