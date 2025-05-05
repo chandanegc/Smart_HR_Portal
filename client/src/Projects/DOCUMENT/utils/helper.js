@@ -31,3 +31,9 @@ export const signInApiCall = async (data) => {
     return false;
   }
 };
+
+export const logoutUser = async () => {
+  await customFetch("/auth/logout");
+  localStorage.removeItem("role");
+  localStorage.removeItem("credential");
+};
