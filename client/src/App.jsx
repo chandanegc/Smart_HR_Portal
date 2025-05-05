@@ -127,7 +127,7 @@ const App = () => {
             { path: "*", element: <Error /> },
           ],
         },
-        // Add HeaderLayout for  routes
+        // Add Header for  routes
         {
           element: <HeaderLayout />,
           children: [
