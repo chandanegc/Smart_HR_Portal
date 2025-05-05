@@ -127,20 +127,65 @@ const App = () => {
             { path: "*", element: <Error /> },
           ],
         },
+        // Add HeaderLayout for  routes
         {
-          path: "*",
-          element: <Error />,
+          element: <HeaderLayout />,
+          children: [
+            {
+              element: <MainPage />,
+              path: "/",
+              errorElement: <Error />,
+            },
+            {
+              path: "/welcome-card",
+              element: <WelcomeCard />,
+              errorElement: <Error />,
+            },
+            {
+              path: "certificate",
+              element: <Certificate />,
+              errorElement: <Error />,
+            },
+
+            //Bulk SMS routes
+            {
+              path: "/bulk-sms",
+              element: (
+                <div style={{ marginTop: "80px" }}>
+                  <Outlet />
+                </div>
+              ),
+              errorElement: <Error />,
+              children: [
+                {
+                  index: true,
+                  element: local ? <CSVReaderPage /> : <LoginPage />,
+                },
+                { path: "register", element: <RegistrationPage /> },
+                { path: "template", element: <ChooseTemplate /> },
+                { path: "create-template", element: <CreateTemplatePage /> },
+                { path: "all-template", element: <AllTemplatesPage /> },
+                {
+                  path: "template",
+                  element: local ? <TamplatePage /> : <LoginPage />,
+                },
+                {
+                  path: "file-upload",
+                  element: local ? <CSVReaderPage /> : <LoginPage />,
+                },
+                { path: "login", element: <LoginPage /> },
+                { path: "*", element: <Error /> }, // Catch-all for /bulk-sms
+              ],
+            },
+          ],
         },
       ],
     },
+
+    // Protect free routes
     {
       element: <HeaderLayout />,
       children: [
-        {
-          element: <MainPage />,
-          path: "/",
-          errorElement: <Error />,
-        },
         {
           path: "/home",
           element: <Landing />,
@@ -164,42 +209,6 @@ const App = () => {
           action: LoginAction,
           errorElement: <Error />,
         },
-        {
-          path: "/welcome-card",
-          element: <WelcomeCard />,
-          errorElement: <Error />,
-        },
-        {
-          path: "certificate",
-          element: <Certificate />,
-          errorElement: <Error />,
-        },
-
-        //Bulk SMS routes
-        {
-          path: "/bulk-sms",
-          element:<div style={{marginTop:"80px"}}><Outlet/></div>,
-          errorElement: <Error />,
-          children: [
-            { index: true, element: local ? <CSVReaderPage /> : <LoginPage /> },
-            { path: "register", element: <RegistrationPage /> },
-            { path: "template", element: <ChooseTemplate /> },
-            { path: "create-template", element: <CreateTemplatePage /> },
-            { path: "all-template", element: <AllTemplatesPage /> },
-            {
-              path: "template",
-              element: local ? <TamplatePage /> : <LoginPage />,
-            },
-            {
-              path: "file-upload",
-              element: local ? <CSVReaderPage /> : <LoginPage />,
-            },
-            { path: "login", element: <LoginPage /> },
-            { path: "*", element: <Error /> }, // Catch-all for /bulk-sms
-          ],
-        },
-
-        //Error catch-all route
         {
           path: "*",
           element: <Error />,
