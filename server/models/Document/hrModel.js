@@ -17,6 +17,7 @@ const hrSchema = new mongoose.Schema({
   },
   avatar: String,
   avatarPublicId: String,
+  emailSecret: String,
 });
 
 // remove password (select)

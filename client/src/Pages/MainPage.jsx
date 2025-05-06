@@ -1,38 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FiSun, FiMoon, FiMail } from "react-icons/fi";
-import { FaMailBulk, FaAward } from "react-icons/fa";
-import { BsWechat } from "react-icons/bs";
+import { FaMailBulk, FaAward} from "react-icons/fa";
 import { FcLeave } from "react-icons/fc";
 import { GrDocumentImage } from "react-icons/gr";
 import { SlCalender } from "react-icons/sl";
 import { VscReferences } from "react-icons/vsc";
 import Wrapper from "./mainPageStyle";
-import Logo, { SmallLogo, VerySmallLogo } from "../components/Logo";
+import { VerySmallLogo } from "../components/Logo";
+import { LiaUserEditSolid } from "react-icons/lia";
+import { SiWelcometothejungle } from "react-icons/si";
 
 const SocialLinksPage = () => {
-  const [darkMode, setDarkMode] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const role = localStorage.getItem("role");
-  console.log(role);
-  useEffect(() => {
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    setDarkMode(prefersDark);
-  }, []);
-
-  const toggleTheme = () => {
-    setDarkMode(!darkMode);
-  };
+  const credential = JSON.parse(localStorage.getItem("credential") || "{}");
 
   const socialLinks = [
     {
       name: "Document Verification",
-      icon: <GrDocumentImage />,
+      icon: <GrDocumentImage />, 
       url:
-        role === "hr"
+        credential.role === "hr"
           ? "/truedocs/dashboard/all-users-docs"
           : "/truedocs/dashboard/all-docs",
       color: "#7e22ce",
@@ -40,7 +26,7 @@ const SocialLinksPage = () => {
     {
       name: "Bulk SMS",
       icon: <FaMailBulk />,
-      url: "/bulk-sms/login",
+      url: credential.emailSecret ? "/bulk-sms/menu" : "/bulk-sms/email-secret",
       color: "#1DA1F2",
     },
     {
@@ -51,7 +37,7 @@ const SocialLinksPage = () => {
     },
     {
       name: "Welocome Card",
-      icon: <FaAward />,
+      icon: <SiWelcometothejungle />,
       url: "/welcome-card",
       color: "#E1306C",
     },
@@ -63,6 +49,7 @@ const SocialLinksPage = () => {
       color: "#5865F2",
     },
     { name: "Vacancy", icon: <VscReferences />, url: "#", color: "#FF0000" },
+    { name: "Edit Profile", icon: <LiaUserEditSolid />, url: "/truedocs/dashboard/profile", color: "#119C77" },
     // { name: "Group Chat", icon: <BsWechat />, url: "#", color: "#E1306C" },
     // { name: "Email", icon: <FiMail />, url: "#", color: "#D44638" },
   ];
@@ -114,7 +101,7 @@ const SocialLinksPage = () => {
 
   return (
     <Wrapper>
-      <div className={`social-links-page ${darkMode ? "dark" : "light"}`}>
+      <div className={`social-links-page light`}>
         <motion.div
           className="bg-circle circle-1"
           variants={bgCircleVariants}
@@ -130,7 +117,7 @@ const SocialLinksPage = () => {
           variants={bgCircleVariants}
           animate="animate"
         />
-{/* //Header  */}
+        {/* //Header  */}
         <main className="main-content">
           <motion.section
             className="hero-section"
@@ -138,9 +125,8 @@ const SocialLinksPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 style={{ color: "#12aa82" }}>Smart HR Portal</h1>
-            {/* <p>Employee Management</p> */}
-            {/* <SmallLogo/> */}
+            <h1 style={{ color: "#12aa82", padding:"0px", margin:"0px" }}>Smart HR Portal</h1>
+            <p>Employee Management</p>
           </motion.section>
 
           <motion.div
@@ -149,23 +135,26 @@ const SocialLinksPage = () => {
             initial="hidden"
             animate="visible"
           >
-            {socialLinks.map((link) => (
-              <motion.a
-                key={link.name}
-                href={link.url}
-                className="social-card"
-                style={{ "--card-color": link.color }}
-                variants={itemVariants}
-                whileHover={{
-                  y: -5,
-                  boxShadow: `0 10px 20px ${hexToRgba(link.color, 0.3)}`,
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <div className="social-icon">{link.icon}</div>
-                <p>{link.name}</p>
-              </motion.a>
-            ))}
+            {socialLinks.map((link) => {
+              if (credential.role !== "hr" && link.name === "Bulk SMS") return;
+              return (
+                <motion.a
+                  key={link.name}
+                  href={link.url}
+                  className="social-card"
+                  style={{ "--card-color": link.color }}
+                  variants={itemVariants}
+                  whileHover={{
+                    y: -5,
+                    boxShadow: `0 10px 20px ${hexToRgba(link.color, 0.3)}`,
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="social-icon">{link.icon}</div>
+                  <p>{link.name}</p>
+                </motion.a>
+              );
+            })}
           </motion.div>
         </main>
 

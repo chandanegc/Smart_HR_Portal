@@ -68,7 +68,7 @@ const buttonContainerStyle = {
 
 const yesButtonStyle = {
   padding: "10px 20px",
-  backgroundColor: "#4CAF50",
+  backgroundColor: "#149B80",
   color: "#fff",
   border: "none",
   borderRadius: "4px",

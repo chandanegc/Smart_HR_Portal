@@ -1,29 +1,28 @@
-import React from 'react';
-import { MdQueryStats } from 'react-icons/md';
-import { FaWpforms } from 'react-icons/fa';
-import { ImProfile } from 'react-icons/im';
-import { MdAdminPanelSettings } from 'react-icons/md';
-const isAdmin = localStorage.getItem("role") === "hr";
+import React from "react";
+import { MdQueryStats } from "react-icons/md";
+import { FaWpforms } from "react-icons/fa";
+import { ImProfile } from "react-icons/im";
+import { MdAdminPanelSettings } from "react-icons/md";
 const links = [
   {
-    text: 'add doc',
-    path: '.',
+    text: "add doc",
+    path: ".",
     icon: <FaWpforms />,
   },
   {
-    text: 'all docs',
-    path: 'all-docs',
+    text: "all docs",
+    path: "all-docs",
     icon: <MdQueryStats />,
   },
   {
-    text: 'all CD',
-    path: 'all-users-docs',
+    text: "all CD",
+    path: "all-users-docs",
     icon: <MdQueryStats />,
   },
   {
-    text: 'CD Registration',
-    path: 'cd-register',
-    icon:  <ImProfile />,
+    text: "CD Registration",
+    path: "cd-register",
+    icon: <ImProfile />,
   },
   // {
   //   text: 'stats',
@@ -31,13 +30,13 @@ const links = [
   //   icon: <IoBarChartSharp />,
   // },
   {
-    text: 'profile',
-    path: 'profile',
+    text: "profile",
+    path: "profile",
     icon: <ImProfile />,
   },
   {
-    text: 'admin',
-    path: 'admin',
+    text: "admin",
+    path: "admin",
     icon: <MdAdminPanelSettings />,
   },
 ];

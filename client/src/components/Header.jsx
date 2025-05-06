@@ -3,20 +3,30 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Wrapper } from "../styles/header";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { logoutUser } from "../Projects/DOCUMENT/utils/helper";
+import { FaHome } from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
+import { LiaUserEditSolid } from "react-icons/lia";
 const Header = () => {
-  const [darkMode, setDarkMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const role = localStorage.getItem("role");
+  const credential =
+    JSON.parse(localStorage.getItem("credential") || "{}") || null;
+  const [flag, setFlag] = useState(false);
   useEffect(() => {
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    setDarkMode(prefersDark);
+    if (credential && credential.role) setFlag(true);
+    else setFlag(false);
   }, []);
   const navigate = useNavigate();
+  const style = {
+    color: "#149b80",
+    fontSize: "20px",
+    margin: "0px",
+    padding: "0px",
+    height: "30px",
+    cursor: " pointer",
+    width: "100%",
+  };
   return (
     <Wrapper>
       <header className="fixed-header">
@@ -30,19 +40,21 @@ const Header = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                color: "#149b80",
-              }}
-            >
-              <img
-                src="/logoIcon.png"
-                style={{ width: "40px", margin: "0px", padding: "0px" }}
-              />
-              <span>Smart HR Portal</span>
-            </div>
+            <Link to="/">
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  color: "#149b80",
+                }}
+              >
+                <img
+                  src="/logoIcon.png"
+                  style={{ width: "40px", margin: "0px", padding: "0px" }}
+                />
+                <span>Smart HR Portal</span>
+              </div>
+            </Link>
           </motion.div>
 
           <div className="header-right">
@@ -56,22 +68,36 @@ const Header = () => {
               <span></span>
             </button>
           </div>
-          <nav className={`nav-links ${isMenuOpen ? "open" : ""}`}>
-            {role && (
-              <button
-                className="member-btn btn"
-                style={{ padding: "10px" }}
+          {flag && (
+            <nav className={`nav-links ${isMenuOpen ? "open" : ""}`}>
+              <div className="right-logo">
+                <img
+                  src="/logoIcon.png"
+                  style={{ width: "40px", margin: "0px", padding: "0px" }}
+                />
+              </div>
+              <div onClick={() => navigate("/")} title="Home">
+                <FaHome style={style} />
+              </div>
+              <div
+                onClick={() => navigate("/bulk-sms/email-secret")}
+                title="Email Secret Key"
+              >
+                <LiaUserEditSolid style={style} />
+              </div>
+
+              <div
+                title="Logout"
                 onClick={() => {
-                  localStorage.removeItem("credential");
-                  localStorage.removeItem("role");
+                  logoutUser();
                   navigate("/home");
                   window.location.reload();
                 }}
               >
-                Logout
-              </button>
-            )}
-          </nav>
+                <IoIosLogOut style={style} />
+              </div>
+            </nav>
+          )}
         </div>
       </header>
     </Wrapper>

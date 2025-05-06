@@ -10,11 +10,11 @@ const ChooseProject = () => {
   return (
     <div>
       <div className="form" style={style} onClick={()=> navigate("/bulk-sms/create-template")}>
-        <FaPlus style={{ fontSize: "90px" }} />
+        <FaPlus style={{ fontSize: "90px", color:"#00908A" }} />
         <h3>Create Template</h3>
       </div>
       <div className="form" style={style} onClick={(()=>navigate("/bulk-sms/all-template", { state: { data } }))}>
-        <MdOutlinePhotoSizeSelectActual style={{ fontSize: "90px" }} />
+        <MdOutlinePhotoSizeSelectActual style={{ fontSize: "90px" , color:"#E1306C"}} />
         <h3>Choose Template</h3>
       </div>
     </div>

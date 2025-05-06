@@ -8,8 +8,16 @@ export const authenticateUser = async (req, res, next) => {
       throw new UnauthenticatedError('authentication invalid');
     }
     try {
-      const { userId, role } = verifyJWT(token);
-      req.user = { userId, role };
+      const { userId, role , emailSecret, email } = verifyJWT(token);
+      console.log(userId, role , emailSecret, email);
+      if(role !== 'admin' && role !== 'candidate' && role !== 'hr'){
+        throw new UnauthenticatedError('authentication invalid');
+      }
+      else if(role === 'hr' && role === 'admin'){
+        req.user = { userId, role ,email, emailSecret};
+        return next();
+      }
+      req.user = { userId, role, email };
       next();
     } catch (error) {
       throw new UnauthenticatedError('authentication invalid');

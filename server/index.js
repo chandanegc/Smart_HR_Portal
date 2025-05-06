@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import cors from "cors";
 import mongoose from "mongoose";
 import errorHandlerMiddleware from "./middlewares/errorHandler.js";
 
@@ -26,6 +27,10 @@ const app = express();
 // Middlewares
 app.use(cookieParser());
 app.use(express.json());
+app.use(cors({
+  origin:[ "http://localhost:3000","https://smart-hr-portal.onrender.com/"],
+  credentials: true               
+}));
 
 // API Routes
 app.use("/api/v1/jobs", jobRouter);
@@ -36,7 +41,7 @@ app.use("/api/v1/mail", mailEmailRouter);
 app.use("/api/v1/template", saveEmailRouter);
 
 // Error Middleware
-app.use(errorHandlerMiddleware);
+app.use(errorHandlerMiddleware); 
 
 // Cloudinary Config
 cloudinary.config({

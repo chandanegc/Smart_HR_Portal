@@ -3,16 +3,13 @@ import Input from "../components/Input";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import ConfirmationDialog from "../components/DialogBox";
+import { toast } from "react-toastify";
 
 const EmailTemplate = () => {
   const location = useLocation();
-  const { data,template } = location.state || {};
-  const [subject, setSubject] = useState(
-   `${template[1]}`
-  );
-  const [emailContent, setEmailContent] = useState(
-    `${template[0]}`
-  );
+  const { data, template } = location.state || {};
+  const [subject, setSubject] = useState(`${template[1]}`);
+  const [emailContent, setEmailContent] = useState(`${template[0]}`);
 
   const [finalMessageArray, setFinalMessageArray] = useState([]);
   useEffect(() => {
@@ -63,12 +60,13 @@ const EmailTemplate = () => {
     try {
       const res = await axios.post("/api/v1/mail/send-bulk-email", {
         emailData: finalMessageArray,
-        senderEmail: JSON.parse(localStorage.getItem("credential")).email,
       });
       setIsLoader(false);
       setIsDialogOpen(false);
-      alert(res.data.msg);
+      toast.success(res.data.msg);
     } catch (error) {
+      setIsLoader(false);
+      setIsDialogOpen(false);
       console.error("Error sending emails:", error);
     }
   };
@@ -83,7 +81,7 @@ const EmailTemplate = () => {
 
   return (
     <form className="form" style={{ maxWidth: "90vw" }} onSubmit={handleSubmit}>
-      <h2>Email Template</h2>
+      <h3>Email Template</h3>
       <br />
       <ConfirmationDialog
         open={isDialogOpen}
@@ -110,12 +108,18 @@ const EmailTemplate = () => {
         onChange={(e) => setEmailContent(e.target.value)}
       />
       <br />
-      <h3>Preview for Each User:</h3>
+      <br />
+      <p>Preview for Each User:</p>
       <br />
       {finalMessageArray.length > 0 ? (
         <div
           className="form-textarea"
-          style={{ maxWidth: "90vw", whiteSpace: "pre-wrap" }}
+          style={{
+            maxWidth: "90vw",
+            whiteSpace: "pre-wrap",
+            overflowX: "scroll",
+            minHeight: "350px",
+          }}
           dangerouslySetInnerHTML={{ __html: finalMessageArray[0].msg }}
         ></div>
       ) : (

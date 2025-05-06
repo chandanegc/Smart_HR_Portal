@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { logoutUser } from "../../Projects/DOCUMENT/utils/helper";
+import Cookies from 'js-cookie';
 
 const ProtectedRoute = () => {
   const isAuthenticated = localStorage.getItem("credential");
+  const token = Cookies.get('token');
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isAuthenticated && !token) {
       logoutUser();
     }
   }, [isAuthenticated, logoutUser]);

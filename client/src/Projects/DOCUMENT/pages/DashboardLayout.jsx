@@ -3,22 +3,18 @@ import Wrapper from '../assets/wrappers/Dashboard';
 import { Navbar, BigSidebar, SmallSidebar } from '../components';
 import { useState, createContext, useContext } from 'react';
 import customFetch from '../utils/customFetch';
-import { toast } from 'react-toastify';
-
 const DashboardContext = createContext();
 
 export const loader = async()=>{
-  const id = localStorage.getItem("role");
+  const {role} = JSON.parse(localStorage.getItem("credential") || "{}") || null;
   try {
-    const {data} = await customFetch.get(`/user/${id=='hr'?'current-hr':'current-user'}`);
+    const {data} = await customFetch.get(`/user/${role=='hr'?'current-hr':'current-user'}`);
     return data;
   } catch (error) {
     console.log(error);
     return redirect("/");
   }
 };
-
-
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -42,9 +38,8 @@ const Dashboard = () => {
   const logoutUser = async () => {
     navigate("/home");
     await customFetch("/auth/logout");
-    localStorage.removeItem("role");
     localStorage.removeItem("credential");
-    toast.success("Loggin out...");
+    window.location.reload()
   };
 
   return (

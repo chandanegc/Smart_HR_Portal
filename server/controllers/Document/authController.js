@@ -26,8 +26,8 @@ export const sendOtp = async (req, res) => {
     //delete otp 5 min
     setTimeout(() => delete otpStore[email], 300000);
 
-    const emailSubject = `Your TrueDocs OTP – ${otp}`;
-    const senderEmail = `"TrueDocs Team" <${process.env.NODEMAILER_USER}>`;
+    const emailSubject = `Your Smart HR Portal OTP – ${otp}`;
+    const senderEmail = `"Smart HR Portal Team" <${process.env.NODEMAILER_USER}>`;
     const message = otpMsg(otp);
 
     const emailStatus = await sendEmailToEmployee(senderEmail, email, emailSubject, message);
@@ -46,7 +46,7 @@ export const verifyOtp = async (req, res) => {
     const isOtpValid = await comparePassword(otp, otpStore[email]);
     if (!isOtpValid) return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Invalid OTP." });
 
-    const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
     delete otpStore[email];
 
     return res.json({ msg: "OTP verified successfully.", token });
@@ -125,11 +125,10 @@ export const loginCandidate = async (req, res) => {
 
     const token = createJWT({ userId: user._id, role: user.role });
 
-    // Cookie options depending on environment
     const isProduction = process.env.NODE_ENV === 'production';
-
+    delete user.password;
     res.cookie("token", token, {
-      httpOnly: true,
+      // httpOnly: true,
       secure: isProduction,            // only send cookie over HTTPS in production
       sameSite: isProduction ? 'strict' : 'lax', // prevent CSRF in production
       maxAge: 10 * 365 * 24 * 60 * 60 * 1000           // 10 year in milliseconds
@@ -137,7 +136,7 @@ export const loginCandidate = async (req, res) => {
 
     return res
       .status(StatusCodes.OK)
-      .json({ msg: "Login successful.", role: user.role, _id: user._id });
+      .json({ msg: "Login successful.",user});
   } catch (error) {
     console.error(error);
     return res
@@ -153,18 +152,22 @@ export const loginHR = async (req, res) => {
     const user = await Hr.findOne({
       $or: [{ email }, { employeeId: email }]
     });
-
+    if (!user) {
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ msg: "Incorrect email or password" });
+    }
     const isValid = user && await comparePassword(password, user.password);
     if (!isValid) {
       throw new UnauthenticatedError("Invalid credentials.");
     }
 
-    const token = createJWT({ userId: user._id, role: user.role });
+    const token = createJWT({ userId: user._id, role: user.role, email: user.email, emailSecret: user.emailSecret });
 
     const isProduction = process.env.NODE_ENV === 'production';
-
+    delete user.password;
     res.cookie("token", token, {
-      httpOnly: true,
+      // httpOnly: true,
       secure: isProduction,
       sameSite: isProduction ? 'strict' : 'lax',
       maxAge: 10 * 365 * 24 * 60 * 60 * 1000
@@ -172,7 +175,7 @@ export const loginHR = async (req, res) => {
 
     return res
       .status(StatusCodes.OK)
-      .json({ msg: "Login successful.", role: user.role, _id: user._id });
+      .json({ msg: "Login successful.", user });
   } catch (error) {
     console.error(error);
     return res

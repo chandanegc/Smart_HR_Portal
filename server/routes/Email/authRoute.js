@@ -1,10 +1,8 @@
 import express from 'express';
-import { logout, userLogin, userRegister } from '../../controllers/Email/authController.js';
-
+import { nodemailerKey} from '../../controllers/Email/authController.js';
+import {authenticateUser}from "../../middlewares/authMiddleware.js"
 const authRouter = express.Router();
 
-authRouter.post("/login", userLogin);
-authRouter.post("/register", userRegister);
-authRouter.get("/logout", logout);
+authRouter.post("/login",authenticateUser, nodemailerKey);
 
 export default authRouter;

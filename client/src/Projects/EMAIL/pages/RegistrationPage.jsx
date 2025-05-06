@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Input from "../components/Input";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const RegistrationPage = () => {
   const [data, setData] = useState({
@@ -30,10 +31,10 @@ const RegistrationPage = () => {
     else {
       try {
         const res = await axios.post("/api/v1/auth/email/register", data);
-        alert(res?.data?.msg);
-        navigate("/bulk-sms/login");
+        toast.success(res?.data?.msg);
+        navigate("/bulk-sms/email-secret");
       } catch (error) {
-        alert(error?.response?.data?.msg);
+        toast.error(error?.response?.data?.msg);
       }
     }
   };

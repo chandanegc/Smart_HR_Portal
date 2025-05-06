@@ -99,7 +99,7 @@ export async function sendEmailToEmployee(senderEmail, receiverEmail, emailSubje
       from: senderEmail,
       to: receiverEmail,
       subject: emailSubject,
-      html: emailContent, // Using HTML format
+      html: emailContent,
     };
 
     const info = await transporter.sendMail(mailOptions);

@@ -10,14 +10,21 @@ import { useState } from "react";
 
 day.extend(advancedFormat);
 
-const Document = ({ _id, documentName, documentID, avatar, status: initialStatus, id }) => {
+const Document = ({
+  _id,
+  documentName,
+  documentID,
+  avatar,
+  status: initialStatus,
+}) => {
   const [currentStatus, setCurrentStatus] = useState(initialStatus);
-  const isAdmin = localStorage.getItem("role") === "hr";
-
+  const credential =
+    JSON.parse(localStorage.getItem("credential") || "{}") || null;
+  const isAdmin = credential.role === "hr";
   const actionFun = async (newStatus) => {
     try {
       await customFetch.put(`/jobs/${_id}`, { jobStatus: newStatus });
-      setCurrentStatus(newStatus); 
+      setCurrentStatus(newStatus);
       toast.success("Document status updated successfully");
     } catch (error) {
       toast.error(error.response?.data?.msg || "Failed to update job status");

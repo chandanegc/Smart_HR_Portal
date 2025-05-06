@@ -1,7 +1,7 @@
-import { FaUserCircle, FaCaretDown } from 'react-icons/fa';
-import Wrapper from '../Projects/DOCUMENT/assets/wrappers/LogoutContainer';
-import { useState } from 'react';
-import { useDashboardContext } from '../Projects/DOCUMENT/pages/DashboardLayout';
+import { FaUserCircle, FaCaretDown } from "react-icons/fa";
+import Wrapper from "../Projects/DOCUMENT/assets/wrappers/LogoutContainer";
+import { useState } from "react";
+import { useDashboardContext } from "../Projects/DOCUMENT/pages/DashboardLayout";
 
 const LogoutContainer = () => {
   const [showLogout, setShowLogout] = useState(false);
@@ -9,20 +9,26 @@ const LogoutContainer = () => {
   return (
     <Wrapper>
       <button
-        type='button'
-        className='btn logout-btn'
+        type="button"
+        className="btn logout-btn"
         onClick={() => setShowLogout(!showLogout)}
       >
         {user.avatar ? (
-          <img src={user.avatar} alt='avatar' className='img' />
+          <img src={user.avatar} alt="avatar" className="img" />
         ) : (
           <FaUserCircle />
         )}
-        {user?.name}
+        {user?.name.split(" ")[0]}
         <FaCaretDown />
       </button>
-      <div className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
-        <button type='button' className='dropdown-btn' onClick={logoutUser}>
+      <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>
+        <button
+          type="button"
+          className="dropdown-btn"
+          onClick={() => {
+            logoutUser();
+          }}
+        >
           logout
         </button>
       </div>

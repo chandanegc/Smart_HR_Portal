@@ -43,7 +43,7 @@ import CSVReaderPage from "./Projects/EMAIL/pages/CSVReaderPage";
 import ChooseTemplate from "./Projects/EMAIL/pages/ChooseTemplate";
 import CreateTemplatePage from "./Projects/EMAIL/pages/CreateTemplatePage";
 import AllTemplatesPage from "./Projects/EMAIL/pages/AllTemplatesPage";
-import LoginPage from "./Projects/EMAIL/pages/LoginPage";
+import EmailSecretKey from "./Projects/EMAIL/pages/EmailSecretKeyPage";
 
 // Others imports
 import MainPage from "./Pages/MainPage";
@@ -51,24 +51,16 @@ import Certificate from "./Projects/CERTIFICATE/Certificate";
 import ProtectedRoute from "./Pages/Auth/ProtectedRoutes";
 import WelcomeCard from "./Projects/CERTIFICATE/WelcomeCard/WelcomeCard";
 import HeaderLayout from "./components/HeaderLayout";
+import { action as EmailSecretKeyAction } from "./Projects/EMAIL/pages/EmailSecretKeyPage";
 
 const App = () => {
-  const [role, setRole] = useState(localStorage.getItem("role") || "guest");
+  const credential = JSON.parse(localStorage.getItem("credential") ?? "{}");
+
   const [local, setLocal] = useState(false);
-
   useEffect(() => {
-    setLocal(localStorage.getItem("credential"));
+    setLocal(credential);
   }, []);
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      setRole(localStorage.getItem("role") || "guest");
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
-
+  
   const router = createBrowserRouter([
     {
       element: <ProtectedRoute />,
@@ -159,21 +151,25 @@ const App = () => {
               children: [
                 {
                   index: true,
-                  element: local ? <CSVReaderPage /> : <LoginPage />,
+                  element: local ? <CSVReaderPage /> : <EmailSecretKey />,
                 },
                 { path: "register", element: <RegistrationPage /> },
-                { path: "template", element: <ChooseTemplate /> },
+                { path: "menu", element: <ChooseTemplate /> },
                 { path: "create-template", element: <CreateTemplatePage /> },
                 { path: "all-template", element: <AllTemplatesPage /> },
                 {
                   path: "template",
-                  element: local ? <TamplatePage /> : <LoginPage />,
+                  element: local ? <TamplatePage /> : <EmailSecretKey />,
                 },
                 {
                   path: "file-upload",
-                  element: local ? <CSVReaderPage /> : <LoginPage />,
+                  element: local ? <CSVReaderPage /> : <EmailSecretKey />,
                 },
-                { path: "login", element: <LoginPage /> },
+                {
+                  path: "email-secret",
+                  element: <EmailSecretKey />,
+                  action: EmailSecretKeyAction,
+                },
                 { path: "*", element: <Error /> }, // Catch-all for /bulk-sms
               ],
             },

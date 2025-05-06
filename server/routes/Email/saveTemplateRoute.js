@@ -4,11 +4,11 @@ import {
   getTemplates,
   deleteTemplate,
 } from "../../controllers/Email/saveTemplateController.js";
-import { authMiddleware } from "../../middlewares/Email/authMiddleware.js";
+import { authenticateUser } from "../../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/", authMiddleware, createTemplate).get("/", authMiddleware, getTemplates);
-router.delete("/:id", authMiddleware, deleteTemplate);
+router.post("/", authenticateUser, createTemplate).get("/", authenticateUser, getTemplates);
+router.delete("/:id", authenticateUser, deleteTemplate);
 
 export default router;

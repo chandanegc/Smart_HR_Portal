@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const LogOut = () => {
   const handleLogout = async () => {
@@ -7,12 +8,12 @@ const LogOut = () => {
       const response = await axios("/api/v1/auth/logout");
       if (response.status === 200) {
         localStorage.clear("credential");
-        alert("Logged out successfully!");
+        toast.success("Logged out successfully!");
         window.location.href = "/login";
       }
     } catch (error) {
       console.error("Error logging out:", error);
-      alert("Failed to log out. Please try again.");
+      toast.error("Failed to log out. Please try again.");
     }
   };
 

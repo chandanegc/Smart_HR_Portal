@@ -1,10 +1,13 @@
+import hrModel from "../../models/Document/hrModel.js";
 import { sendEmailToEmployee } from "../../utils/Email/sendEmail.js";
 
 export const getEmailData = async (req, res) => {
+  
   try {
-    const { emailData, senderEmail } = req.body;
+    const { emailData} = req.body;
+    console.log(req.user.email);
 
-    if (!emailData || !senderEmail) {
+    if (!emailData || !req.user.email) {
       return res.status(400).json({ msg: "Missing required fields!" });
     }
 
@@ -19,14 +22,13 @@ export const getEmailData = async (req, res) => {
       }
 
       return await sendEmailToEmployee(
-        senderEmail,
+        req.user.email,
         item.email,
         item.subject,
         item.msg,
-        req.user.email_secret 
+        req.user.emailSecret
       );
     });
-
     const emailResults = await Promise.all(sendEmailsPromise);
 
     const successCount = emailResults.filter(

@@ -10,13 +10,10 @@ export const action = async ({ request }) => {
   const data = Object.fromEntries(formData);
   try {
     const res = await customFetch.post("/auth/hr/login", data);
+    const { role, _id, emailSecret } = res.data.user;
     toast.success(res.data.msg);
-    localStorage.setItem("credential", JSON.stringify(res.data));
-    localStorage.setItem("role", res.data.role);
-    localStorage.setItem("id", res.data._id);
-    return res.data.role === "hr"
-      ? redirect("/")
-      : redirect("/");
+    localStorage.setItem("credential", JSON.stringify(res.data.user));
+    return res.data.role === "hr" ? redirect("/") : redirect("/");
   } catch (error) {
     toast.error(error.response.data.msg);
     return error;

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AllTemplatesPage = () => {
   const [dataValue, setData] = useState([]);
@@ -29,10 +30,12 @@ const AllTemplatesPage = () => {
   const handleDelete = async (id) => {
     setIsLoader(true);
     try {
-      const { data: res } = await axios.delete(`/api/v1/template/${id}`);
+      const { data } = await axios.delete(`/api/v1/template/${id}`);
       setData((prevData) => prevData.filter((item) => item._id !== id));
+      toast.success(data.msg);
     } catch (error) {
       console.error("Error deleting data:", error);
+      toast.error("Error deleting template");
     }
     setIsLoader(false);
     setIsDialogOpen(false);
@@ -98,7 +101,6 @@ const AllTemplatesPage = () => {
             <div
               key={index}
               className="form"
-              onClick={() => handleChooseTemplate(item.message, item.subject)}
               style={{
                 cursor: "pointer",
                 display: "flex",
@@ -106,20 +108,32 @@ const AllTemplatesPage = () => {
               }}
             >
               <p>{index + 1}</p>
-              <div>
-                <MdOutlinePhotoSizeSelectActual style={{ fontSize: "90px" }} />
+              <div
+                onClick={() => handleChooseTemplate(item.message, item.subject)}
+              >
+                <MdOutlinePhotoSizeSelectActual
+                  style={{ fontSize: "90px", color: "#00908A" }}
+                />
                 <p style={{ textAlign: "center" }}>
                   {item.name.length > 20
                     ? item.name.slice(0, 19) + ".."
                     : item.name || "Template"}
                 </p>
               </div>
-              <div>
+              <div
+                onClick={() => handleChooseTemplate(item.message, item.subject)}
+              >
                 <p>{item.subject.slice(0, 30) + "..."}</p> <br />
                 <p>{item.message.slice(0, 30) + "..."}</p>
               </div>
               <MdDelete
                 className="delet-btn"
+                style={{
+                  zIndex: 100,
+                  cursor: "pointer",
+                  fontSize: "40px",
+                  color: "#FF4D4F",
+                }}
                 onClick={() => handleOpenDialog(item)}
               />
             </div>
@@ -163,7 +177,7 @@ const buttonContainerStyle = {
 
 const yesButtonStyle = {
   padding: "10px 20px",
-  backgroundColor: "#4CAF50",
+  backgroundColor: "#00908A",
   color: "#fff",
   border: "none",
   borderRadius: "4px",

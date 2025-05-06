@@ -28,7 +28,8 @@ export const VerySmallLogo = () => {
       <img
         src="/logo.png"
         alt="Smart HR Portal"
-        height={"80px"}
+        height={"50px"}
+        style={{width: "70px", margin: "0px", padding: "0px"}}
         className="logo"
       />
     </Link>

@@ -3,8 +3,9 @@ import Input from "../components/Input";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ConfirmationDialog from "../components/DialogBox";
+import { toast } from "react-toastify";
 
-const CreateTemplatePage = () => { 
+const CreateTemplatePage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLoader, setIsLoader] = useState(false);
   const [templateName, setTemplateName] = useState("Template");
@@ -64,7 +65,7 @@ const CreateTemplatePage = () => {
       subject: subjectLine,
       msg: content,
     });
-  }, [ emailContent, subject]);
+  }, [emailContent, subject]);
 
   const confirmationData = {
     title: "Create Template",
@@ -81,11 +82,12 @@ const CreateTemplatePage = () => {
       });
       setIsLoader(false);
       setIsDialogOpen(false);
-      alert(res.data.msg);
+      toast.success(res.data.msg);
       navigate("/bulk-sms/all-template");
     } catch (error) {
-      console.error("Error sending email:", error);
       setIsLoader(false);
+      setIsDialogOpen(false);
+      console.error("Error sending email:", error);
     }
   };
 
@@ -106,7 +108,7 @@ const CreateTemplatePage = () => {
         setIsDialogOpen(true);
       }}
     >
-      <h2>Create Template</h2>
+      <h3>Create Template</h3>
       <br />
       <ConfirmationDialog
         open={isDialogOpen}
@@ -142,18 +144,23 @@ const CreateTemplatePage = () => {
         onChange={(e) => setEmailContent(e.target.value)}
       />
       <br />
-     <br/>
+      <br />
       <h4>Subject Preview:</h4>
       <Input
         value={finalMessage?.subject || "No subject generated yet!"}
         readOnly={true}
       />
-       <h4>Email Preview:</h4>
+      <h4>Email Preview:</h4>
       <br />
       {finalMessage ? (
         <div
           className="form-textarea"
-          style={{ maxWidth: "90vw", whiteSpace: "pre-wrap" }}
+          style={{
+            maxWidth: "90vw",
+            minHeight: "350px",
+            whiteSpace: "pre-wrap",
+            overflowX: "scroll",
+          }}
           dangerouslySetInnerHTML={{ __html: finalMessage.msg }}
         />
       ) : (

@@ -5,7 +5,6 @@ import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
 import { SmallLogo } from "../../../components/Logo";
 
-
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
