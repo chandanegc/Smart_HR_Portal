@@ -18,6 +18,6 @@ authRouter.post("/candidate/register/:id",authenticateUser, registerCandidate);
 authRouter.post("/hr/register", registerHR);
 authRouter.post("/candidate/login", loginCandidate);
 authRouter.post("/hr/login", loginHR);
-authRouter.get("/logout",authenticateUser, logoutUser);
+authRouter.get("/logout", logoutUser);
 
 export default authRouter;

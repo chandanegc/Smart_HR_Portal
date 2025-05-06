@@ -3,13 +3,17 @@ import path from "path";
 import cors from "cors";
 import mongoose from "mongoose";
 import errorHandlerMiddleware from "./middlewares/errorHandler.js";
-
-import jobRouter from "./routes/Document/documentRoutes.js";
+// document routes
+import docRouter from "./routes/Document/documentRoutes.js";
 import authRouter from "./routes/Document/authRoutes.js";
 import userRouter from "./routes/Document/userRoutes.js";
+// Email routes
 import authEmailRouter from "./routes/Email/authRoute.js";
 import mailEmailRouter from "./routes/Email/mailDataModel.js";
 import saveEmailRouter from "./routes/Email/saveTemplateRoute.js";
+// other routes
+import leaveRouter from "./routes/other/leaveRoute.js";
+import calendarRouter from "./routes/other/calenderRouter.js";
 
 import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
@@ -33,12 +37,18 @@ app.use(cors({
 }));
 
 // API Routes
-app.use("/api/v1/jobs", jobRouter);
+app.use("/api/v1/jobs", docRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
+
+//EMail Routes
 app.use("/api/v1/auth/email", authEmailRouter);
 app.use("/api/v1/mail", mailEmailRouter);
 app.use("/api/v1/template", saveEmailRouter);
+
+//other Routes
+app.use("/api/v1/leave", leaveRouter);
+app.use("/api/v1/calendar", calendarRouter);
 
 // Error Middleware
 app.use(errorHandlerMiddleware); 

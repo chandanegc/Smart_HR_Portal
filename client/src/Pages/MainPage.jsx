@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { FaMailBulk, FaAward} from "react-icons/fa";
+import { FaMailBulk, FaAward } from "react-icons/fa";
 import { FcLeave } from "react-icons/fc";
 import { GrDocumentImage } from "react-icons/gr";
 import { SlCalender } from "react-icons/sl";
@@ -9,6 +9,7 @@ import Wrapper from "./mainPageStyle";
 import { VerySmallLogo } from "../components/Logo";
 import { LiaUserEditSolid } from "react-icons/lia";
 import { SiWelcometothejungle } from "react-icons/si";
+import { MdHolidayVillage } from "react-icons/md";
 
 const SocialLinksPage = () => {
   const credential = JSON.parse(localStorage.getItem("credential") || "{}");
@@ -16,7 +17,7 @@ const SocialLinksPage = () => {
   const socialLinks = [
     {
       name: "Document Verification",
-      icon: <GrDocumentImage />, 
+      icon: <GrDocumentImage />,
       url:
         credential.role === "hr"
           ? "/truedocs/dashboard/all-users-docs"
@@ -41,16 +42,31 @@ const SocialLinksPage = () => {
       url: "/welcome-card",
       color: "#E1306C",
     },
-    { name: "Leave Apply", icon: <FcLeave />, url: "#", color: "#FF0000" },
     {
-      name: "Holiday Calender",
+      name: "Leave Apply",
+      icon: <FcLeave />,
+      url: "/leave/apply",
+      color: "#FF0000",
+    },
+    {
+      name: "All Leaves",
+      icon: <MdHolidayVillage />,
+      url: "/leave",
+      color: "#E1306C",
+    },
+    {
+      name: "Holiday Calendar",
       icon: <SlCalender />,
-      url: "#",
+      url: "/calendar", 
       color: "#5865F2",
     },
     { name: "Vacancy", icon: <VscReferences />, url: "#", color: "#FF0000" },
-    { name: "Edit Profile", icon: <LiaUserEditSolid />, url: "/truedocs/dashboard/profile", color: "#119C77" },
-    // { name: "Group Chat", icon: <BsWechat />, url: "#", color: "#E1306C" },
+    {
+      name: "Edit Profile",
+      icon: <LiaUserEditSolid />,
+      url: "/truedocs/dashboard/profile",
+      color: "#119C77",
+    },
     // { name: "Email", icon: <FiMail />, url: "#", color: "#D44638" },
   ];
 
@@ -125,7 +141,9 @@ const SocialLinksPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 style={{ color: "#12aa82", padding:"0px", margin:"0px" }}>Smart HR Portal</h1>
+            <h1 style={{ color: "#12aa82", padding: "0px", margin: "0px" }}>
+              Smart HR Portal
+            </h1>
             <p>Employee Management</p>
           </motion.section>
 
@@ -137,6 +155,8 @@ const SocialLinksPage = () => {
           >
             {socialLinks.map((link) => {
               if (credential.role !== "hr" && link.name === "Bulk SMS") return;
+              if (credential.role === "hr" && link.name === "Leave Apply")
+                return;
               return (
                 <motion.a
                   key={link.name}

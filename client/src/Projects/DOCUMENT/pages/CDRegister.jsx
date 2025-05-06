@@ -8,9 +8,9 @@ import { SmallLogo } from "../../../components/Logo";
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  const id = localStorage.getItem('id');
+  const {_id} = JSON.parse(localStorage.getItem("credential") ?? "{}");
   try {
-    const res = await customFetch.post(`/auth/candidate/register/${id}`, data);
+    const res = await customFetch.post(`/auth/candidate/register/${_id}`, data);
     toast.success(res.data.msg);
     return null;
   } catch (error) {

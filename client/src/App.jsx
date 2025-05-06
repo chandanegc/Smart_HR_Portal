@@ -52,6 +52,9 @@ import ProtectedRoute from "./Pages/Auth/ProtectedRoutes";
 import WelcomeCard from "./Projects/CERTIFICATE/WelcomeCard/WelcomeCard";
 import HeaderLayout from "./components/HeaderLayout";
 import { action as EmailSecretKeyAction } from "./Projects/EMAIL/pages/EmailSecretKeyPage";
+import LeaveList from "./Projects/Leave/Pages/LeaveList";
+import ApplyLeave from "./Projects/Leave/Pages/ApplyLeavePage";
+import CalendarUploadPage from "./Projects/calendar/UploadCalendarPage";
 
 const App = () => {
   const credential = JSON.parse(localStorage.getItem("credential") ?? "{}");
@@ -60,7 +63,7 @@ const App = () => {
   useEffect(() => {
     setLocal(credential);
   }, []);
-  
+
   const router = createBrowserRouter([
     {
       element: <ProtectedRoute />,
@@ -138,6 +141,11 @@ const App = () => {
               element: <Certificate />,
               errorElement: <Error />,
             },
+            {
+              path: "calendar",
+              element: <CalendarUploadPage />,
+              errorElement: <Error />,
+            },
 
             //Bulk SMS routes
             {
@@ -173,6 +181,28 @@ const App = () => {
                 { path: "*", element: <Error /> }, // Catch-all for /bulk-sms
               ],
             },
+            {
+              path: "/leave",
+              element: (
+                <div style={{ marginTop: "80px" }}>
+                  <Outlet />
+                </div>
+              ),
+              errorElement: <Error />,
+              children: [
+                {
+                  index: true,
+                  element: <LeaveList />,
+                  errorElement: <Error />,
+                },
+                {
+                  path: "apply",
+                  element: <ApplyLeave />,
+                  errorElement: <Error />,
+                },
+              ],
+            },
+            
           ],
         },
       ],

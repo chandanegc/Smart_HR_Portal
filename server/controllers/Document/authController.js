@@ -122,8 +122,8 @@ export const loginCandidate = async (req, res) => {
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json({ msg: "Please enter correct credentials." });
     }
-
-    const token = createJWT({ userId: user._id, role: user.role });
+console.log(user.registeredBy)
+    const token = createJWT({ userId: user._id, role: user.role , email: user.email, hrName: user.registeredBy });
 
     const isProduction = process.env.NODE_ENV === 'production';
     delete user.password;
