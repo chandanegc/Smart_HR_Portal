@@ -20,8 +20,7 @@ const style = {
   justifyContent: "center",
   alignItems: "center",
   height: "100vh",
-  width: "100vw",
+  width: "100%",
   overflow: "hidden",
-  position: "fixed",
   zIndex: "-9999",
 };

@@ -70,7 +70,6 @@ export const createLeave = async (req, res) => {
 export const getLeaves = async (req, res) => {
   let leaves;
   try {
-    console.log(req.user.role);
     if (req.user.role === "hr") {
       leaves = await Leave.find({ hrName: req.user.userId }).sort({
         createdAt: -1,

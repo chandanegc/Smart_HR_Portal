@@ -10,6 +10,8 @@ import { VerySmallLogo } from "../components/Logo";
 import { LiaUserEditSolid } from "react-icons/lia";
 import { SiWelcometothejungle } from "react-icons/si";
 import { MdHolidayVillage } from "react-icons/md";
+import { BsInfoCircleFill } from "react-icons/bs";
+import Footer from "../components/Footer";
 
 const SocialLinksPage = () => {
   const credential = JSON.parse(localStorage.getItem("credential") || "{}");
@@ -22,7 +24,7 @@ const SocialLinksPage = () => {
         credential.role === "hr"
           ? "/truedocs/dashboard/all-users-docs"
           : "/truedocs/dashboard/all-docs",
-      color: "#7e22ce",
+      color: "#6C63FF",
     },
     {
       name: "Bulk SMS",
@@ -34,40 +36,50 @@ const SocialLinksPage = () => {
       name: "Certificate",
       icon: <FaAward />,
       url: "/certificate",
-      color: "#333",
+      color: "#F4B400",
     },
     {
       name: "Welocome Card",
       icon: <SiWelcometothejungle />,
       url: "/welcome-card",
-      color: "#E1306C",
+      color: "#FF6F61",
     },
     {
       name: "Leave Apply",
       icon: <FcLeave />,
       url: "/leave/apply",
-      color: "#FF0000",
+      color: "#34A853",
     },
     {
       name: "All Leaves",
       icon: <MdHolidayVillage />,
       url: "/leave",
-      color: "#E1306C",
+      color: "#FF8C00",
     },
     {
       name: "Holiday Calendar",
       icon: <SlCalender />,
-      url: "/calendar", 
+      url: "/calendar",
       color: "#5865F2",
     },
-    { name: "Vacancy", icon: <VscReferences />, url: "#", color: "#FF0000" },
+    {
+      name: "Vacancy",
+      icon: <VscReferences />,
+      url: "#",
+      color: "#DB4437",
+    },
     {
       name: "Edit Profile",
       icon: <LiaUserEditSolid />,
       url: "/truedocs/dashboard/profile",
-      color: "#119C77",
+      color: "#0CA789",
     },
-    // { name: "Email", icon: <FiMail />, url: "#", color: "#D44638" },
+    {
+      name: "Information",
+      icon: <BsInfoCircleFill />,
+      url: "/info",
+      color: "#3B82F6",
+    },
   ];
 
   // Animation variants
@@ -177,18 +189,6 @@ const SocialLinksPage = () => {
             })}
           </motion.div>
         </main>
-
-        <footer className="main-footer">
-          <VerySmallLogo />
-          <div className="footer-content">
-            <p>© {new Date().getFullYear()} All Rights Reserved</p>
-            <div className="footer-links">
-              <a href="#">Privacy Policy</a>
-              <a href="#">Terms of Service</a>
-              <a href="#">Contact</a>
-            </div>
-          </div>
-        </footer>
       </div>
     </Wrapper>
   );

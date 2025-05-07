@@ -41,7 +41,7 @@ const CSVReaderPage = () => {
     }
   };
   return (
-    <div>
+    <div style={{ minHeight: "100vh" }}>
       <form className="form">
         <h2>Upload and Parse CSV File</h2> <br />
         <Input type="file" accept=".csv" onChange={handleFileChange} />

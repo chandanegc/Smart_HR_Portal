@@ -55,6 +55,8 @@ import { action as EmailSecretKeyAction } from "./Projects/EMAIL/pages/EmailSecr
 import LeaveList from "./Projects/Leave/Pages/LeaveList";
 import ApplyLeave from "./Projects/Leave/Pages/ApplyLeavePage";
 import CalendarUploadPage from "./Projects/calendar/UploadCalendarPage";
+import LoaderComponent from "./components/LoaderComponent";
+import Footer from "./components/Footer";
 
 const App = () => {
   const credential = JSON.parse(localStorage.getItem("credential") ?? "{}");
@@ -202,7 +204,6 @@ const App = () => {
                 },
               ],
             },
-            
           ],
         },
       ],
@@ -245,7 +246,9 @@ const App = () => {
   ]);
 
   return (
-    <RouterProvider router={router} fallbackElement={<div>Loading...</div>} />
+    <>
+      <RouterProvider router={router} fallbackElement={<LoaderComponent />} />
+    </>
   );
 };
 

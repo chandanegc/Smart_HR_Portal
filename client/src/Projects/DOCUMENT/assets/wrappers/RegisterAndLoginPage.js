@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.section`
   display: grid;
+  min-height: calc(100vh - 60px);
   align-items: center;
   .logo {
     display: block;

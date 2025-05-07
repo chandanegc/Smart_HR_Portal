@@ -4,6 +4,7 @@ import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import LoaderComponent from "../../../components/LoaderComponent";
 
 const AllTemplatesPage = () => {
   const [dataValue, setData] = useState([]);
@@ -58,8 +59,9 @@ const AllTemplatesPage = () => {
   const handleChooseTemplate = (...template) => {
     navigate("/bulk-sms/file-upload", { state: { template } });
   };
+  if (loading) return <LoaderComponent />;
   return (
-    <div>
+    <div style={{ minHeight: "100vh" }}>
       {isDialogOpen && (
         <div style={overlayStyle}>
           <div style={dialogStyle}>
@@ -104,6 +106,7 @@ const AllTemplatesPage = () => {
               style={{
                 cursor: "pointer",
                 display: "flex",
+
                 justifyContent: "space-between",
               }}
             >

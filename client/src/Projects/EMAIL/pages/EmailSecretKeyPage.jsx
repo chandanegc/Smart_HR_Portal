@@ -31,7 +31,6 @@ const EmailSecretKey = () => {
       <Form method="post" className="form">
         <SmallLogo />
         <p>Enter Email Secret Key</p>
-
         <FormRow
           type="email"
           name="email"
