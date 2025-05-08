@@ -57,9 +57,9 @@ import ApplyLeave from "./projects/leave/pages/ApplyLeavePage";
 import CalendarUploadPage from "./projects/calendar/UploadCalendarPage";
 import LoaderComponent from "./components/LoaderComponent";
 
-import JobVacancyUpload from "./projects/vacancy/Page/JobVacancyUploadPage";
-import VacancyDetails from "./projects/vacancy/Page/VacancyDetails";
-import VacancyList from "./projects/vacancy/Page/VacancyListPage";
+import JobVacancyUpload from "./projects/vacancy/page/JobVacancyUploadPage";
+import VacancyDetails from "./projects/vacancy/page/VacancyDetails";
+import VacancyList from "./projects/vacancy/page/VacancyListPage";
 import ChatApp from "./pages/ChatGPT";
 
 const App = () => {
