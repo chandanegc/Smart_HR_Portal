@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { logoutUser } from "../../Projects/DOCUMENT/utils/helper";
+import { logoutUser } from "../../projects/document/utils/helper";
 import Cookies from 'js-cookie';
 
 const ProtectedRoute = () => {

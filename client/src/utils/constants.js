@@ -9,7 +9,7 @@ export const DOCUMENT_STATUS = {
     PART_TIME: 'part-time',
     INTERNSHIP: 'internship',
   };
-  
+    
   export const DOCUMENT_SORT_BY = {
     NEWEST_FIRST: 'newest',
     OLDEST_FIRST: 'oldest',

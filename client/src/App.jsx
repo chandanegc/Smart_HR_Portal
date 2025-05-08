@@ -11,52 +11,56 @@ import {
   Error,
   Admin,
   Profile,
-} from "./Projects/DOCUMENT/pages";
-import { action as LoginAction } from "./Pages/Auth/CDLogin";
-import { loader as DashboardLoader } from "./Projects/DOCUMENT/pages/DashboardLayout";
+} from "./projects/document/pages";
+import { action as LoginAction } from "./pages/auth/CDLogin";
+import { loader as DashboardLoader } from "./projects/document/pages/DashboardLayout";
 import AddDocs, {
   action as AddDocsAction,
-} from "./Projects/DOCUMENT/pages/AddDocs";
+} from "./projects/document/pages/AddDocs";
 import AllDocs, {
   loader as allDocsLoader,
-} from "./Projects/DOCUMENT/pages/AllDocs";
-import { action as deleteJobAction } from "./Projects/DOCUMENT/pages/DeleteDocs";
-import { loader as adminLoader } from "./Projects/DOCUMENT/pages/Admin";
-import { action as profileAction } from "./Projects/DOCUMENT/pages/Profile";
-import HRlogin from "./Pages/Auth/HRlogin";
-import { action as HRloginAction } from "./Pages/Auth/HRlogin";
+} from "./projects/document/pages/AllDocs";
+import { action as deleteJobAction } from "./projects/document/pages/DeleteDocs";
+import { loader as adminLoader } from "./projects/document/pages/Admin";
+import { action as profileAction } from "./projects/document/pages/Profile";
+import HRlogin from "./pages/auth/HRlogin";
+import { action as HRloginAction } from "./pages/auth/HRlogin";
 import AllDocuments, {
   loader as allUserDocLoader,
-} from "./Projects/DOCUMENT/pages/TableCandidates";
+} from "./projects/document/pages/TableCandidates";
 import UserDocsContainer, {
   loader as UserDocLoader,
-} from "./Projects/DOCUMENT/components/UserDocsContainer";
+} from "./projects/document/components/UserDocsContainer";
 import CDRegister, {
   action as CDaction,
-} from "./Projects/DOCUMENT/pages/CDRegister";
-import OTPverification from "./Projects/DOCUMENT/pages/OTPverification";
+} from "./projects/document/pages/CDRegister";
+import OTPverification from "./projects/document/pages/OTPverification";
 
 // Bulk SMS imports
-import RegistrationPage from "./Projects/EMAIL/pages/RegistrationPage";
-import TamplatePage from "./Projects/EMAIL/pages/TemplatePage";
-import CSVReaderPage from "./Projects/EMAIL/pages/CSVReaderPage";
-import ChooseTemplate from "./Projects/EMAIL/pages/ChooseTemplate";
-import CreateTemplatePage from "./Projects/EMAIL/pages/CreateTemplatePage";
-import AllTemplatesPage from "./Projects/EMAIL/pages/AllTemplatesPage";
-import EmailSecretKey from "./Projects/EMAIL/pages/EmailSecretKeyPage";
+import RegistrationPage from "./projects/email/pages/RegistrationPage";
+import TamplatePage from "./projects/email/pages/TemplatePage";
+import CSVReaderPage from "./projects/email/pages/CSVReaderPage";
+import ChooseTemplate from "./projects/email/pages/ChooseTemplate";
+import CreateTemplatePage from "./projects/email/pages/CreateTemplatePage";
+import AllTemplatesPage from "./projects/email/pages/AllTemplatesPage";
+import EmailSecretKey from "./projects/email/pages/EmailSecretKeyPage";
 
 // Others imports
-import MainPage from "./Pages/MainPage";
-import Certificate from "./Projects/CERTIFICATE/Certificate";
-import ProtectedRoute from "./Pages/Auth/ProtectedRoutes";
-import WelcomeCard from "./Projects/CERTIFICATE/WelcomeCard/WelcomeCard";
+import MainPage from "./pages/MainPage";
+import Certificate from "./projects/certificate/Certificate";
+import ProtectedRoute from "./pages/auth/ProtectedRoutes";
+import WelcomeCard from "./projects/certificate/welcomeCard/WelcomeCard";
 import HeaderLayout from "./components/HeaderLayout";
-import { action as EmailSecretKeyAction } from "./Projects/EMAIL/pages/EmailSecretKeyPage";
-import LeaveList from "./Projects/Leave/Pages/LeaveList";
-import ApplyLeave from "./Projects/Leave/Pages/ApplyLeavePage";
-import CalendarUploadPage from "./Projects/calendar/UploadCalendarPage";
+import { action as EmailSecretKeyAction } from "./projects/email/pages/EmailSecretKeyPage";
+import LeaveList from "./projects/leave/pages/LeaveList";
+import ApplyLeave from "./projects/leave/pages/ApplyLeavePage";
+import CalendarUploadPage from "./projects/calendar/UploadCalendarPage";
 import LoaderComponent from "./components/LoaderComponent";
-import Footer from "./components/Footer";
+
+import JobVacancyUpload from "./projects/vacancy/Page/JobVacancyUploadPage";
+import VacancyDetails from "./projects/vacancy/Page/VacancyDetails";
+import VacancyList from "./projects/vacancy/Page/VacancyListPage";
+import ChatApp from "./pages/ChatGPT";
 
 const App = () => {
   const credential = JSON.parse(localStorage.getItem("credential") ?? "{}");
@@ -146,6 +150,26 @@ const App = () => {
             {
               path: "calendar",
               element: <CalendarUploadPage />,
+              errorElement: <Error />,
+            },
+            {
+              path: "/upload-job",
+              element: <JobVacancyUpload />,
+              errorElement: <Error />,
+            },
+            {
+              path: "/vacancies/:id",
+              element: <VacancyDetails />,
+              errorElement: <Error />,
+            },
+            {
+              path: "/vacancies",
+              element: <VacancyList />,
+              errorElement: <Error />,
+            },
+            {
+              path: "/chatgpt",
+              element: <ChatApp />,
               errorElement: <Error />,
             },
 

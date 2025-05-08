@@ -6,7 +6,7 @@ import {
   getCurrentUser,
   updateCandidate,
   updateHR,
-} from "../../controllers/Document/userController.js";
+} from "../../controllers/document/userController.js";
 import { authenticateUser } from "../../middlewares/authMiddleware.js";
 import upload from "../../middlewares/multerMiddleware.js";
 

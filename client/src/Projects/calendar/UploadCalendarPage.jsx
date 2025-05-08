@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import customFetch from "../DOCUMENT/utils/customFetch";
+import customFetch from "../document/utils/customFetch";
 import {
   Container,
   Title,
@@ -41,6 +41,7 @@ const CalendarUploadPage = () => {
       const res = await customFetch.post("/calendar/upload", formData);
       setPdfUrl(res.data.data.pdfUrl);
       toast.success("PDF uploaded successfully");
+      window.location.reload();
     } catch (err) {
       console.error(err);
       toast.error(err.response?.data?.msg || "Error uploading PDF");
@@ -64,7 +65,15 @@ const CalendarUploadPage = () => {
         </Container>
       )}
       {
-        <div style={{ marginTop:role!=="hr"? "100px":"5px", display: "flex", flexDirection: "column", alignItems: "center",justifyContent: "center" }}>
+        <div
+          style={{
+            marginTop: role !== "hr" ? "100px" : "5px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <PdfLink href={pdfUrl} target="_blank" rel="noopener noreferrer">
             Click to see Fullscreen
           </PdfLink>

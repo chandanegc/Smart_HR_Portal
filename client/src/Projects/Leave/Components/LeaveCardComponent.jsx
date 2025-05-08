@@ -1,51 +1,9 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import customFetch from "../../DOCUMENT/utils/customFetch";
+import customFetch from "../../document/utils/customFetch";
 import { toast } from "react-toastify";
-
-const Card = styled.div`
-  background: #fff;
-  border-left: 6px solid
-    ${(props) =>
-      props.status === "Approved"
-        ? "#4CAF50"
-        : props.status === "Rejected"
-        ? "#f44336"
-        : "#ff9800"};
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
-  border-radius: 12px;
-  margin: 16px 0;
-  padding: 20px;
-  transition: 0.3s;
-  &:hover {
-    transform: scale(1.01);
-  }
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Status = styled.span`
-  background-color: ${(props) =>
-    props.status === "Approved"
-      ? "#4CAF50"
-      : props.status === "Rejected"
-      ? "#f44336"
-      : "#ff9800"};
-  color: white;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-`;
-
-const Label = styled.span`
-  font-weight: 600;
-`;
+import { DOCUMENT_STATUS } from "../../../utils/constants";
+import SelectTagComponent from "../../../components/SelectTagComponent";
+import Wrapper from "../styles/LeaveListStyle";
 
 const leaveTypeColors = {
   "Casual Leave": "#149B80",
@@ -59,52 +17,68 @@ const CDLeaveCard = ({ leave, isHr }) => {
   const [selectedStatus, setSelectedStatus] = useState(leave.status);
 
   const handleStatusChange = async (e) => {
-    const updatedStatus = e.target.value;
-    console.log(leave._id);
+    const status = e.target.value;
     try {
       const res = await customFetch.put(`/leave/status/${leave._id}`, {
-        status: updatedStatus,
+        status,
       });
-      setSelectedStatus(updatedStatus);
+      setSelectedStatus(status);
       toast.success(res.data.msg);
     } catch (err) {
       toast.error(err.response?.data?.msg || "Error updating status");
     }
   };
+
   return (
-    <Card status={selectedStatus}>
-      <Header>
-        <p style={{ color: leaveTypeColors[leave.leaveType] || "#149B80" }}>
-          {leave.leaveType}
-        </p>
-        <Status status={selectedStatus}>{selectedStatus}</Status>
-      </Header>
+    <Wrapper status={selectedStatus}>
+      <div className="wrapper">
+        <div className="card">
+          <div className="header">
+            <p style={{ color: leaveTypeColors[leave.leaveType] || "#149B80" }}>
+              {leave.leaveType}
+            </p>
+            <span className="status">{selectedStatus}</span>
+          </div>
 
-      <p>
-        <Label>Reason:</Label> {leave.leaveReason}
-      </p>
-      <p>
-        <Label>Applied On:</Label>{" "}
-        {new Date(leave.createdAt).toLocaleDateString()}
-      </p>
-      <p>
-        <Label>From:</Label> {new Date(leave.startDate).toLocaleDateString()} →{" "}
-        <Label>To:</Label> {new Date(leave.endDate).toLocaleDateString()}
-      </p>
-      <p>
-        <Label>Total Days:</Label> {leave.totalDays}
-      </p>
+          {isHr && leave.createdBy && (
+            <div className="candidate-info">
+              <p style={{ color: "rgb(207, 7, 7)" }}>
+                <span className="label">Name:</span> {leave.createdBy.name}
+              </p>
+              <p style={{ color: "rgb(207, 7, 7)" }}>
+                <span className="label">Employee ID:</span>{" "}
+                {leave.createdBy.employeeId}
+              </p>
+            </div>
+          )}
+<br/>
+          <p>
+            <span className="label">Reason:</span> {leave.leaveReason}
+          </p>
+          <p>
+            <span className="label">Applied On:</span>{" "}
+            {new Date(leave.createdAt).toLocaleDateString()}
+          </p>
+          <p>
+            <span className="label">From:</span>{" "}
+            {new Date(leave.startDate).toLocaleDateString()} →{" "}
+            <span className="label">To:</span>{" "}
+            {new Date(leave.endDate).toLocaleDateString()}
+          </p>
+          <p>
+            <span className="label">Total Days:</span> {leave.totalDays}
+          </p>
 
-      {isHr && (
-        <div style={{ marginTop: "10px" }}>
-          <select value={selectedStatus} onChange={handleStatusChange}>
-            <option value="Pending">Pending</option>
-            <option value="Approved">Approved</option>
-            <option value="Rejected">Rejected</option>
-          </select>
+          {isHr && (
+            <SelectTagComponent
+              list={DOCUMENT_STATUS}
+              onChange={handleStatusChange}
+              value={selectedStatus}
+            />
+          )}
         </div>
-      )}
-    </Card>
+      </div>
+    </Wrapper>
   );
 };
 

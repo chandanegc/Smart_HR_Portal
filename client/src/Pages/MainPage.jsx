@@ -65,7 +65,7 @@ const SocialLinksPage = () => {
     {
       name: "Vacancy",
       icon: <VscReferences />,
-      url: "#",
+      url: "vacancies",
       color: "#DB4437",
     },
     {

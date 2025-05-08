@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Wrapper } from "../Styles/applyLeaveStyle";
-import customFetch from "../../DOCUMENT/utils/customFetch";
+import { Wrapper } from "../styles/applyLeaveStyle";
+import customFetch from "../../document/utils/customFetch";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +15,9 @@ const ApplyLeave = () => {
   const [selectedDates, setSelectedDates] = useState([]);
   const [leaveDetails, setLeaveDetails] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [calendarMonth, setCalendarMonth] = useState(new Date().getMonth());
+  const [calendarYear, setCalendarYear] = useState(new Date().getFullYear());
+
   const leaveTypes = [
     "Casual Leave",
     "Sick Leave",
@@ -22,21 +25,25 @@ const ApplyLeave = () => {
     "Maternity Leave",
     "Paternity Leave",
   ];
+
   const navigate = useNavigate();
+
   const handleDateSelection = (date) => {
-    if (!formData.startDate) {
-      setFormData({ ...formData, startDate: date });
-    } else if (!formData.endDate && date > formData.startDate) {
+    if (!formData.startDate || (formData.startDate && formData.endDate)) {
+      setFormData({ ...formData, startDate: date, endDate: "" });
+      calculateLeaveDays(date, date);
+    } else if (!formData.endDate && new Date(date) >= new Date(formData.startDate)) {
       setFormData({ ...formData, endDate: date });
       calculateLeaveDays(formData.startDate, date);
     } else {
       setFormData({ ...formData, startDate: date, endDate: "" });
+      calculateLeaveDays(date, date);
     }
   };
 
   const calculateLeaveDays = (start, end) => {
     const days = [];
-    const current = new Date(start);
+    let current = new Date(start);
     const endDate = new Date(end);
     while (current <= endDate) {
       days.push(new Date(current));
@@ -63,6 +70,8 @@ const ApplyLeave = () => {
       const res = await customFetch.post("/leave/create", data);
       toast.success(res.data.msg);
       setFormData({ leaveType: "", startDate: "", endDate: "", leaveReason: "" });
+      setLeaveDetails([]);
+      setSelectedDates([]);
       navigate("/leave");
     } catch (err) {
       toast.error(err.response?.data?.msg || "Error submitting leave");
@@ -71,21 +80,23 @@ const ApplyLeave = () => {
   };
 
   const generateCalendarDays = () => {
-    const days = [], year = 2025, month = 4;
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const daysFromPrevMonth = new Date(year, month, 0).getDate();
+    const days = [];
+    const firstDay = new Date(calendarYear, calendarMonth, 1).getDay();
+    const daysInMonth = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+    const prevMonthDays = new Date(calendarYear, calendarMonth, 0).getDate();
+
     for (let i = 0; i < 42; i++) {
       let day;
       if (i < firstDay) {
-        day = daysFromPrevMonth - firstDay + i + 1;
+        day = prevMonthDays - firstDay + i + 1;
         days.push({ day, currentMonth: false });
       } else if (i < firstDay + daysInMonth) {
         day = i - firstDay + 1;
+        const dateObj = new Date(calendarYear, calendarMonth, day);
         days.push({
           day,
           currentMonth: true,
-          date: new Date(year, month, day).toISOString().split("T")[0],
+          date: dateObj.toISOString().split("T")[0],
         });
       } else {
         day = i - firstDay - daysInMonth + 1;
@@ -97,13 +108,40 @@ const ApplyLeave = () => {
 
   const calendarDays = generateCalendarDays();
 
+  const nextMonth = () => {
+    if (calendarMonth === 11) {
+      setCalendarMonth(0);
+      setCalendarYear(calendarYear + 1);
+    } else {
+      setCalendarMonth(calendarMonth + 1);
+    }
+  };
+
+  const prevMonth = () => {
+    const today = new Date();
+    const current = new Date(calendarYear, calendarMonth);
+    if (current > new Date(today.getFullYear(), today.getMonth())) {
+      if (calendarMonth === 0) {
+        setCalendarMonth(11);
+        setCalendarYear(calendarYear - 1);
+      } else {
+        setCalendarMonth(calendarMonth - 1);
+      }
+    }
+  };
+
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+  ];
+
   return (
     <Wrapper>
       <div className="leave-application">
         <h3>Apply Leave</h3>
         <form onSubmit={handleSubmit}>
           <div className="form-section">
-            <h2>Leave Type</h2>
+            <h4>Leave Type</h4>
             <div className="form-group">
               <select
                 value={formData.leaveType}
@@ -123,7 +161,7 @@ const ApplyLeave = () => {
           </div>
 
           <div className="form-section">
-            <h2>Leave Dates</h2>
+            <h4>Leave Dates</h4>
             <div className="form-group">
               <button
                 type="button"
@@ -136,7 +174,11 @@ const ApplyLeave = () => {
               </button>
               {showCalendar && (
                 <div className="calendar">
-                  <div className="calendar-header"><h3>May 2025</h3></div>
+                  <div className="calendar-header">
+                    <button onClick={prevMonth} type="button">←</button>
+                    <h5>{monthNames[calendarMonth]} {calendarYear}</h5>
+                    <button onClick={nextMonth} type="button">→</button>
+                  </div>
                   <div className="calendar-grid">
                     {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((d) => (
                       <div key={d} className="day-header">{d}</div>
@@ -144,11 +186,9 @@ const ApplyLeave = () => {
                     {calendarDays.map((day, index) => (
                       <div
                         key={index}
-                        className={`calendar-day ${day.currentMonth ? "" : "other-month"} ${
-                          [formData.startDate, formData.endDate].includes(day.date)
-                            ? "selected"
-                            : ""
-                        } ${selectedDates.includes(day.date) ? "in-range" : ""}`}
+                        className={`calendar-day ${day.currentMonth ? "" : "other-month"} 
+                          ${[formData.startDate, formData.endDate].includes(day.date) ? "selected" : ""} 
+                          ${selectedDates.includes(day.date) ? "in-range" : ""}`}
                         onClick={() =>
                           day.currentMonth && handleDateSelection(day.date)
                         }
@@ -163,7 +203,7 @@ const ApplyLeave = () => {
           </div>
 
           <div className="form-section">
-            <h2>Leave Reason</h2>
+            <h4>Leave Reason</h4>
             <div className="form-group">
               <textarea
                 value={formData.leaveReason}
@@ -178,7 +218,7 @@ const ApplyLeave = () => {
 
           {leaveDetails.length > 0 && (
             <div className="leave-details">
-              <h2>Your Leave Details</h2>
+              <h4>Your Leave Details</h4>
               <ul>
                 {leaveDetails.map((detail, index) => (
                   <li key={index}>
@@ -193,15 +233,18 @@ const ApplyLeave = () => {
             </div>
           )}
 
-          <button className="btn btn-block form-btn"
-          style={{ marginTop: "20px" }}
-          type="submit">
-           {loading?"Loading...":" Apply Leave"}
+          <button
+            className="btn btn-block form-btn"
+            style={{ marginTop: "20px" }}
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Apply Leave"}
           </button>
         </form>
       </div>
     </Wrapper>
-  );
+  ); 
 };
 
 export default ApplyLeave;

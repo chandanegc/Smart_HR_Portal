@@ -28,8 +28,8 @@ const leaveSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["Pending", "Approved", "Rejected"],
-      default: "Pending",
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,

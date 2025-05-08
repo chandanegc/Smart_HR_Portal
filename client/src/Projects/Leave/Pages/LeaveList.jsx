@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
-import LeaveCard from "./../Components/LeaveCardComponent";
-import customFetch from "../../DOCUMENT/utils/customFetch";
+import LeaveCard from "../components/LeaveCardComponent";
+import customFetch from "../../document/utils/customFetch";
 import LoaderComponent from "../../../components/LoaderComponent";
 
 const CDAllLeave = () => {
   const [leaves, setLeaves] = useState([]);
-  const {role} = JSON.parse(localStorage.getItem("credential") ?? "{}");
+  const { role } = JSON.parse(localStorage.getItem("credential") ?? "{}");
   const [loader, setLoader] = useState(false);
-  const isHr = (role === "hr");
+  const isHr = role === "hr";
   useEffect(() => {
     const fetchLeaves = async () => {
-      setLoader(true)
+      setLoader(true);
       try {
         const res = await customFetch.get("/leave/all");
-        setLeaves(res.data.data);
+        setLeaves(res.data?.data);
+        console.log(res.data.data)
       } catch (err) {
         console.error(err);
       }
@@ -21,9 +22,9 @@ const CDAllLeave = () => {
     };
     fetchLeaves();
   }, []);
-  if(loader) return <LoaderComponent/>
+  if (loader) return <LoaderComponent />;
   return (
-    <div style={{ maxWidth: "700px", margin: "0 auto" , minHeight:"100vh"}}>
+    <div style={style}>
       {leaves?.length > 0 ? (
         leaves.map((leave) => (
           <LeaveCard key={leave._id} leave={leave} isHr={isHr} />
@@ -36,3 +37,5 @@ const CDAllLeave = () => {
 };
 
 export default CDAllLeave;
+
+const style = { maxWidth: "700px", margin: "0 auto", minHeight: "100vh" };

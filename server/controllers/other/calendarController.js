@@ -12,7 +12,7 @@ const uploadPdf = async (req, res) => {
       resource_type: "raw", // Treat the file as a raw file (PDF)
       folder: "pdfs", // Optional: Organize files in a 'pdfs' folder
       public_id: req.file.filename, // Optional: Use the original filename as public ID
-      access_mode: "public", // Ensure the file is publicly accessible
+      access_mode: "public", //file is publicly accessible
     });
 
     fs.unlinkSync(req.file.path); // Delete the local file after upload

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Wrapper } from "../styles/header";
 import { Link, useNavigate } from "react-router-dom";
-import { logoutUser } from "../Projects/DOCUMENT/utils/helper";
+import { logoutUser } from "../projects/document/utils/helper";
 import { FaHome } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { LiaUserEditSolid } from "react-icons/lia";

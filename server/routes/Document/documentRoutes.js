@@ -8,7 +8,7 @@ import {
     getUserDocuments, 
     showStats, 
     updateJob 
-} from "../../controllers/Document/documentController.js";
+} from "../../controllers/document/documentController.js";
 import { validateJobInput } from "../../middlewares/validationMiddleware.js";
 import { authenticateUser } from "../../middlewares/authMiddleware.js";
 import upload from "../../middlewares/multerMiddleware.js";

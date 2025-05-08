@@ -1,8 +1,8 @@
-import { FormRow } from "../../DOCUMENT/components";
-import Wrapper from "../../DOCUMENT/assets/wrappers/RegisterAndLoginPage";
+import { FormRow } from "../../document/components";
+import Wrapper from "../../document/assets/wrappers/RegisterAndLoginPage";
 import { Form, Link, redirect, useNavigation } from "react-router-dom";
 import { toast } from "react-toastify";
-import customFetch from "../../DOCUMENT/utils/customFetch";
+import customFetch from "../../document/utils/customFetch";
 import { SmallLogo } from "../../../components/Logo";
 
 export const action = async ({ request }) => {

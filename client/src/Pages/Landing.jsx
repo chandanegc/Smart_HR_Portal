@@ -1,4 +1,4 @@
-import main from '../Projects/DOCUMENT/assets/images/main.svg';
+import main from '../projects/document/assets/images/main.svg';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { SmallLogo, VerySmallLogo } from '../components/Logo';

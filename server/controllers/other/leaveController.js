@@ -68,20 +68,23 @@ export const createLeave = async (req, res) => {
 
 // Get all leaves
 export const getLeaves = async (req, res) => {
-  let leaves;
   try {
+    let leaves;
+
     if (req.user.role === "hr") {
-      leaves = await Leave.find({ hrName: req.user.userId }).sort({
-        createdAt: -1,
-      });
+      leaves = await Leave.find({ hrName: req.user.userId })
+        .sort({ createdAt: -1 })
+        .populate("createdBy");
     } else {
-      leaves = await Leave.find({ createdBy: req.user.userId }).sort({
-        createdAt: -1,
-      });
+      leaves = await Leave.find({ createdBy: req.user.userId })
+        .sort({ createdAt: -1 })
+        .populate("createdBy");
     }
+
     if (!leaves || leaves.length === 0) {
       return res.status(404).json({ msg: "No leaves found" });
     }
+
     res.status(200).json({ msg: "Leaves fetched successfully", data: leaves });
   } catch (error) {
     res

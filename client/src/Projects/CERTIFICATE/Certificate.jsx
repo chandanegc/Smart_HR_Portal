@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { toPng } from "html-to-image";
 import { Wrapper } from "./certificateGenerator";
-import { FormRow } from "../DOCUMENT/components";
+import { FormRow } from "../document/components";
 import { toast } from "react-toastify";
 
 const CertificateGenerator = () => {

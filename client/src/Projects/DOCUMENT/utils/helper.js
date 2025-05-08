@@ -37,3 +37,15 @@ export const logoutUser = async () => {
   localStorage.removeItem("role");
   localStorage.removeItem("credential");
 };
+
+export const upperFirstLetter = value => value.charAt(0).toUpperCase() + value.slice(1);
+
+export const getRelativeTime = (dateString) => {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diff = Math.floor((now - date) / (1000 * 60 * 60 * 24)); // in days
+
+  if (diff === 0) return "Today";
+  if (diff === 1) return "Yesterday";
+  return `${diff} days ago`;
+};
