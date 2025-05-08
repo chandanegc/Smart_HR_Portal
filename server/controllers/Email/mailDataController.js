@@ -1,4 +1,4 @@
-import hrModel from "../../models/Document/hrModel.js";
+import hrModel from "../../models/document/hrModel.js";
 import { sendEmailToEmployee } from "../../utils/Email/sendEmail.js";
 
 export const getEmailData = async (req, res) => {

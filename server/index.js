@@ -8,9 +8,9 @@ import docRouter from "./routes/Document/documentRoutes.js";
 import authRouter from "./routes/Document/authRoutes.js";
 import userRouter from "./routes/Document/userRoutes.js";
 // Email routes
-import authEmailRouter from "./routes/Email/authRoute.js";
-import mailEmailRouter from "./routes/Email/mailDataModel.js";
-import saveEmailRouter from "./routes/Email/saveTemplateRoute.js";
+import authEmailRouter from "./routes/email/authRoute.js";
+import mailEmailRouter from "./routes/email/mailDataModel.js";
+import saveEmailRouter from "./routes/email/saveTemplateRoute.js";
 // other routes
 import leaveRouter from "./routes/other/leaveRoute.js";
 import calendarRouter from "./routes/other/calenderRouter.js";

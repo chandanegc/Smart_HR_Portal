@@ -1,4 +1,4 @@
-import CD from "../../models/Document/documentModel.js";
+import CD from "../../models/document/documentModel.js";
 import { comparePassword, hashPassword } from "../../utils/passwordUtils.js";
 import { createJWT } from "../../utils/tokenUtils.js";
 

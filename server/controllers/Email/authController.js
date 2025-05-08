@@ -1,6 +1,6 @@
-import hrModel from "../../models/Document/hrModel.js";
-import SaveTemplateModel from "../../models/Email/saveTemplateModel.js";
-import UserModel from "../../models/Email/userModel.js";
+import hrModel from "../../models/document/hrModel.js";
+import SaveTemplateModel from "../../models/email/saveTemplateModel.js";
+import UserModel from "../../models/email/userModel.js";
 import { createJWT, verifyJWT } from "../../utils/tokenUtils.js";
 
 export const nodemailerKey = async (req, res) => {

@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { comparePassword, hashPassword } from "../../utils/passwordUtils.js";
-import Candidate from "../../models/Document/candidateModel.js";
-import Hr from "../../models/Document/hrModel.js";
+import Candidate from "../../models/document/candidateModel.js";
+import Hr from "../../models/document/hrModel.js";
 import { UnauthenticatedError } from "../../customError/customError.js";
 import { createJWT } from "../../utils/tokenUtils.js";
 import {

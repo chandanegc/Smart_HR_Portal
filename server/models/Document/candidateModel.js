@@ -54,4 +54,5 @@ UserSchema.methods.toJSON = function () {
   return obj;
 };
 
-export default mongoose.model("Candidate", UserSchema);
+const candidate  = mongoose.model("Candidate", UserSchema);
+export default candidate;

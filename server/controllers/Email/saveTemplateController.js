@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import SaveTemplateModel from "../../models/Email/saveTemplateModel.js";
+import SaveTemplateModel from "../../models/email/saveTemplateModel.js";
 
 export const createTemplate = async (req, res) => {
   const { subject, message, name } = req.body;

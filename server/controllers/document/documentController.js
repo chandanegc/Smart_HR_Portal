@@ -1,11 +1,11 @@
-import Document from "../../models/Document/documentModel.js";
+import Document from "../../models/document/documentModel.js";
 import StatusCodes from "http-status-codes";
 import { NotFoundError } from "../../customError/customError.js";
 import mongoose from "mongoose";
 import dayjs from "dayjs";
 import cloudinary from "cloudinary";
 import { promises as fs } from "fs";
-import candidateModel from "../../models/Document/candidateModel.js";
+import candidateModel from "../../models/document/candidateModel.js";
 
 export const createJob = async (req, res) => {
   req.body.createdBy = req.user.userId;
