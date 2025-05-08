@@ -6,12 +6,12 @@ import { GrDocumentImage } from "react-icons/gr";
 import { SlCalender } from "react-icons/sl";
 import { VscReferences } from "react-icons/vsc";
 import Wrapper from "./mainPageStyle";
-import { VerySmallLogo } from "../components/Logo";
 import { LiaUserEditSolid } from "react-icons/lia";
 import { SiWelcometothejungle } from "react-icons/si";
 import { MdHolidayVillage } from "react-icons/md";
 import { BsInfoCircleFill } from "react-icons/bs";
-import Footer from "../components/Footer";
+import { AiOutlineForm } from "react-icons/ai";
+import { FaWpforms } from "react-icons/fa6";
 
 const SocialLinksPage = () => {
   const credential = JSON.parse(localStorage.getItem("credential") || "{}");
@@ -63,22 +63,28 @@ const SocialLinksPage = () => {
       color: "#5865F2",
     },
     {
-      name: "Vacancy",
-      icon: <VscReferences />,
+      name: "upload-job",
+      icon: <AiOutlineForm />,
       url: "vacancies",
       color: "#DB4437",
+    },
+    {
+      name: "Vacancy",
+      icon: <FaWpforms />,
+      url: "vacancies",
+      color: " #0CA789",
     },
     {
       name: "Edit Profile",
       icon: <LiaUserEditSolid />,
       url: "/truedocs/dashboard/profile",
-      color: "#0CA789",
+      color: "rgb(235, 10, 43)",
     },
     {
       name: "Information",
       icon: <BsInfoCircleFill />,
       url: "/info",
-      color: "#3B82F6",
+      color: " #3B82F6",
     },
   ];
 
@@ -166,7 +172,11 @@ const SocialLinksPage = () => {
             animate="visible"
           >
             {socialLinks.map((link) => {
-              if (credential.role !== "hr" && link.name === "Bulk SMS") return;
+              if (
+                credential.role !== "hr" &&
+                (link.name === "Bulk SMS" || link.name === "upload-job")
+              )
+                return;
               if (credential.role === "hr" && link.name === "Leave Apply")
                 return;
               return (

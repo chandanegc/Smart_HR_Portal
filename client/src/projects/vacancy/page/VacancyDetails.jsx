@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import LoaderComponent from "../../../components/LoaderComponent"
 import styled from "styled-components";
 import {
   FaArrowLeft,
@@ -12,16 +13,19 @@ import { getRelativeTime } from "../../document/utils/helper";
 
 const VacancyDetails = () => {
   const { id } = useParams();
-  const [vacancy, setVacancy] = useState(null);
-
+  const [vacancy, setVacancy] = useState({});
+  const [loading , setLoading] = useState(false);
   useEffect(() => {
     const ApiCall = async () => {
       try {
+        setLoading(true)
         const res = await customFetch.get(`/vacancy/${id}`);
         console.log(res.data);
         setVacancy(res.data);
       } catch (error) {
         console.log(error);
+      }finally{
+        setLoading(false);
       }
     };
     ApiCall();
@@ -29,7 +33,7 @@ const VacancyDetails = () => {
     setVacancy(foundVacancy);
   }, [id]);
 
-  if (!vacancy) return <Loading>Loading...</Loading>;
+  if (loading) return <LoaderComponent/> ;
 
   return (
     <DetailsContainer>
@@ -38,19 +42,19 @@ const VacancyDetails = () => {
       </BackButton>
 
       <VacancyHeader>
-        <h1>{vacancy.jobTitle}</h1>
-        <Company>{vacancy.companyName}</Company>
+        <h1>{vacancy?.jobTitle}</h1>
+        <Company>{vacancy?.companyName}</Company>
         <LocationInfo>
           <DetailItem>
             <FaMapMarkerAlt />
-            <span>{vacancy.location}</span>
+            <span>{vacancy?.location}</span>
           </DetailItem>
           <DetailItem>
             <FaClock />
-            <span>{vacancy.jobType}</span>
+            <span>{vacancy?.jobType}</span>
           </DetailItem>
         </LocationInfo>
-        <PostedDate>Posted: {getRelativeTime(vacancy.updatedAt)}</PostedDate>
+        <PostedDate>Posted: {getRelativeTime(vacancy?.updatedAt)}</PostedDate>
       </VacancyHeader>
 
       <ContentSection>
@@ -75,9 +79,9 @@ const VacancyDetails = () => {
           <ApplyBox>
             <p>Apply for this position</p> <br />
             <ApplyButton
-              href={`mailto:hr@${vacancy.companyName
-                .toLowerCase()
-                .replace(/\s+/g, "")}.com`}
+              href={`mailto:hr@${vacancy?.companyName
+                ?.toLowerCase()
+                ?.replace(/\s+/g, "")}.com`}
             >
               <FaEnvelope /> Apply via Email
             </ApplyButton>

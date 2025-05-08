@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { FaSearch, FaBriefcase, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 import customFetch from '../../document/utils/customFetch';
 import { getRelativeTime } from '../../document/utils/helper';
+import LoaderComponent from '../../../components/LoaderComponent';
 
 // Mock data - replace with API calls in a real application
 // const mockVacancies = [
@@ -39,15 +40,18 @@ import { getRelativeTime } from '../../document/utils/helper';
 const VacancyList = () => {
   const [vacancies, setVacancies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [loading , setLoading] = useState(false);
   useEffect(() => {
     const ApiCall = async()=>{
+      setLoading(true);
         try {
             const res = await customFetch.get("/vacancy");
             console.log(res.data);
             setVacancies(res.data);
         } catch (error) {
             console.log(error);
+        }finally{
+          setLoading(false);
         }
     }
     ApiCall()
@@ -59,7 +63,7 @@ const VacancyList = () => {
     vacancy?.companyName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     vacancy?.location?.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
+  if(loading) return <LoaderComponent/>
   return (
     <ListContainer>
       <Header>
