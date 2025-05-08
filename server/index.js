@@ -4,9 +4,9 @@ import cors from "cors";
 import mongoose from "mongoose";
 import errorHandlerMiddleware from "./middlewares/errorHandler.js";
 // document routes
-import docRouter from "./routes/Document/documentRoutes.js";
-import authRouter from "./routes/Document/authRoutes.js";
-import userRouter from "./routes/Document/userRoutes.js";
+import docRouter from "./routes/document/documentRoutes.js";
+import authRouter from "./routes/document/authRoutes.js";
+import userRouter from "./routes/document/userRoutes.js";
 // Email routes
 import authEmailRouter from "./routes/email/authRoute.js";
 import mailEmailRouter from "./routes/email/mailDataModel.js";
