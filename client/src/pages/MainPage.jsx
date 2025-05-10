@@ -63,9 +63,9 @@ const SocialLinksPage = () => {
       color: "#5865F2",
     },
     {
-      name: "upload-job",
+      name: "Create Job",
       icon: <AiOutlineForm />,
-      url: "vacancies",
+      url: "/upload-job",
       color: "#DB4437",
     },
     {
@@ -174,7 +174,7 @@ const SocialLinksPage = () => {
             {socialLinks.map((link) => {
               if (
                 credential.role !== "hr" &&
-                (link.name === "Bulk SMS" || link.name === "upload-job")
+                (link.name === "Bulk SMS" || link.name === "Create Job")
               )
                 return;
               if (credential.role === "hr" && link.name === "Leave Apply")

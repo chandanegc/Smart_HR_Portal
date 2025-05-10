@@ -7,7 +7,6 @@ export const createTemplate = async (req, res) => {
   if (!subject || !message ) {
     return res.status(400).json({ error: "Subject and message are required." });
   }
-  console.log(req.user.userId);
   try {
     const newTemplate = await SaveTemplateModel.create({
       subject,
@@ -27,8 +26,6 @@ export const createTemplate = async (req, res) => {
 export const getTemplates = async (req, res) => {
   try {
     const userId = req.user?.userId;
-    console.log(userId);
-
     if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ success: false, msg: "Invalid user ID." });
     }

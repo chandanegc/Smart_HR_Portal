@@ -8,55 +8,53 @@ export const nodemailerKey = async (req, res) => {
     const { emailSecret, email } = req.body;
 
     if (!emailSecret || !email) {
-      return res.status(400).json({ msg: "Please enter email and email secret" });
+      return res.status(400).json({ msg: "Please provide both email and email secret." });
     }
 
     const userData = await hrModel.findOne({ email });
     if (!userData) {
-      return res.status(404).json({ msg: "Please enter correct email" });
+      return res.status(404).json({ msg: "Email not found in HR records." });
     }
 
-    // Encrypt emailSecret using JWT
     let encryptedEmailSecret;
     try {
-      encryptedEmailSecret = createJWT({ emailSecret }); // wrap in object
+      encryptedEmailSecret = createJWT({ emailSecret });
     } catch (error) {
-      console.error("Error creating JWT:", error.message);
-      return res.status(500).json({ msg: "Server error", error: error.message });
+      console.error("JWT encryption error:", error.message);
+      return res.status(500).json({ msg: "Error encrypting email secret." });
     }
 
-    // Save encrypted emailSecret to DB
     userData.emailSecret = encryptedEmailSecret;
     await userData.save();
 
-    // Decode and verify existing token
     const token = req.cookies.token;
     if (!token) {
-      return res.status(401).json({ msg: "No authentication token found" });
+      return res.status(401).json({ msg: "No authentication token found." });
     }
 
-    let decoded;
+    let decodedToken;
     try {
-      decoded = verifyJWT(token);
-    } catch (err) {
-      return res.status(401).json({ msg: "Invalid token" });
+      decodedToken = verifyJWT(token);
+    } catch (error) {
+      return res.status(401).json({ msg: "Invalid or expired token." });
     }
 
-    // Remove exp and iat to avoid conflict
-    const { exp, iat, ...cleanedPayload } = decoded;
+    // Clean up token payload by removing exp and iat
+    const { exp, iat, ...payload } = decodedToken;
 
-    // Add plain emailSecret to token payload (optional and depends on your use case)
+    // Add plain emailSecret to new token payload
     const updatedPayload = {
-      ...cleanedPayload,
+      ...payload,
       emailSecret,
     };
 
     const newToken = createJWT(updatedPayload);
 
-    const isProduction = process.env.NODE_ENV === 'production';
+    const isProduction = process.env.NODE_ENV === "production";
     res.cookie("token", newToken, {
       secure: isProduction,
-      sameSite: isProduction ? 'strict' : 'lax',
+      sameSite: isProduction ? "strict" : "lax",
+      httpOnly: true,
       maxAge: 10 * 365 * 24 * 60 * 60 * 1000, // 10 years
     });
 
@@ -64,16 +62,14 @@ export const nodemailerKey = async (req, res) => {
     delete userObject.password;
 
     return res.status(200).json({
-      msg: "Email Secret added successfully",
+      msg: "Email secret saved and token updated successfully.",
       data: userObject,
     });
-
   } catch (error) {
-    console.error("Email Secret Error:", error.message);
-    return res.status(500).json({ msg: "Server error", error: error.message });
+    console.error("nodemailerKey error:", error.message);
+    return res.status(500).json({ msg: "Server error.", error: error.message });
   }
-};
-
+}
 export const deleteUser = async (req, res) => {
   try {
     await SaveTemplateModel.deleteMany({ createdBy: req.user.userId });

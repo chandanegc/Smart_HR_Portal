@@ -1,13 +1,13 @@
 import nodemailer from "nodemailer";
-import dotenv from "dotenv"; 
-dotenv.config(); 
+import dotenv from "dotenv";
+dotenv.config();
 
 export async function sendEmailToEmployee(
   senderEmail,
   receiverEmail,
   emailSubject,
   emailContent,
-  email_secret 
+  email_secret
 ) {
   try {
     if (!process.env.NODEMAILER_USER || !process.env.NODEMAILER_PASS) {
@@ -19,20 +19,21 @@ export async function sendEmailToEmployee(
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.NODEMAILER_USER,
-        pass: email_secret || process.env.NODEMAILER_PASS,
+        user: senderEmail,
+        pass: email_secret,
       },
     });
 
+    const formattedEmailContent = emailContent.replace(/\n/g, "<br>");
+
     const mailOptions = {
-      from: senderEmail || process.env.NODEMAILER_USER, 
+      from: senderEmail,
       to: receiverEmail,
       subject: emailSubject,
-      html: emailContent, 
+      html: `<div style="white-space: pre-wrap;">${formattedEmailContent}</div>`,
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log(`Email sent successfully to ${receiverEmail}:`, info.response);
     return true;
   } catch (error) {
     console.error(`Error sending email to ${receiverEmail}:`, error.message);

@@ -33,7 +33,6 @@ const ChatApp = () => {
     setIsLoading(true);
     try {
        const res = await axios.post("http://localhost:5200", {prompt:input});
-       console.log(res.data.msg)
        setMessages((prev) => [...prev, { role: 'assistant', content: res.data.msg }]);
     } catch (error) {
       console.error('Error calling Gemini API:', error);

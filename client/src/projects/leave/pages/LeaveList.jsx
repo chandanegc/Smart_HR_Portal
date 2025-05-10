@@ -14,7 +14,6 @@ const CDAllLeave = () => {
       try {
         const res = await customFetch.get("/leave/all");
         setLeaves(res.data?.data);
-        console.log(res.data.data)
       } catch (err) {
         console.error(err);
       }

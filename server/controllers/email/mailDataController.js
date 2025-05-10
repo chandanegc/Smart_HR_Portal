@@ -1,11 +1,9 @@
-import hrModel from "../../models/document/hrModel.js";
-import { sendEmailToEmployee } from "../../utils/email/sendEmail.js";
+import { sendEmailToEmployee } from "../../utils/emailSender.js";
+import { verifyJWT } from "../../utils/tokenUtils.js";
 
 export const getEmailData = async (req, res) => {
-  
   try {
-    const { emailData} = req.body;
-    console.log(req.user.email);
+    const { emailData } = req.body;
 
     if (!emailData || !req.user.email) {
       return res.status(400).json({ msg: "Missing required fields!" });
@@ -20,13 +18,17 @@ export const getEmailData = async (req, res) => {
         console.error(`Missing email for user at index ${index}`);
         return false;
       }
-
+      const { emailSecret } = await verifyJWT(req.user.emailSecret);
+      const formattedEmailContent = `<div style="white-space: pre-wrap;">${item.msg.replace(
+        /\n/g,
+        "<br>"
+      )}</div>`;
       return await sendEmailToEmployee(
         req.user.email,
         item.email,
         item.subject,
-        item.msg,
-        req.user.emailSecret
+        formattedEmailContent,
+        emailSecret
       );
     });
     const emailResults = await Promise.all(sendEmailsPromise);

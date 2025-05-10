@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaUpload, FaBriefcase, FaGraduationCap, FaListUl, FaHandshake, FaBuilding } from 'react-icons/fa';
 import customFetch from '../../document/utils/customFetch';
-
+import { toast } from "react-toastify";
 const JobVacancyUpload = () => {
   const [formData, setFormData] = useState({
     jobTitle: '',
@@ -29,8 +29,7 @@ const JobVacancyUpload = () => {
     e.preventDefault();
     try {
       const res = await customFetch.post('/vacancy', formData);
-      alert('Job vacancy posted successfully!');
-      console.log(res.data);
+      toast.success('Job vacancy posted successfully!');
     //   setFormData({
     //     jobTitle: '',
     //     companyName: '',
@@ -45,7 +44,7 @@ const JobVacancyUpload = () => {
     //   });
     } catch (error) {
       console.error('Failed to post job:', error);
-      alert('Failed to post job. Please try again.');
+      toast.error('Failed to post job. Please try again.');
     }
   };
 
@@ -214,13 +213,13 @@ const FormHeader = styled.div`
   margin-bottom: 2rem;
 
   h1 {
-    color: #2c3e50;
+    color: #149B80;
     font-size: 2.2rem;
     margin-bottom: 0.5rem;
   }
 
   p {
-    color: #7f8c8d;
+    color: #149B80;
     font-size: 1.1rem;
   }
 `;
@@ -248,7 +247,7 @@ const SectionTitle = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1.5rem;
-  color: #4a6baf;
+  color: #149B80;
 
   svg {
     margin-right: 10px;
@@ -268,7 +267,7 @@ const FormGroup = styled.div`
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
-    color: #2c3e50;
+    color: #149B80;
   }
 
   input, select, textarea {
@@ -281,7 +280,7 @@ const FormGroup = styled.div`
 
     &:focus {
       outline: none;
-      border-color: #4a6baf;
+      border-color: #149B80;
     }
   }
 
@@ -302,7 +301,7 @@ const FormRow = styled.div`
 `;
 
 const SubmitButton = styled.button`
-  background: #4a6baf;
+  background: #149B80;
   color: white;
   border: none;
   padding: 14px 24px;
@@ -318,7 +317,7 @@ const SubmitButton = styled.button`
   transition: all 0.3s;
 
   &:hover {
-    background: #3a5a9f;
+    background:rgb(15, 109, 90);
     transform: translateY(-2px);
   }
 

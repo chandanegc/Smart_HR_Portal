@@ -46,7 +46,6 @@ export const createLeave = async (req, res) => {
         .json({ msg: "Leave already exists for the selected dates" });
     }
     // Create new leave
-    console.log(req.user.hrName);
     const leaveData = {
       leaveType,
       startDate,

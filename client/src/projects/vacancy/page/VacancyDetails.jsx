@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import LoaderComponent from "../../../components/LoaderComponent"
+import { useParams, Link, useNavigate } from "react-router-dom";
+import LoaderComponent from "../../../components/LoaderComponent";
 import styled from "styled-components";
 import {
   FaArrowLeft,
@@ -10,21 +10,33 @@ import {
 } from "react-icons/fa";
 import customFetch from "../../document/utils/customFetch";
 import { getRelativeTime } from "../../document/utils/helper";
+import { MdDelete } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const VacancyDetails = () => {
   const { id } = useParams();
+  const { role } = JSON.parse(localStorage.getItem("credential") || {});
   const [vacancy, setVacancy] = useState({});
-  const [loading , setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const deleteJobHandler = async (id) => {
+    try {
+      const res = await customFetch.delete(`/vacancy/${id}`);
+      toast.success(res.data.msg);
+      navigate("/vacancies");
+    } catch (error) {
+      toast.error("Failed to delete");
+    }
+  };
   useEffect(() => {
     const ApiCall = async () => {
       try {
-        setLoading(true)
+        setLoading(true);
         const res = await customFetch.get(`/vacancy/${id}`);
-        console.log(res.data);
         setVacancy(res.data);
       } catch (error) {
         console.log(error);
-      }finally{
+      } finally {
         setLoading(false);
       }
     };
@@ -33,7 +45,7 @@ const VacancyDetails = () => {
     setVacancy(foundVacancy);
   }, [id]);
 
-  if (loading) return <LoaderComponent/> ;
+  if (loading) return <LoaderComponent />;
 
   return (
     <DetailsContainer>
@@ -76,16 +88,25 @@ const VacancyDetails = () => {
         </MainContent>
 
         <Sidebar>
-          <ApplyBox>
-            <p>Apply for this position</p> <br />
+          {role === "hr" ? (
             <ApplyButton
-              href={`mailto:hr@${vacancy?.companyName
-                ?.toLowerCase()
-                ?.replace(/\s+/g, "")}.com`}
+              onClick={() => deleteJobHandler(vacancy._id)}
+              style={{ cursor: "pointer" }}
             >
-              <FaEnvelope /> Apply via Email
+              <MdDelete /> Delete this job
             </ApplyButton>
-          </ApplyBox>
+          ) : (
+            <ApplyBox>
+              <p>Apply for this position</p> <br />
+              <ApplyButton
+                href={`mailto:hr@${vacancy?.companyName
+                  ?.toLowerCase()
+                  ?.replace(/\s+/g, "")}.com`}
+              >
+                <FaEnvelope /> Apply via Email
+              </ApplyButton>
+            </ApplyBox>
+          )}
 
           {/* <AboutCompany>
             <h3>About {vacancy.companyName}</h3>
@@ -111,7 +132,7 @@ const BackButton = styled(Link)`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: #4a6baf;
+  color: #149B80;
   text-decoration: none;
   margin-bottom: 2rem;
   font-weight: 500;
@@ -134,14 +155,14 @@ const VacancyHeader = styled.div`
   border-bottom: 1px solid #eee;
 
   h1 {
-    color: #2c3e50;
+    color: #149B80;
     margin: 0 0 0.5rem 0;
     font-size: 2rem;
   }
 `;
 
 const Company = styled.p`
-  color: #4a6baf;
+  color: #149B80;
   font-size: 1.2rem;
   font-weight: 500;
   margin: 0 0 1rem 0;
@@ -160,7 +181,7 @@ const DetailItem = styled.div`
   color: #7f8c8d;
 
   svg {
-    color: #4a6baf;
+    color: #149B80;
   }
 `;
 
@@ -185,7 +206,7 @@ const Section = styled.section`
   margin-bottom: 2rem;
 
   h2 {
-    color: #2c3e50;
+    color: #149B80;
     margin-bottom: 1rem;
     font-size: 1.4rem;
   }
@@ -193,7 +214,7 @@ const Section = styled.section`
   p,
   li {
     line-height: 1.6;
-    color: #34495e;
+    color: #149B80;
   }
 
   ul {
@@ -219,7 +240,7 @@ const ApplyBox = styled.div`
 
   h3 {
     margin-top: 0;
-    color: #2c3e50;
+    color: #149B80;
   }
 `;
 
@@ -227,7 +248,7 @@ const ApplyButton = styled.a`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: #4a6baf;
+  background: #149B80;
   color: white;
   padding: 0.8rem 1.2rem;
   border-radius: 6px;
@@ -236,7 +257,7 @@ const ApplyButton = styled.a`
   transition: background 0.3s;
 
   &:hover {
-    background: #3a5a9f;
+    background:rgb(14, 112, 93);
   }
 `;
 
@@ -247,12 +268,12 @@ const AboutCompany = styled.div`
 
   h3 {
     margin-top: 0;
-    color: #2c3e50;
+    color: #149B80;
   }
 
   p {
     line-height: 1.6;
-    color: #34495e;
+    color: #149B80;
   }
 `;
 

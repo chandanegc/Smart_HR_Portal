@@ -109,7 +109,7 @@ const EmailTemplate = () => {
       />
       <br />
       <br />
-      <p>Preview for Each User:</p>
+      <p>Preview for Email:</p>
       <br />
       {finalMessageArray.length > 0 ? (
         <div

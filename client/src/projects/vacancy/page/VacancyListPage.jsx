@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { FaSearch, FaBriefcase, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
+import { FaSearch, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 import customFetch from '../../document/utils/customFetch';
 import { getRelativeTime } from '../../document/utils/helper';
 import LoaderComponent from '../../../components/LoaderComponent';
@@ -46,7 +46,6 @@ const VacancyList = () => {
       setLoading(true);
         try {
             const res = await customFetch.get("/vacancy");
-            console.log(res.data);
             setVacancies(res.data);
         } catch (error) {
             console.log(error);
@@ -123,7 +122,7 @@ const Header = styled.div`
   flex-wrap: wrap;
 
   h1 {
-    color: #2c3e50;
+    color: #149B80;
     font-size: 2rem;
   }
 
@@ -190,14 +189,14 @@ const CardHeader = styled.div`
   margin-bottom: 1rem;
 
   h2 {
-    color: #2c3e50;
+    color: #149B80;
     margin: 0 0 0.5rem 0;
     font-size: 1.3rem;
   }
 `;
 
 const CompanyName = styled.p`
-  color: #4a6baf;
+  color: #149B80;
   font-weight: 500;
   margin: 0;
 `;
@@ -216,7 +215,7 @@ const DetailItem = styled.div`
   font-size: 0.9rem;
 
   svg {
-    color: #4a6baf;
+    color: #149B80;
   }
 `;
 
@@ -227,7 +226,7 @@ const Description = styled.p`
 `;
 
 const PostedDate = styled.small`
-  color: #95a5a6;
+  color: #149B80;
   font-size: 0.8rem;
 `;
 

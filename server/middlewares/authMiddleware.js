@@ -13,7 +13,7 @@ export const authenticateUser = async (req, res, next) => {
     const { userId, role, emailSecret, email, hrName } = verifyJWT(token);
     if (role !== "admin" && role !== "candidate" && role !== "hr") {
       throw new UnauthenticatedError("authentication invalid");
-    } else if (role === "hr" && role === "admin") {
+    } else if (role === "hr" || role === "admin") {
       req.user = { userId, role, email, emailSecret };
       return next();
     }

@@ -13,8 +13,8 @@ export const action = async ({ request }) => {
     const res = await customFetch.post("/auth/email/login", data);
     toast.success(res?.data?.msg || "Email Secret saved");
     localStorage.removeItem("credential");
-    console.log(res.data?.data);
     localStorage.setItem("credential", JSON.stringify(res.data?.data) || {});
+    return redirect("/bulk-sms/email-secret");
     return redirect("/bulk-sms/menu");
   } catch (error) {
     toast.error(error.response?.data?.msg || "Login failed. Try again.");
@@ -35,13 +35,13 @@ const EmailSecretKey = () => {
           type="email"
           name="email"
           labelText="Email"
-          defaultValue="chandanegc@gmail.com"
+          defaultValue="hiringrecruiteregc@gmail.com"
         />
         <FormRow
           type="password"
           name="emailSecret"
           labelText="Email Secret Key"
-          defaultValue="yrkl szhg juwx odqg"
+          defaultValue="oelo edoc vwij ggel"
         />
         <button
           className="btn btn-block form-btn"
