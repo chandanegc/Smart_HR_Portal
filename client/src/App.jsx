@@ -60,7 +60,7 @@ import LoaderComponent from "./components/LoaderComponent";
 import JobVacancyUpload from "./projects/vacancy/page/JobVacancyUploadPage";
 import VacancyDetails from "./projects/vacancy/page/VacancyDetails";
 import VacancyList from "./projects/vacancy/page/VacancyListPage";
-import ChatApp from "./pages/ChatGPT";
+import AIchat from "./pages/AIchat";
 
 const App = () => {
   const credential = JSON.parse(localStorage.getItem("credential") ?? "{}");
@@ -167,11 +167,6 @@ const App = () => {
               element: <VacancyList />,
               errorElement: <Error />,
             },
-            {
-              path: "/chatgpt",
-              element: <ChatApp />,
-              errorElement: <Error />,
-            },
 
             //Bulk SMS routes
             {
@@ -204,7 +199,7 @@ const App = () => {
                   element: <EmailSecretKey />,
                   action: EmailSecretKeyAction,
                 },
-                { path: "*", element: <Error /> }, // Catch-all for /bulk-sms
+                { path: "*", element: <Error /> },
               ],
             },
             {
@@ -266,6 +261,11 @@ const App = () => {
           errorElement: <Error />,
         },
       ],
+    },
+    {
+      path: "/ai-chat",
+      element: <AIchat />,
+      errorElement: <Error />,
     },
   ]);
 

@@ -15,6 +15,7 @@ import saveEmailRouter from "./routes/email/saveTemplateRoute.js";
 import leaveRouter from "./routes/other/leaveRoute.js";
 import calendarRouter from "./routes/other/calenderRouter.js";
 import vacancyRouter from "./routes/other/vacancyRouter.js"
+import chatBotROuter from "./routes/other/chatBotRouter.js"
 
 import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
@@ -51,6 +52,7 @@ app.use("/api/v1/template", saveEmailRouter);
 app.use("/api/v1/leave", leaveRouter);
 app.use("/api/v1/calendar", calendarRouter);
 app.use("/api/v1/vacancy", vacancyRouter);
+app.use("/api/v1/ai-chat", chatBotROuter);
 
 // Error Middleware
 app.use(errorHandlerMiddleware); 

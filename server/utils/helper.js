@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const ai = new GoogleGenAI({
-  apiKey: process.env.AI_API_KEY,
+  apiKey: process.env.AI_CHAT_API_KEY,
 });
 
 export const main = async (prompt) => {

@@ -2,18 +2,65 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { FiSend } from 'react-icons/fi';
 import { BsRobot, BsPerson } from 'react-icons/bs';
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import axios from "axios"
-const ChatApp = () => {
+import customFetch from '../projects/document/utils/customFetch';
+
+const escapeHTML = (str) => {
+  return str.replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+};
+
+const formatGeminiResponseToHTML = (text) => {
+  if (!text) return '';
+
+  // Code blocks
+  text = text.replace(/```(?:\w+)?\n([\s\S]*?)```/g, (match, code) => {
+    return `<pre><code>${escapeHTML(code.trim())}</code></pre>`;
+  });
+
+  // Inline code
+  text = text.replace(/`([^`\n]+?)`/g, '<code>$1</code>');
+
+  // Bold
+  text = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+
+  // Italic
+  text = text.replace(/_(.*?)_/g, '<i>$1</i>');
+
+  // Bullet points for lines starting with "* "
+  text = text.replace(/(^|\n)\* (.*?)(?=\n|$)/g, '$1<li>$2</li>');
+
+  // Wrap consecutive <li> items in a <ul>
+  text = text.replace(/(<li>.*?<\/li>)/gs, (match) => {
+    return `<ul>${match}</ul>`;
+  });
+
+  // Detect and convert URLs/emails to anchor tags with blue color
+  text = text.replace(
+    /((https?:\/\/[^\s<]+)|(www\.[^\s<]+)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}))/g,
+    (match) => {
+      let url = match;
+      if (!url.startsWith('http') && !url.includes('@')) {
+        url = 'http://' + url;
+      }
+      const isEmail = match.includes('@');
+      return `<a href="${isEmail ? 'mailto:' + match : url}" style="color: blue;" target="_blank">${match}</a>`;
+    }
+  );
+
+  // Newlines to <br> (skip inside HTML tags)
+  text = text.replace(/\n(?!<\/?.*?>)/g, '<br>');
+
+  return text;
+};
+
+const AIchat = () => {
   const [messages, setMessages] = useState([
     { role: 'assistant', content: "Hello! I'm your AI assistant. How can I help you today?" }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
-
-  const API_KEY = 'AIzaSyAdHk6BjIks-ZS-ZY-GFK3kauC5FkV1lwE'; // Replace with your actual API key
-  const genAI = new GoogleGenerativeAI(API_KEY);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -32,8 +79,8 @@ const ChatApp = () => {
     setInput('');
     setIsLoading(true);
     try {
-       const res = await axios.post("http://localhost:5200", {prompt:input});
-       setMessages((prev) => [...prev, { role: 'assistant', content: res.data.msg }]);
+      const res = await customFetch.post("/ai-chat", { prompt: input });
+      setMessages((prev) => [...prev, { role: 'assistant', content: res.data.msg }]);
     } catch (error) {
       console.error('Error calling Gemini API:', error);
       setMessages((prev) => [
@@ -51,8 +98,8 @@ const ChatApp = () => {
   return (
     <ChatContainer>
       <Header>
-        <h1>Gemini AI Chat</h1>
-        <p>Powered by Google Gemini API</p>
+        <h1>AI Chat</h1>
+        <p>Smart HR Portal</p>
       </Header>
 
       <MessagesContainer>
@@ -61,11 +108,10 @@ const ChatApp = () => {
             <Avatar role={message.role}>
               {message.role === 'assistant' ? <BsRobot /> : <BsPerson />}
             </Avatar>
-            <MessageContent role={message.role}>
-              {message.content.split('\n').map((paragraph, i) => (
-                <p key={i}>{paragraph}</p>
-              ))}
-            </MessageContent>
+            <MessageContent
+              role={message.role}
+              dangerouslySetInnerHTML={{ __html: formatGeminiResponseToHTML(message.content) }}
+            />
           </Message>
         ))}
         {isLoading && (
@@ -101,7 +147,7 @@ const ChatApp = () => {
   );
 };
 
-export default ChatApp;
+export default AIchat;
 
 // Styled Components
 const ChatContainer = styled.div`
@@ -117,7 +163,7 @@ const ChatContainer = styled.div`
 `;
 
 const Header = styled.div`
-  background: #4285f4;
+  background:#149B80;
   color: white;
   padding: 1.5rem;
   text-align: center;
@@ -170,17 +216,24 @@ const MessageContent = styled.div`
   color: ${(props) => (props.role === 'assistant' ? '#333' : 'white')};
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   line-height: 1.5;
+  word-break: break-word;
 
-  p {
+  code {
+    background: #f4f4f4;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: monospace;
+    color: #d63384;
+  }
+
+  pre {
+    background: #2d2d2d;
+    color: #f8f8f2;
+    padding: 1rem;
+    border-radius: 10px;
+    overflow-x: auto;
     margin: 0.5rem 0;
-  }
-
-  p:first-child {
-    margin-top: 0;
-  }
-
-  p:last-child {
-    margin-bottom: 0;
+    font-size: 0.9rem;
   }
 `;
 

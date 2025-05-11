@@ -9,6 +9,8 @@ import { FcLeave } from "react-icons/fc";
 import { GrDocumentImage } from "react-icons/gr";
 import { SlCalender } from "react-icons/sl";
 import { VscReferences } from "react-icons/vsc";
+import { TbMessageChatbot } from "react-icons/tb";
+import { GiMagicHat } from "react-icons/gi";
 
 const credential = JSON.parse(localStorage.getItem("credential") || "{}");
 
@@ -56,7 +58,7 @@ export const socialLinks = [
     name: "Holiday Calendar",
     icon: SlCalender,
     url: "/calendar",
-    color: "#5865F2",
+    color: "rgb(242, 168, 88)",
   },
   {
     name: "Create Job",
@@ -68,13 +70,19 @@ export const socialLinks = [
     name: "Vacancy",
     icon: FaWpforms,
     url: "vacancies",
-    color: " #0CA789",
+    color: " rgb(246, 59, 190)",
   },
   {
     name: "Edit Profile",
     icon: LiaUserEditSolid,
     url: "/truedocs/dashboard/profile",
     color: "rgb(235, 10, 43)",
+  },
+  {
+    name: "AI Chat",
+    icon: GiMagicHat,
+    url: "/ai-chat",
+    color: " #0CA789",
   },
   {
     name: "Information",

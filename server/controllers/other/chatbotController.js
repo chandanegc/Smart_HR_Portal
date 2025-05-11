@@ -1,4 +1,4 @@
-import { main } from "../../utils/helper";
+import { main } from "../../utils/helper.js";
 
 export const chatbot = async (req, res) => {
   try {
