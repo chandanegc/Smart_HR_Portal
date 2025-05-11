@@ -65,7 +65,7 @@ const AllTemplatesPage = () => {
       {isDialogOpen && (
         <div style={overlayStyle}>
           <div style={dialogStyle}>
-            <h2>Confirm Deletion</h2>
+            <p>Confirm Deletion</p>
             <p>Are you sure you want to delete this template?</p>
             <div style={buttonContainerStyle}>
               {isLoader ? (

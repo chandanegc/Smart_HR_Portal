@@ -1,92 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaMailBulk, FaAward } from "react-icons/fa";
-import { FcLeave } from "react-icons/fc";
-import { GrDocumentImage } from "react-icons/gr";
-import { SlCalender } from "react-icons/sl";
-import { VscReferences } from "react-icons/vsc";
 import Wrapper from "./mainPageStyle";
-import { LiaUserEditSolid } from "react-icons/lia";
-import { SiWelcometothejungle } from "react-icons/si";
-import { MdHolidayVillage } from "react-icons/md";
-import { BsInfoCircleFill } from "react-icons/bs";
-import { AiOutlineForm } from "react-icons/ai";
-import { FaWpforms } from "react-icons/fa6";
+import { socialLinks } from "../components/navLink";
 
 const SocialLinksPage = () => {
   const credential = JSON.parse(localStorage.getItem("credential") || "{}");
-
-  const socialLinks = [
-    {
-      name: "Document Verification",
-      icon: <GrDocumentImage />,
-      url:
-        credential.role === "hr"
-          ? "/truedocs/dashboard/all-users-docs"
-          : "/truedocs/dashboard/all-docs",
-      color: "#6C63FF",
-    },
-    {
-      name: "Bulk SMS",
-      icon: <FaMailBulk />,
-      url: credential.emailSecret ? "/bulk-sms/menu" : "/bulk-sms/email-secret",
-      color: "#1DA1F2",
-    },
-    {
-      name: "Certificate",
-      icon: <FaAward />,
-      url: "/certificate",
-      color: "#F4B400",
-    },
-    {
-      name: "Welocome Card",
-      icon: <SiWelcometothejungle />,
-      url: "/welcome-card",
-      color: "#FF6F61",
-    },
-    {
-      name: "Leave Apply",
-      icon: <FcLeave />,
-      url: "/leave/apply",
-      color: "#34A853",
-    },
-    {
-      name: "All Leaves",
-      icon: <MdHolidayVillage />,
-      url: "/leave",
-      color: "#FF8C00",
-    },
-    {
-      name: "Holiday Calendar",
-      icon: <SlCalender />,
-      url: "/calendar",
-      color: "#5865F2",
-    },
-    {
-      name: "Create Job",
-      icon: <AiOutlineForm />,
-      url: "/upload-job",
-      color: "#DB4437",
-    },
-    {
-      name: "Vacancy",
-      icon: <FaWpforms />,
-      url: "vacancies",
-      color: " #0CA789",
-    },
-    {
-      name: "Edit Profile",
-      icon: <LiaUserEditSolid />,
-      url: "/truedocs/dashboard/profile",
-      color: "rgb(235, 10, 43)",
-    },
-    {
-      name: "Information",
-      icon: <BsInfoCircleFill />,
-      url: "/info",
-      color: " #3B82F6",
-    },
-  ];
 
   // Animation variants
   const containerVariants = {
@@ -174,11 +92,16 @@ const SocialLinksPage = () => {
             {socialLinks.map((link) => {
               if (
                 credential.role !== "hr" &&
-                (link.name === "Bulk SMS" || link.name === "Create Job")
+                (link.name === "Bulk SMS" ||
+                  link.name === "Create Job" ||
+                  link.name === "Certificate" ||
+                  link.name === "Welocome Card")
               )
                 return;
+
               if (credential.role === "hr" && link.name === "Leave Apply")
                 return;
+              let Icon = link.icon;
               return (
                 <motion.a
                   key={link.name}
@@ -192,7 +115,9 @@ const SocialLinksPage = () => {
                   }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <div className="social-icon">{link.icon}</div>
+                  <div className="social-icon">
+                    <Icon />
+                  </div>
                   <p>{link.name}</p>
                 </motion.a>
               );

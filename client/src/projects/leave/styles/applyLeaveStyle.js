@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   .leave-application {
+    min-height: calc(100vh - 80px);
     max-width: 600px;
     margin: 0 auto;
     padding-bottom: 20px;
@@ -15,9 +16,12 @@ export const Wrapper = styled.div`
   }
 
   .form-section {
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     background: #f8f9fa;
     border-radius: 8px;
+    p{
+      padding: 10px;
+    }
   }
 
   h2 {

@@ -9,6 +9,7 @@ import {
   PdfIframe,
 } from "./calendarStyle";
 import { toast } from "react-toastify";
+import LoaderComponent from "../../components/LoaderComponent";
 
 const CalendarUploadPage = () => {
   const [loading, setLoading] = useState(false);
@@ -21,10 +22,13 @@ const CalendarUploadPage = () => {
   useEffect(() => {
     const fetchPdf = async () => {
       try {
+        setLoading(true);
         const res = await customFetch.get("/calendar/pdf");
         setPdfUrl(res.data.data.pdfUrl);
       } catch (err) {
         console.error(err);
+      }finally{
+        setLoading(false);
       }
     };
     fetchPdf();
@@ -32,7 +36,6 @@ const CalendarUploadPage = () => {
 
   const handleUpload = async () => {
     if (!file) return alert("Please select a PDF file");
-
     const formData = new FormData();
     formData.append("pdf", file);
 
@@ -49,6 +52,7 @@ const CalendarUploadPage = () => {
     setLoading(false);
   };
 
+  if (loading) return <LoaderComponent />;
   return (
     <>
       {role === "hr" && (
@@ -74,9 +78,13 @@ const CalendarUploadPage = () => {
             justifyContent: "center",
           }}
         >
-          <PdfLink href={pdfUrl} target="_blank" rel="noopener noreferrer">
-            Click to see Fullscreen
-          </PdfLink>
+          {pdfUrl ? (
+            <PdfLink href={pdfUrl} target="_blank" rel="noopener noreferrer">
+              Click to see Fullscreen
+            </PdfLink>
+          ) : (
+            <h4>No Holiday Calendar found!</h4>
+          )}
           <PdfIframe src={pdfUrl} title="PDF Preview" />
         </div>
       }

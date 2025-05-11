@@ -38,7 +38,7 @@ body {
 }
 
 .social-links-page {
-  min-height: 100vh;
+  min-height: calc(100vh + 30px);
   display: flex;
   flex-direction: column;
   position: relative;

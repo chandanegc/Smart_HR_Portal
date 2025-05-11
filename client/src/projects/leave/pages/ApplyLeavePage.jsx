@@ -138,10 +138,10 @@ const ApplyLeave = () => {
   return (
     <Wrapper>
       <div className="leave-application">
-        <h3>Apply Leave</h3>
+        <h4>Apply Leave</h4> <br/> <br/>
         <form onSubmit={handleSubmit}>
           <div className="form-section">
-            <h4>Leave Type</h4>
+            <p>Leave Type</p>
             <div className="form-group">
               <select
                 value={formData.leaveType}
@@ -161,7 +161,7 @@ const ApplyLeave = () => {
           </div>
 
           <div className="form-section">
-            <h4>Leave Dates</h4>
+            <p>Leave Dates</p>
             <div className="form-group">
               <button
                 type="button"
@@ -203,7 +203,7 @@ const ApplyLeave = () => {
           </div>
 
           <div className="form-section">
-            <h4>Leave Reason</h4>
+            <p>Leave Reason</p>
             <div className="form-group">
               <textarea
                 value={formData.leaveReason}

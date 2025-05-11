@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaLinkedin, FaTwitter, FaGithub, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
-import { VerySmallLogo } from './Logo';
 
 const Footer = () => {
   return (
@@ -45,8 +44,8 @@ const Footer = () => {
         <FooterSection>
           <FooterHeading>Contact Us</FooterHeading>
           <ContactInfo>
-            <ContactItem><FaMapMarkerAlt /> 123 HR Street, Tech City, TC 10001</ContactItem>
-            <ContactItem><FaPhone /> +1 (555) 123-4567</ContactItem>
+            <ContactItem><FaMapMarkerAlt /> 123 HR Street, Tech City, India</ContactItem>
+            <ContactItem><FaPhone /> +91 999999999</ContactItem>
             <ContactItem><FaEnvelope /> support@smarthrportal.com</ContactItem>
           </ContactInfo>
         </FooterSection>
