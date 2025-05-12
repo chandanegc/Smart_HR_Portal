@@ -52,7 +52,6 @@ const CalendarUploadPage = () => {
     setLoading(false);
   };
 
-  if (loading) return <LoaderComponent />;
   return (
     <>
       {role === "hr" && (

@@ -8,12 +8,11 @@ import { FaWpforms, FaMailBulk, FaAward } from "react-icons/fa";
 import { FcLeave } from "react-icons/fc";
 import { GrDocumentImage } from "react-icons/gr";
 import { SlCalender } from "react-icons/sl";
-import { VscReferences } from "react-icons/vsc";
-import { TbMessageChatbot } from "react-icons/tb";
+
 import { GiMagicHat } from "react-icons/gi";
 
 const credential = JSON.parse(localStorage.getItem("credential") || "{}");
-
+console.log( credential.role === "hr")
 export const socialLinks = [
   {
     name: "Document Verification",

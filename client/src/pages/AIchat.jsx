@@ -12,29 +12,22 @@ const escapeHTML = (str) => {
 
 const formatGeminiResponseToHTML = (text) => {
   if (!text) return '';
-
   // Code blocks
   text = text.replace(/```(?:\w+)?\n([\s\S]*?)```/g, (match, code) => {
     return `<pre><code>${escapeHTML(code.trim())}</code></pre>`;
   });
-
   // Inline code
   text = text.replace(/`([^`\n]+?)`/g, '<code>$1</code>');
-
   // Bold
   text = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
-
   // Italic
   text = text.replace(/_(.*?)_/g, '<i>$1</i>');
-
   // Bullet points for lines starting with "* "
   text = text.replace(/(^|\n)\* (.*?)(?=\n|$)/g, '$1<li>$2</li>');
-
   // Wrap consecutive <li> items in a <ul>
   text = text.replace(/(<li>.*?<\/li>)/gs, (match) => {
     return `<ul>${match}</ul>`;
   });
-
   // Detect and convert URLs/emails to anchor tags with blue color
   text = text.replace(
     /((https?:\/\/[^\s<]+)|(www\.[^\s<]+)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}))/g,
@@ -47,10 +40,8 @@ const formatGeminiResponseToHTML = (text) => {
       return `<a href="${isEmail ? 'mailto:' + match : url}" style="color: blue;" target="_blank">${match}</a>`;
     }
   );
-
   // Newlines to <br> (skip inside HTML tags)
   text = text.replace(/\n(?!<\/?.*?>)/g, '<br>');
-
   return text;
 };
 
@@ -219,15 +210,15 @@ const MessageContent = styled.div`
   word-break: break-word;
 
   code {
-    background: #f4f4f4;
+
     padding: 2px 4px;
     border-radius: 4px;
     font-family: monospace;
-    color: #d63384;
+    color: white;
   }
 
   pre {
-    background: #2d2d2d;
+    background: black;
     color: #f8f8f2;
     padding: 1rem;
     border-radius: 10px;
