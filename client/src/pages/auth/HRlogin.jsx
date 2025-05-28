@@ -41,15 +41,18 @@ const HRlogin = () => {
         >
           {isSubmitting ? "submitting..." : "Submit"}
         </button>
-        {/* <button type='button' className='btn btn-block'>
-          explore the app
-        </button> */}
-        <p>
-          Not a member yet?
-          <Link to="/hr-register" className="member-btn">
-            Register
-          </Link>
-        </p>
+        <span style={{ display: "flex", justifyContent: "space-between" }}>
+          <p>
+            <Link to="/hr-register" className="member-btn">
+              New Register
+            </Link>
+          </p>
+          <p>
+            <Link to="/forgot-password" className="member-btn">
+              Forgot Password
+            </Link>
+          </p>
+        </span>
       </Form>
     </Wrapper>
   );

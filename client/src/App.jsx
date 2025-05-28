@@ -34,6 +34,7 @@ import UserDocsContainer, {
 import CDRegister, {
   action as CDaction,
 } from "./projects/document/pages/CDRegister";
+import ForgotPassword from "./pages/auth/ForgotPassword/ForgotPassword";
 import OTPverification from "./projects/document/pages/OTPverification";
 
 // Bulk SMS imports
@@ -61,6 +62,8 @@ import JobVacancyUpload from "./projects/vacancy/page/JobVacancyUploadPage";
 import VacancyDetails from "./projects/vacancy/page/VacancyDetails";
 import VacancyList from "./projects/vacancy/page/VacancyListPage";
 import AIchat from "./pages/AIchat";
+import PdfParser from "./projects/others/PdfParser";
+import OTPverify, { action as OTPverifyAction } from "./pages/auth/ForgotPassword/OTPverify";
 
 const App = () => {
   const credential = JSON.parse(localStorage.getItem("credential") ?? "{}");
@@ -266,6 +269,23 @@ const App = () => {
       path: "/ai-chat",
       element: <AIchat />,
       errorElement: <Error />,
+    },
+    {
+      path: "/pdf-parser",
+      element: < PdfParser/>,
+      errorElement: <Error />,
+    },
+    {
+      path: "/forgot-password",
+      element: < ForgotPassword/>,
+      errorElement: <Error />,
+      // action: forgotPasswordAction,
+    },
+    {
+      path: "/otp-verify",
+      element: < OTPverify/>,
+      errorElement: <Error />,
+      action: OTPverifyAction,
     },
   ]);
 

@@ -1,39 +1,39 @@
-import { FormRow } from "../../projects/document/components";
-import Wrapper from "../../projects/document/assets/wrappers/RegisterAndLoginPage";
-import { Form, Link, redirect, useNavigation } from "react-router-dom";
+import { FormRow } from "../../../projects/document/components";
+import Wrapper from "../../../projects/document/assets/wrappers/RegisterAndLoginPage";
+import { Form, redirect, useNavigation } from "react-router-dom";
 import { toast } from "react-toastify";
-import customFetch from "../../projects/document/utils/customFetch";
-import { SmallLogo } from "../../components/Logo";
+import customFetch from "../../../projects/document/utils/customFetch";
+import { SmallLogo } from "../../../components/Logo";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 
   try {
-    const res = await customFetch.post("/auth/candidate/login", data);
-    const { role, _id } = res.data.user;
+    const res = await customFetch.post("/auth/verify-otp", data);
+    console.log(res.data);
     toast.success(res.data.msg);
 
     if (!role || !_id) {
       toast.error("Invalid response from server. Please try again.");
-      return redirect("/truedocs/login");
+      //   return redirect("/truedocs/login");
     }
     localStorage.setItem("credential", JSON.stringify(res.data.user));
     if (role === "hr" || role === "admin") {
-      return redirect("/");
+      //   return redirect("/");
     } else if (role === "candidate") {
-      return redirect("/");
+      //   return redirect("/");
     } else {
       toast.error("Unknown role. Please contact support.");
-      return redirect("/truedocs/login");
+      //   return redirect("/truedocs/login");
     }
   } catch (error) {
-    toast.error(error.response?.data?.msg || "Login failed. Try again.");
+    // toast.error(error.response?.data?.msg || "Login failed. Try again.");
     return null;
   }
 };
 
-const CandidateLogin = () => {
+const OTPverify = () => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
@@ -41,30 +41,30 @@ const CandidateLogin = () => {
     <Wrapper>
       <Form method="post" className="form">
         <SmallLogo />
-        <p>Candidate Login</p>
+        <p>Forgot Password</p>
         <FormRow
           type="text"
           name="email"
           labelText="Email/Employee ID"
           defaultValue="chandanegc@gmail.com"
         />
-        <FormRow type="password" name="password" defaultValue="1234" />
+        <FormRow
+          type="text"
+          name="otp"
+          labelText="OTP (One Time Password)"
+          placeholder="Enter the OTP sent to your email"
+        />
+
         <button
           className="btn btn-block form-btn"
           type="submit"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Submitting..." : "Submit"}
+          {isSubmitting ? "Sending..." : "Send OTP"}
         </button>
-        <p>
-         Forgot Password?
-          <Link to="/forgot-password" className="member-btn">
-            Click Here
-          </Link>
-        </p>
       </Form>
     </Wrapper>
   );
 };
 
-export default CandidateLogin;
+export default OTPverify;

@@ -14,8 +14,7 @@ import {
 import jwt from "jsonwebtoken";
 
 dotenv.config();
-// Temporary OTP storage
-const otpStore = {};
+const otpStore = {}; // Temporary OTP storage
 
 export const sendOtp = async (req, res) => {
   const { email } = req.params;
@@ -244,4 +243,37 @@ export const logoutUser = (_, res) => {
   return res
     .status(StatusCodes.OK)
     .json({ msg: "User logged out successfully." });
+};
+
+export const resetPassword = async (req, res) => {
+  try {
+    const { email, password, repassword } = req.body;
+    if (password === repassword)
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ msg: "Password does not match" });
+    const user = await Candidate.findOne({ email });
+    const hr = await Candidate.findOne({ email });
+
+    if (!user && !hr) {
+      return res.status(StatusCodes.NOT_FOUND).json({ msg: "User not found." });
+    }
+
+    if (user) {
+      user.password = await hashPassword(req.body.password);
+      await user.save();
+    }
+    if (hr) {
+      hr.password = await hashPassword(req.body.password);
+      await hr.save();
+    }
+    return res
+      .status(StatusCodes.OK)
+      .json({ msg: "Reset Password successful." });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: "HR login failed." });
+  }
 };

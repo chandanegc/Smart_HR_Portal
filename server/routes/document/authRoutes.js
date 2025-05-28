@@ -6,7 +6,8 @@ import {
     registerHR, 
     loginCandidate, 
     logoutUser, 
-    verifyOtp 
+    verifyOtp, 
+    resetPassword
 } from "../../controllers/document/authController.js";
 import { authenticateUser } from "../../middlewares/authMiddleware.js";
 
@@ -19,5 +20,6 @@ authRouter.post("/hr/register", registerHR);
 authRouter.post("/candidate/login", loginCandidate);
 authRouter.post("/hr/login", loginHR);
 authRouter.get("/logout", logoutUser);
+authRouter.post("/reset-password", resetPassword);
 
 export default authRouter;

@@ -9,7 +9,6 @@ import { useState } from "react";
 
 const Register = () => {
   const [step, setStep] = useState(1);
-  const navigation = useNavigation();
   const [loader, setLoader] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -39,7 +38,6 @@ const Register = () => {
     }
   };
 
-  const isSubmitting = navigation.state === "submitting";
   return (
     <Wrapper>
       {step === 1 && (
