@@ -248,7 +248,7 @@ export const logoutUser = (_, res) => {
 export const resetPassword = async (req, res) => {
   try {
     const { email, password, repassword } = req.body;
-    if (password === repassword)
+    if (password !== repassword)
       return res
         .status(StatusCodes.NOT_FOUND)
         .json({ msg: "Password does not match" });

@@ -7,7 +7,11 @@
 * Backend check user is exist then reset password.
 * Modify reset password and register with otp .
 
+# Performance 
+* Add lazy loading
+
 # Feature Add
 * Resume Sortlisting with AI 
+
 
 
